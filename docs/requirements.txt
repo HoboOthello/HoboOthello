@@ -1,0 +1,9 @@
+# sphinx doc
+sphinx>=1.4.8
+sphinx-autobuild>=0.6.0
+
+#Theme for the docs
+sphinx_rtd_theme>=0.1.9
+
+# Javadoc for sphinx
+javasphinx>=0.9.14

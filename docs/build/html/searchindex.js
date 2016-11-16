@@ -1,0 +1,1 @@
+Search.setIndex({envversion:50,filenames:["index","packages"],objects:{},objnames:{},objtypes:{},terms:{content:0,index:0,modul:0,page:0,search:0},titles:["Welcome to HoboOthello&#8217;s documentation!","Polynomials Calculator"],titleterms:{calcul:1,document:0,hoboothello:0,indice:0,polynomi:1,tabl:0,welcom:0}})
