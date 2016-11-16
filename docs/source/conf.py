@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import sphinx_rtd_theme
 # -*- coding: utf-8 -*-
 #
 # HoboOthello documentation build configuration file, created by
@@ -30,7 +31,17 @@
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = []
+extensions = [
+    'sphinx.ext.autodoc',
+    'javasphinx',
+]
+
+# Javadoc
+javadoc_url_map = {
+    'com.netflix.curator' : ('http://netflix.github.com/curator/doc', 'javadoc'),
+    'org.springframework' : ('http://static.springsource.org/spring/docs/3.1.x/javadoc-api/', 'javadoc'),
+    'org.springframework.data.redis' : ('http://static.springsource.org/spring-data/data-redis/docs/current/api/', 'javadoc')
+}
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -120,7 +131,7 @@ todo_include_todos = False
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'alabaster'
+html_theme = 'sphinx_rtd_theme'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -130,6 +141,7 @@ html_theme = 'alabaster'
 
 # Add any paths that contain custom themes here, relative to this directory.
 # html_theme_path = []
+html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 
 # The name for this set of Sphinx documents.
 # "<project> v<release> documentation" by default.

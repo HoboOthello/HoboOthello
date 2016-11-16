@@ -64,11 +64,19 @@
     <item id="epub-16"
           href="_static/pygments.css"
           media-type="text/css" />
+    <item id="epub-17"
+          href="de/htw_berlin/HoboOthello/core/package-index.xhtml"
+          media-type="application/xhtml+xml" />
+    <item id="epub-18"
+          href="de/htw_berlin/HoboOthello/core/Main.xhtml"
+          media-type="application/xhtml+xml" />
   </manifest>
   <spine toc="ncx">
     <itemref idref="epub-2" />
     <itemref idref="epub-1" />
     <itemref idref="epub-0" linear="no" />
+    <itemref idref="epub-17" linear="no" />
+    <itemref idref="epub-18" linear="no" />
   </spine>
   <guide>
     <reference type="toc" title="Table of Contents" href="index.xhtml" />
