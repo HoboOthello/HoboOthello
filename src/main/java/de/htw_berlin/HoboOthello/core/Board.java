@@ -13,31 +13,36 @@ public class Board {
 
     /**
      * Constructor of Board which declares and constructs an two dimensional array of fields
+     * Small size of Board is 6 x 6
      * Standard size of Board is 8 x 8
-     * Calls a method to fill with default values
+     * Large size of Board is 10 x 10
+     * Calls a method to fill the field with default values
      */
+
     public Board(int i) {
-        while(true) {
-            if (i == 6) {
+        switch (i){
+            case 6:
                 fields = new Field[SMALL_BOARD_SIZE_SIX][SMALL_BOARD_SIZE_SIX];
                 fields = fillWithDefaultValues(fields);
-            }
-            if (i == 8) {
+                break;
+            case 8:
                 fields = new Field[STANDARD_BOARD_SIZE_EIGHT][STANDARD_BOARD_SIZE_EIGHT];
                 fields = fillWithDefaultValues(fields);
-            }
-            if (i == 10) {
+                break;
+            case 10:
                 fields = new Field[LARGE_BOARD_SIZE_TEN][LARGE_BOARD_SIZE_TEN];
                 fields = fillWithDefaultValues(fields);
-            } else {
+                break;
+            default:
                 System.out.println("Invalid size for a HoboOthello Board");
-            }
+                //todo : decide if case 8 becomes default
         }
     }
 
+
     /**
      * Method which fills fields with default values.
-     * Default value is:
+     * Default value of a field is:
      * empty = true
      * white = false
      * black = false
