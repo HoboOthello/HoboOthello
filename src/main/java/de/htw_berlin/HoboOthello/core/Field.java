@@ -68,20 +68,20 @@ public class Field {
     }
 
     //getter und setter schon mal bereitgestellt, werden noch nicht benutzt!
-    public boolean getEmpty() {
+    public boolean isEmpty() {
         return this.empty;
     }
 
-    public boolean getWhite() {
+    public boolean isWhite() {
         return this.white;
     }
 
-    public boolean getBlack() {
+    public boolean isBlack() {
         return this.black;
     }
 
     /**
-     * get the current field state as an String
+     * show the current field state as an String
      *
      * @return the current field state "empty", "white", "black"
      */
