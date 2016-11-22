@@ -20,7 +20,7 @@ public class Board {
      */
 
     public Board(int i) {
-        switch (i){
+        switch (i) {
             case 6:
                 fields = new Field[SMALL_BOARD_SIZE_SIX][SMALL_BOARD_SIZE_SIX];
                 fields = fillWithDefaultValues(fields);
@@ -43,19 +43,33 @@ public class Board {
     /**
      * Method which fills fields with default values.
      * Default value of a field is:
-     * empty = true
-     * white = false
-     * black = false
      * <p>
+     * +------------+
+     * |            |
+     * |            |
+     * |     BW     |
+     * |     WB     |
+     * |            |
+     * |            |
+     * +------------+
+     * <p>
+     *
      * @param fields fields which are being filled
      * @return fields with default values (true, false, false)
      */
     private Field[][] fillWithDefaultValues(Field[][] fields) {
         for (int i = 0; i < fields.length; i++) {
             for (int j = 0; j < fields.length; j++) {
-                fields[i][j] = new Field(true, false, false);
+                fields[i][j] = new Field();
             }
         }
+
+        // add starting stones for both players
+        fields[fields.length / 2 - 1][fields.length / 2 - 1].setBlack();
+        fields[fields.length / 2][fields.length / 2 - 1].setWhite();
+        fields[fields.length / 2 - 1][fields.length / 2].setWhite();
+        fields[fields.length / 2][fields.length / 2].setBlack();
+
         return fields;
     }
 }
