@@ -17,6 +17,7 @@ public class Board {
      * default is Black cause Black start the game
      */
     private boolean CurrentPlayer = true;
+    private int PossibleFields = 0;
 
     private Field[][] fields;
 
@@ -67,6 +68,7 @@ public class Board {
      * @return fields with default values (true, false, false)
      */
     private Field[][] fillWithDefaultValues(Field[][] fields) {
+        // todo change var name 'fields' in this method to a unique name
         for (int i = 0; i < fields.length; i++) {
             for (int j = 0; j < fields.length; j++) {
                 fields[i][j] = new Field();
@@ -87,10 +89,10 @@ public class Board {
     }
 
     /**
-     * Get current Player and return it as easy readable char,
-     * is designed to debug the code
+     * Get current Player and return it as easy readable char
+     *
      * @return b == Black Player
-     *         w == White Player
+     * w == White Player
      */
     public char isCurrentPlayerAsChar() {
         if (CurrentPlayer) {
@@ -107,6 +109,7 @@ public class Board {
     /**
      * Set the current User with a Char, is added to
      * debug the code
+     *
      * @param currentPlayer b == Black
      *                      w == White
      */
@@ -130,5 +133,83 @@ public class Board {
      */
     public void setNextPlayer() {
         this.CurrentPlayer = !this.CurrentPlayer;
+    }
+
+    /**
+     * set in Field if this field is a possible
+     * option to put the stone for the current player
+     */
+    public void setPossibleFields() {
+        for (int i = 0; i < this.fields.length; i++) {
+            for (int j = 0; j < this.fields.length; j++) {
+                this.fields[i][j].setPossibleForActualPlayer(
+                        checkPossibleField(i, j)
+                );
+            }
+        }
+    }
+
+    /**
+     * set for a field if it possible for the current user to
+     * put the stone
+     * @param x X-acis from the board, begin with 0
+     * @param y Y-acis from the board, begin with 0
+     */
+    private boolean checkPossibleField(int x, int y) {
+        // check if in the field already a stone
+        if (!this.fields[x][y].isEmpty()) {
+            return false;
+        }
+
+        /*
+        * +-----------+
+        * |           |
+        * |   x x x   |
+        * |   x S x   |
+        * |   x x x   |
+        * |           |
+        * +-----------+
+        */
+
+        int xBoardMin = 0,
+                xBoardMax = 0,
+                yBoardMin = 0,
+                yBoardMax = 0;
+
+        if (x == 0) {
+            xBoardMin = x;
+        } else {
+            xBoardMin = x - 1;
+        }
+
+        if (x == fields.length-1) {
+            xBoardMax = x;
+        } else {
+            xBoardMax = x + 1;
+        }
+
+        if (y == 0) {
+            yBoardMin = y;
+        } else {
+            yBoardMin = y - 1;
+        }
+
+        if (y == fields.length-1) {
+            yBoardMax = y;
+        } else {
+            yBoardMax = y + 1;
+        }
+
+        // todo add this method, I'm to tired for this stuff, sorry
+        for (int i = xBoardMin; i < xBoardMax; i++) {
+            for (int j = yBoardMin; j < yBoardMax; j++) {
+                // check if the field is the same state as the current player
+                if (isCurrentPlayerAsChar() == fields[i][j].isFieldState()) {
+                    return false;
+                }
+            }
+        }
+
+        return false;
     }
 }
