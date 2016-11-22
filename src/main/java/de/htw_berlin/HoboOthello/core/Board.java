@@ -9,6 +9,15 @@ public class Board {
     public static final int SMALL_BOARD_SIZE_SIX = 6;
     public static final int LARGE_BOARD_SIZE_TEN = 10;
 
+
+    /**
+     * Set the curret Player
+     * true == Black
+     * false == White
+     * default is Black cause Black start the game
+     */
+    private boolean CurrentPlayer = true;
+
     private Field[][] fields;
 
     /**
@@ -71,5 +80,55 @@ public class Board {
         fields[fields.length / 2][fields.length / 2].setBlack();
 
         return fields;
+    }
+
+    public boolean isCurrentPlayer() {
+        return CurrentPlayer;
+    }
+
+    /**
+     * Get current Player and return it as easy readable char,
+     * is designed to debug the code
+     * @return b == Black Player
+     *         w == White Player
+     */
+    public char isCurrentPlayerAsChar() {
+        if (CurrentPlayer) {
+            return 'b';
+        } else {
+            return 'w';
+        }
+    }
+
+    public void setCurrentPlayer(boolean currentPlayer) {
+        CurrentPlayer = currentPlayer;
+    }
+
+    /**
+     * Set the current User with a Char, is added to
+     * debug the code
+     * @param currentPlayer b == Black
+     *                      w == White
+     */
+    public void setCurrentPlayerAsChar(char currentPlayer) {
+        switch (currentPlayer) {
+            case 'b':
+                this.CurrentPlayer = true;
+                break;
+            case 'w':
+                this.CurrentPlayer = false;
+                break;
+            default:
+                //todo return a waring for wrong input
+        }
+    }
+
+    /**
+     * set the next Player
+     * if current User is Black than it will be set to white
+     * and if the current User is White it will be set to Black
+     */
+    public void setNextPlayer() {
+        this.CurrentPlayer = !this.CurrentPlayer;
     }
 }
