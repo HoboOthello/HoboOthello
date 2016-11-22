@@ -9,6 +9,7 @@ public class Field {
     private boolean empty;
     private boolean white;
     private boolean black;
+    private boolean possibleForActualPlayer;
 
     /**
      * set an empty field
@@ -61,13 +62,6 @@ public class Field {
         }
     }
 
-    public boolean possibleForActualPlayer() {
-        //Methode selbst muss noch geschrieben werden, return true if possible, false if not
-        //hierfür brauche wir implentierte Spielregeln
-        return true;
-    }
-
-    //getter und setter schon mal bereitgestellt, werden noch nicht benutzt!
     public boolean isEmpty() {
         return this.empty;
     }
@@ -78,6 +72,16 @@ public class Field {
 
     public boolean isBlack() {
         return this.black;
+    }
+
+    public char isFieldState() {
+        if (this.empty) {
+            return 'e';
+        } else if (this.white) {
+            return 'w';
+        } else {
+            return 'b';
+        }
     }
 
     /**
@@ -112,5 +116,13 @@ public class Field {
         this.empty = false;
         this.white = false;
         this.black = true;
+    }
+
+    public boolean isPossibleForActualPlayer() {
+        return possibleForActualPlayer;
+    }
+
+    public void setPossibleForActualPlayer(boolean possibleForActualPlayer) {
+        this.possibleForActualPlayer = possibleForActualPlayer;
     }
 }
