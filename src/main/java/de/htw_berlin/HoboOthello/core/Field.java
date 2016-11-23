@@ -146,5 +146,4 @@ public class Field {
     public void setPossibleForCurrentPlayer(boolean possibleForCurrentPlayer) {
         this.possibleForCurrentPlayer = possibleForCurrentPlayer;
     }
-    //todo throws new outOfCoffeeException
 }
