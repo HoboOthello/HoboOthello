@@ -5,9 +5,9 @@ package de.htw_berlin.HoboOthello.core;
  */
 public class Board {
 
-    public static final int STANDARD_BOARD_SIZE_EIGHT = 8;
-    public static final int SMALL_BOARD_SIZE_SIX = 6;
-    public static final int LARGE_BOARD_SIZE_TEN = 10;
+    public static final int BOARD_SIZE_EIGHT = 8;
+    public static final int BOARD_SIZE_SIX = 6;
+    public static final int BOARD_SIZE_TEN = 10;
 
 
     /**
@@ -30,20 +30,22 @@ public class Board {
      * Calls a method to fill the field with default values
      */
     public Board(int i) {
-        switch (i) {
-            case 6:
-                fields = new Field[SMALL_BOARD_SIZE_SIX][SMALL_BOARD_SIZE_SIX];
-                fields = fillWithDefaultValues(fields);
-                break;
-            case 10:
-                fields = new Field[LARGE_BOARD_SIZE_TEN][LARGE_BOARD_SIZE_TEN];
-                fields = fillWithDefaultValues(fields);
-                break;
-            default:
-                fields = new Field[STANDARD_BOARD_SIZE_EIGHT][STANDARD_BOARD_SIZE_EIGHT];
-                fields = fillWithDefaultValues(fields);
-                break;
+        initBoard(i);
+    }
+
+    private void initBoard(int boardSize) {
+        if (isBoardSizeAllowed(boardSize)) {
+            fields = new Field[boardSize][boardSize];
+            fields = fillWithDefaultValues(fields);
+        } else {
+            throw new IllegalArgumentException("Invalid Board Size");
         }
+    }
+
+    private boolean isBoardSizeAllowed(int boardSize) {
+        return boardSize == BOARD_SIZE_EIGHT
+                || boardSize == BOARD_SIZE_SIX
+                || boardSize == BOARD_SIZE_TEN;
     }
 
 
@@ -149,6 +151,7 @@ public class Board {
     /**
      * Method which checks the possibility for the CurrentPlayer to
      * put down the stone in this field
+     *
      * @param x X-axis of the board, begin with 0
      * @param y Y-axis of the board, begin with 0
      */
@@ -179,7 +182,7 @@ public class Board {
             xBoardMin = x - 1;
         }
 
-        if (x == fields.length-1) {
+        if (x == fields.length - 1) {
             xBoardMax = x;
         } else {
             xBoardMax = x + 1;
@@ -191,7 +194,7 @@ public class Board {
             yBoardMin = y - 1;
         }
 
-        if (y == fields.length-1) {
+        if (y == fields.length - 1) {
             yBoardMax = y;
         } else {
             yBoardMax = y + 1;
