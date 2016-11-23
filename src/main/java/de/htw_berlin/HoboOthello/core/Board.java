@@ -11,32 +11,28 @@ public class Board {
 
 
     /**
-     * Set the curret Player
+     * Set the current Player
      * true == Black
      * false == White
      * default is Black cause Black start the game
      */
     private boolean CurrentPlayer = true;
+
     private int PossibleFields = 0;
 
     private Field[][] fields;
 
     /**
      * Constructor of Board which declares and constructs an two dimensional array of fields
+     * Default, Standard size of Board is 8 x 8
      * Small size of Board is 6 x 6
-     * Standard size of Board is 8 x 8
      * Large size of Board is 10 x 10
      * Calls a method to fill the field with default values
      */
-
     public Board(int i) {
         switch (i) {
             case 6:
                 fields = new Field[SMALL_BOARD_SIZE_SIX][SMALL_BOARD_SIZE_SIX];
-                fields = fillWithDefaultValues(fields);
-                break;
-            case 8:
-                fields = new Field[STANDARD_BOARD_SIZE_EIGHT][STANDARD_BOARD_SIZE_EIGHT];
                 fields = fillWithDefaultValues(fields);
                 break;
             case 10:
@@ -44,8 +40,9 @@ public class Board {
                 fields = fillWithDefaultValues(fields);
                 break;
             default:
-                System.out.println("Invalid size for a HoboOthello Board");
-                //todo : decide if case 8 becomes default
+                fields = new Field[STANDARD_BOARD_SIZE_EIGHT][STANDARD_BOARD_SIZE_EIGHT];
+                fields = fillWithDefaultValues(fields);
+                break;
         }
     }
 
@@ -64,24 +61,23 @@ public class Board {
      * +------------+
      * <p>
      *
-     * @param fields fields which are being filled
+     * @param fieldsToFill fields which are being filled
      * @return fields with default values (true, false, false)
      */
-    private Field[][] fillWithDefaultValues(Field[][] fields) {
-        // todo change var name 'fields' in this method to a unique name
-        for (int i = 0; i < fields.length; i++) {
-            for (int j = 0; j < fields.length; j++) {
-                fields[i][j] = new Field();
+    private Field[][] fillWithDefaultValues(Field[][] fieldsToFill) {
+        for (int i = 0; i < fieldsToFill.length; i++) {
+            for (int j = 0; j < fieldsToFill.length; j++) {
+                fieldsToFill[i][j] = new Field();
             }
         }
 
         // add starting stones for both players
-        fields[fields.length / 2 - 1][fields.length / 2 - 1].setBlack();
-        fields[fields.length / 2][fields.length / 2 - 1].setWhite();
-        fields[fields.length / 2 - 1][fields.length / 2].setWhite();
-        fields[fields.length / 2][fields.length / 2].setBlack();
+        fieldsToFill[fieldsToFill.length / 2 - 1][fieldsToFill.length / 2 - 1].setBlack();
+        fieldsToFill[fieldsToFill.length / 2][fieldsToFill.length / 2 - 1].setWhite();
+        fieldsToFill[fieldsToFill.length / 2 - 1][fieldsToFill.length / 2].setWhite();
+        fieldsToFill[fieldsToFill.length / 2][fieldsToFill.length / 2].setBlack();
 
-        return fields;
+        return fieldsToFill;
     }
 
     public boolean isCurrentPlayer() {
@@ -122,27 +118,28 @@ public class Board {
                 this.CurrentPlayer = false;
                 break;
             default:
-                //todo return a waring for wrong input
+                throw new IllegalArgumentException("Wrong input. Only b and w are allowed to set!");
         }
     }
 
     /**
-     * set the next Player
-     * if current User is Black than it will be set to white
-     * and if the current User is White it will be set to Black
+     * Method which sets the next Player
+     * If CurrentPlayer is Black than it will be set to White,
+     * and if the CurrentPlayer is White it will be set to Black
      */
     public void setNextPlayer() {
         this.CurrentPlayer = !this.CurrentPlayer;
     }
 
     /**
-     * set in Field if this field is a possible
-     * option to put the stone for the current player
+     * Method which checks Field for a possible
+     * options to put down the stone for the CurrentPlayer
      */
     public void setPossibleFields() {
+        //todo Steffen
         for (int i = 0; i < this.fields.length; i++) {
             for (int j = 0; j < this.fields.length; j++) {
-                this.fields[i][j].setPossibleForActualPlayer(
+                this.fields[i][j].setPossibleForCurrentPlayer(
                         checkPossibleField(i, j)
                 );
             }
@@ -150,10 +147,10 @@ public class Board {
     }
 
     /**
-     * set for a field if it possible for the current user to
-     * put the stone
-     * @param x X-acis from the board, begin with 0
-     * @param y Y-acis from the board, begin with 0
+     * Method which checks the possibility for the CurrentPlayer to
+     * put down the stone in this field
+     * @param x X-axis of the board, begin with 0
+     * @param y Y-axis of the board, begin with 0
      */
     private boolean checkPossibleField(int x, int y) {
         // check if in the field already a stone

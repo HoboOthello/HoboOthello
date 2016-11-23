@@ -9,37 +9,46 @@ public class Field {
     private boolean empty;
     private boolean white;
     private boolean black;
-    private boolean possibleForActualPlayer;
+    private boolean possibleForCurrentPlayer;
 
     /**
-     * set an empty field
+     * Default constructor for empty field
      */
     public Field() {
         setEmpty();
     }
 
+    /**
+     * Field constructor with three boolean values
+     * @param empty if field is empty
+     * @param white if field is occupied with white
+     * @param black if field is occupied with black
+     */
     public Field(boolean empty, boolean white, boolean black) {
-        int tmp = 0;
+        int temp = 0;
 
         if (empty) {
-            tmp++;
+            temp++;
             setEmpty();
         }
 
         if (white) {
-            tmp++;
+            temp++;
             setWhite();
         }
 
         if (black) {
-            tmp++;
+            temp++;
             setBlack();
         }
 
-        //todo show warning if (0 == tmp || tmp > 1)
+        if (0 == temp || temp > 1) {
+            throw new IllegalArgumentException("Only one true boolean is allowed. No more, no less.");
+        }
     }
 
     /**
+     * Constructor of field with state
      * Add an field with just one possible condition
      * b == Black
      * w == White
@@ -57,8 +66,10 @@ public class Field {
             case 'w':
                 setWhite();
                 break;
-            default:
+            case 'e':
                 setEmpty();
+            default:
+                throw new IllegalArgumentException("Only b, w and e are allowed!");
         }
     }
 
@@ -74,6 +85,16 @@ public class Field {
         return this.black;
     }
 
+    /**
+     * Method which returns the state of the field
+     * @return state of the field
+     * <ul>
+     *     <li>e == empty</li>
+     *     <li>w == while</li>
+     *     <li>b == black</li>
+     * </ul>
+     *
+     */
     public char isFieldState() {
         if (this.empty) {
             return 'e';
@@ -118,11 +139,12 @@ public class Field {
         this.black = true;
     }
 
-    public boolean isPossibleForActualPlayer() {
-        return possibleForActualPlayer;
+    public boolean isPossibleForCurrentPlayer() {
+        return possibleForCurrentPlayer;
     }
 
-    public void setPossibleForActualPlayer(boolean possibleForActualPlayer) {
-        this.possibleForActualPlayer = possibleForActualPlayer;
+    public void setPossibleForCurrentPlayer(boolean possibleForCurrentPlayer) {
+        this.possibleForCurrentPlayer = possibleForCurrentPlayer;
     }
+    //todo throws new outOfCoffeeException
 }
