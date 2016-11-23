@@ -16,6 +16,7 @@ public class Board {
      * false == White
      * default is Black cause Black start the game
      */
+    // TODO: REFACTOR!! You will blow up your leg otherwise!
     private boolean CurrentPlayer = true;
 
     private int PossibleFields = 0;
@@ -74,6 +75,7 @@ public class Board {
         }
 
         // add starting stones for both players
+        // TODO: Clean up && Remove Magic Numbers
         fieldsToFill[fieldsToFill.length / 2 - 1][fieldsToFill.length / 2 - 1].setBlack();
         fieldsToFill[fieldsToFill.length / 2][fieldsToFill.length / 2 - 1].setWhite();
         fieldsToFill[fieldsToFill.length / 2 - 1][fieldsToFill.length / 2].setWhite();
@@ -92,6 +94,7 @@ public class Board {
      * @return b == Black Player
      * w == White Player
      */
+    // TODO: REFACTOR! You will blow up your leg otherwise!
     public char isCurrentPlayerAsChar() {
         if (CurrentPlayer) {
             return 'b';
@@ -155,6 +158,7 @@ public class Board {
      * @param x X-axis of the board, begin with 0
      * @param y Y-axis of the board, begin with 0
      */
+    // TODO REFACTOR!
     private boolean checkPossibleField(int x, int y) {
         // check if in the field already a stone
         if (!this.fields[x][y].isEmpty()) {
