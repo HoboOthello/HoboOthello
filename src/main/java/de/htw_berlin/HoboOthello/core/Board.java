@@ -9,7 +9,6 @@ public class Board {
     public static final int BOARD_SIZE_SIX = 6;
     public static final int BOARD_SIZE_TEN = 10;
 
-
     /**
      * Set the current Player
      * true == Black
@@ -152,6 +151,60 @@ public class Board {
     }
 
     /**
+     * Get the Board as an String, to show it for the developers
+     * <p>
+     * Example:
+     * 0 1 2 3 4 5
+     * +-------------+
+     * 0|             |
+     * 1|             |
+     * 2|             |
+     * 3|     b w     |
+     * 4|     w b     |
+     * 5|             |
+     * +-------------+
+     *
+     * @return get the Board Overview as a String
+     */
+    public String BoardOverview() {
+        // init var
+        String Overview = "  ";
+
+        // add header
+        for (int i = 0; i < this.fields.length; i++) {
+            Overview = Overview + String.format("%2d", i);
+        }
+        Overview = Overview + String.format("%n  +");
+
+        for (int i = 0; i < this.fields.length; i++) {
+            Overview = Overview + String.format("--");
+        }
+        Overview = Overview + String.format("+%n");
+
+        // content
+        for (int i = 0; i < this.fields.length; i++) {
+            Overview = Overview + String.format("%2d|", i);
+            for (int j = 0; j < this.fields.length; j++) {
+                char temp = this.fields[j][i].isFieldState();
+                if (temp == 'e') {
+                    temp = ' ';
+                }
+                Overview = Overview + String.format("%c ", temp);
+            }
+            Overview = Overview + String.format("|%n");
+        }
+
+        // add footer
+        Overview = Overview + String.format("  +");
+        for (int i = 0; i < this.fields.length; i++) {
+            Overview = Overview + String.format("--");
+        }
+        Overview = Overview + String.format("+");
+
+        return Overview;
+    }
+
+    /**
      * Method which checks the possibility for the CurrentPlayer to
      * put down the stone in this field
      *
@@ -175,43 +228,68 @@ public class Board {
         * +-----------+
         */
 
-        int xBoardMin = 0,
-                xBoardMax = 0,
-                yBoardMin = 0,
-                yBoardMax = 0;
-
-        if (x == 0) {
-            xBoardMin = x;
-        } else {
-            xBoardMin = x - 1;
-        }
-
-        if (x == fields.length - 1) {
-            xBoardMax = x;
-        } else {
-            xBoardMax = x + 1;
-        }
-
-        if (y == 0) {
-            yBoardMin = y;
-        } else {
-            yBoardMin = y - 1;
-        }
-
-        if (y == fields.length - 1) {
-            yBoardMax = y;
-        } else {
-            yBoardMax = y + 1;
-        }
-
-        // todo add this method, I'm to tired for this stuff, sorry
-        for (int i = xBoardMin; i < xBoardMax; i++) {
-            for (int j = yBoardMin; j < yBoardMax; j++) {
-                // check if the field is the same state as the current player
-                if (isCurrentPlayerAsChar() == fields[i][j].isFieldState()) {
-                    return false;
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
+                if (i != 0 && j != 0) {
+                    boolean possible;
+                    possible = checkPossibleFieldDirection(
+                            x,
+                            y,
+                            i,
+                            j,
+                            0
+                    );
+                    if (possible) {
+                        return true;
+                    }
                 }
             }
+        }
+
+        return false;
+    }
+
+    /**
+     * Recursively check if this field is possible for the CurrentPlayer
+     *
+     * @param x
+     * @param y
+     * @param xDirection
+     * @param yDirection
+     * @param counter
+     * @return <ul>
+     * <li>True == Possible for the CurrentPlayer</li>
+     * <li>False == not Possible for the CurrentPlayer</li>
+     * </ul>
+     */
+    public boolean checkPossibleFieldDirection(int x, int y, int xDirection, int yDirection, int counter) {
+        // set current x & y Axis
+        x += xDirection;
+        y += yDirection;
+
+        if (x < 0 | y < 0 | x >= this.fields.length | y >= this.fields.length) {
+            return false;
+        }
+
+        /* If fields state is the same as CurrentPlayer && there is at least
+         * one field from another Player between than return true */
+            if (this.fields[x][y].isFieldState() == this.isCurrentPlayerAsChar()
+                    &&
+                    counter > 0
+                    ) {
+                return true;
+            }
+
+        // If fields state != CurrentPlayer, call checkPossibleFieldDirection recursively
+        if (this.fields[x][y].isFieldState() != this.isCurrentPlayerAsChar()) {
+            counter++;
+            return checkPossibleFieldDirection(
+                    x,
+                    y,
+                    xDirection,
+                    yDirection,
+                    counter
+            );
         }
 
         return false;
