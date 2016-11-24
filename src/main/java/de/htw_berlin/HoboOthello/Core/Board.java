@@ -1,4 +1,4 @@
-package de.htw_berlin.HoboOthello.core;
+package de.htw_berlin.HoboOthello.Core;
 
 /**
  * Created by laura on 17.11.16.
@@ -9,14 +9,6 @@ public class Board {
     public static final int BOARD_SIZE_SIX = 6;
     public static final int BOARD_SIZE_TEN = 10;
 
-    /**
-     * Set the current Player
-     * true == Black
-     * false == White
-     * default is Black cause Black start the game
-     */
-    // TODO: REFACTOR!! You will blow up your leg otherwise!
-    private boolean CurrentPlayer = true;
 
     private int PossibleFields = 0;
 
@@ -83,65 +75,14 @@ public class Board {
         return fieldsToFill;
     }
 
-    public boolean isCurrentPlayer() {
-        return CurrentPlayer;
-    }
-
-    /**
-     * Get current Player and return it as easy readable char
-     *
-     * @return b == Black Player
-     * w == White Player
-     */
-    // TODO: REFACTOR! You will blow up your leg otherwise!
-    public char isCurrentPlayerAsChar() {
-        if (CurrentPlayer) {
-            return 'b';
-        } else {
-            return 'w';
-        }
-    }
-
-    public void setCurrentPlayer(boolean currentPlayer) {
-        CurrentPlayer = currentPlayer;
-    }
-
-    /**
-     * Set the current User with a Char, is added to
-     * debug the code
-     *
-     * @param currentPlayer b == Black
-     *                      w == White
-     */
-    public void setCurrentPlayerAsChar(char currentPlayer) {
-        switch (currentPlayer) {
-            case 'b':
-                this.CurrentPlayer = true;
-                break;
-            case 'w':
-                this.CurrentPlayer = false;
-                break;
-            default:
-                throw new IllegalArgumentException("Wrong input. Only b and w are allowed to set!");
-        }
-    }
-
-    /**
-     * Method which sets the next Player
-     * If CurrentPlayer is Black than it will be set to White,
-     * and if the CurrentPlayer is White it will be set to Black
-     */
-    public void setNextPlayer() {
-        this.CurrentPlayer = !this.CurrentPlayer;
-    }
 
     /**
      * Method which checks Field for a possible
      * options to put down the stone for the CurrentPlayer
      */
-    public void setPossibleFields() {
-        //todo Steffen
-        for (int i = 0; i < this.fields.length; i++) {
+ /*    public void setPossibleFields() {
+        //todo Steffen, auch Refactor
+       for (int i = 0; i < this.fields.length; i++) {
             for (int j = 0; j < this.fields.length; j++) {
                 this.fields[i][j].setPossibleForCurrentPlayer(
                         checkPossibleField(i, j)
@@ -149,6 +90,7 @@ public class Board {
             }
         }
     }
+  */
 
     /**
      * Get the Board as an String, to show it for the developers
@@ -166,6 +108,8 @@ public class Board {
      *
      * @return get the Board Overview as a String
      */
+    //TODO Refctor as well
+  /*
     public String BoardOverview() {
         // init var
         String Overview = "  ";
@@ -203,7 +147,7 @@ public class Board {
 
         return Overview;
     }
-
+*/
     /**
      * Method which checks the possibility for the CurrentPlayer to
      * put down the stone in this field
@@ -212,22 +156,13 @@ public class Board {
      * @param y Y-axis of the board, begin with 0
      */
     // TODO REFACTOR!
+    /*
     private boolean checkPossibleField(int x, int y) {
+
         // check if in the field already a stone
         if (!this.fields[x][y].isEmpty()) {
             return false;
         }
-
-        /*
-        * +-----------+
-        * |           |
-        * |   x x x   |
-        * |   x S x   |
-        * |   x x x   |
-        * |           |
-        * +-----------+
-        */
-
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
                 if (i != 0 && j != 0) {
@@ -248,6 +183,8 @@ public class Board {
 
         return false;
     }
+*/
+
 
     /**
      * Recursively check if this field is possible for the CurrentPlayer
@@ -262,6 +199,8 @@ public class Board {
      * <li>False == not Possible for the CurrentPlayer</li>
      * </ul>
      */
+    //TODO Refactor!
+    /*
     public boolean checkPossibleFieldDirection(int x, int y, int xDirection, int yDirection, int counter) {
         // set current x & y Axis
         x += xDirection;
@@ -273,6 +212,7 @@ public class Board {
 
         /* If fields state is the same as CurrentPlayer && there is at least
          * one field from another Player between than return true */
+    /*
             if (this.fields[x][y].isFieldState() == this.isCurrentPlayerAsChar()
                     &&
                     counter > 0
@@ -294,4 +234,6 @@ public class Board {
 
         return false;
     }
+    */
 }
+

@@ -1,4 +1,4 @@
-package de.htw_berlin.HoboOthello.core;
+package de.htw_berlin.HoboOthello.Core;
 
 /**
  * Created by Steffen Exler on 16.11.16.
