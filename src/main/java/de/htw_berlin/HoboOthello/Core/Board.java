@@ -66,7 +66,7 @@ public class Board {
         }
 
         // add starting stones for both players
-        // TODO: Clean up && Remove Magic Numbers
+        // TODO: Steffen. Clean up && Remove Magic Numbers
         fieldsToFill[fieldsToFill.length / 2 - 1][fieldsToFill.length / 2 - 1].setBlack();
         fieldsToFill[fieldsToFill.length / 2][fieldsToFill.length / 2 - 1].setWhite();
         fieldsToFill[fieldsToFill.length / 2 - 1][fieldsToFill.length / 2].setWhite();
@@ -76,21 +76,6 @@ public class Board {
     }
 
 
-    /**
-     * Method which checks Field for a possible
-     * options to put down the stone for the CurrentPlayer
-     */
- /*    public void setPossibleFields() {
-        //todo Steffen, auch Refactor
-       for (int i = 0; i < this.fields.length; i++) {
-            for (int j = 0; j < this.fields.length; j++) {
-                this.fields[i][j].setPossibleForCurrentPlayer(
-                        checkPossibleField(i, j)
-                );
-            }
-        }
-    }
-  */
 
     /**
      * Get the Board as an String, to show it for the developers
