@@ -63,10 +63,10 @@ public class Board {
         }
 
         // add starting stones for both players
-        Stone StoneBlack = new Stone();
-        StoneBlack.setStoneColor(StoneColor.BLACK);
-        Stone StoneWhite = new Stone();
-        StoneWhite.setStoneColor(StoneColor.WHITE);
+        Stone stoneBlack = new Stone();
+        stoneBlack.setStoneColor(StoneColor.BLACK);
+        Stone stoneWhite = new Stone();
+        stoneWhite.setStoneColor(StoneColor.WHITE);
 
         int BoardHalfLength = fieldsToFill.length / 2;
         int middle_x_left = BoardHalfLength -1;
@@ -74,10 +74,10 @@ public class Board {
         int middle_y_up = BoardHalfLength -1;
         int middle_y_down = BoardHalfLength;
 
-        fieldsToFill[middle_x_left][middle_y_up].setStone(StoneBlack);
-        fieldsToFill[middle_x_right][middle_y_up].setStone(StoneWhite);
-        fieldsToFill[middle_x_left][middle_y_down].setStone(StoneWhite);
-        fieldsToFill[middle_x_right][middle_y_down].setStone(StoneBlack);
+        fieldsToFill[middle_x_left][middle_y_up].setStone(stoneBlack);
+        fieldsToFill[middle_x_right][middle_y_up].setStone(stoneWhite);
+        fieldsToFill[middle_x_left][middle_y_down].setStone(stoneWhite);
+        fieldsToFill[middle_x_right][middle_y_down].setStone(stoneBlack);
 
         return fieldsToFill;
     }
