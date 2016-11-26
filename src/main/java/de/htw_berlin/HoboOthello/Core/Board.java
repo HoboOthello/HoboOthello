@@ -9,17 +9,14 @@ public class Board {
     public static final int BOARD_SIZE_SIX = 6;
     public static final int BOARD_SIZE_TEN = 10;
 
-
-    private int PossibleFields = 0;
-
     private Field[][] fields;
 
     /**
-     * Constructor of Board which declares and constructs an two dimensional array of fields
-     * Default, Standard size of Board is 8 x 8
+     * Constructor of Board which declares and constructs an two-dimensional array of fields
+     * Calls a method to fill the field with default values
+     * Standard size of Board is 8 x 8
      * Small size of Board is 6 x 6
      * Large size of Board is 10 x 10
-     * Calls a method to fill the field with default values
      */
     public Board(int i) {
         initBoard(i);
@@ -30,7 +27,7 @@ public class Board {
             fields = new Field[boardSize][boardSize];
             fields = fillWithDefaultValues(fields);
         } else {
-            throw new IllegalArgumentException("Invalid Board Size");
+            throw new IllegalArgumentException("Invalid Board Size!");
         }
     }
 
@@ -76,6 +73,35 @@ public class Board {
     }
 
 
+    private int numberOfFieldsOccupiedByWhite() {
+        int counterOccupiedByWhite = 0;
+        for (int i = 0; i < fields.length; i++) {
+            for (int j = 0; j < fields.length; j++) {
+                if (this.fields[i][j].isWhite()){
+                    counterOccupiedByWhite++;
+                }
+            }
+        }
+        return counterOccupiedByWhite;
+    }
+
+    private int numberOfFieldsOccupiedByBlack() {
+    int counterOccupiedByBlack = 0;
+        for (int i = 0; i < fields.length; i++) {
+            for (int j = 0; j < fields.length; j++) {
+                if (this.fields[i][j].isWhite()){
+                    counterOccupiedByBlack++;
+                }
+            }
+        }
+        return counterOccupiedByBlack;
+    }
+
+    private int numberOfOccupiedFields = numberOfFieldsOccupiedByWhite() + numberOfFieldsOccupiedByBlack();
+
+    public int getNumberOfOccupiedFields() {
+        return numberOfOccupiedFields;
+    }
 
     /**
      * Get the Board as an String, to show it for the developers
@@ -140,7 +166,7 @@ public class Board {
      * @param x X-axis of the board, begin with 0
      * @param y Y-axis of the board, begin with 0
      */
-    // TODO REFACTOR!
+    // TODO REFACTOR! --> && move to IsMoveAllowedRule?
     /*
     private boolean checkPossibleField(int x, int y) {
 
