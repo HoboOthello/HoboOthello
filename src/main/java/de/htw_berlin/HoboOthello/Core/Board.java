@@ -63,11 +63,21 @@ public class Board {
         }
 
         // add starting stones for both players
-        // TODO: Steffen. Clean up && Remove Magic Numbers
-        fieldsToFill[fieldsToFill.length / 2 - 1][fieldsToFill.length / 2 - 1].setBlack();
-        fieldsToFill[fieldsToFill.length / 2][fieldsToFill.length / 2 - 1].setWhite();
-        fieldsToFill[fieldsToFill.length / 2 - 1][fieldsToFill.length / 2].setWhite();
-        fieldsToFill[fieldsToFill.length / 2][fieldsToFill.length / 2].setBlack();
+        Stone StoneBlack = new Stone();
+        StoneBlack.setStoneColor(StoneColor.BLACK);
+        Stone StoneWhite = new Stone();
+        StoneWhite.setStoneColor(StoneColor.WHITE);
+
+        int BoardHalfLength = fieldsToFill.length / 2;
+        int middle_x_left = BoardHalfLength -1;
+        int middle_x_right = BoardHalfLength;
+        int middle_y_up = BoardHalfLength -1;
+        int middle_y_down = BoardHalfLength;
+
+        fieldsToFill[middle_x_left][middle_y_up].setStone(StoneBlack);
+        fieldsToFill[middle_x_right][middle_y_up].setStone(StoneWhite);
+        fieldsToFill[middle_x_left][middle_y_down].setStone(StoneWhite);
+        fieldsToFill[middle_x_right][middle_y_down].setStone(StoneBlack);
 
         return fieldsToFill;
     }
