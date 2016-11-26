@@ -82,32 +82,22 @@ public class Board {
         return fieldsToFill;
     }
 
-
-    private int numberOfFieldsOccupiedByWhite() {
-        int counterOccupiedByWhite = 0;
+    private int numberOfFieldsOccupiedByStone(StoneColor colorOfStonesToCount) {
+        int counterOccupiedByStoneColor = 0;
+        Stone stone = new Stone();
         for (int i = 0; i < fields.length; i++) {
             for (int j = 0; j < fields.length; j++) {
-                if (this.fields[i][j].isWhite()){
-                    counterOccupiedByWhite++;
+                if (this.fields[i][j].isOccupiedByStone()) {
+                    if (stone.getStoneColor() == colorOfStonesToCount)
+                        counterOccupiedByStoneColor++;
                 }
             }
         }
-        return counterOccupiedByWhite;
+        return counterOccupiedByStoneColor;
     }
 
-    private int numberOfFieldsOccupiedByBlack() {
-    int counterOccupiedByBlack = 0;
-        for (int i = 0; i < fields.length; i++) {
-            for (int j = 0; j < fields.length; j++) {
-                if (this.fields[i][j].isWhite()){
-                    counterOccupiedByBlack++;
-                }
-            }
-        }
-        return counterOccupiedByBlack;
-    }
 
-    private int numberOfOccupiedFields = numberOfFieldsOccupiedByWhite() + numberOfFieldsOccupiedByBlack();
+    private int numberOfOccupiedFields = numberOfFieldsOccupiedByStone(StoneColor.WHITE) + numberOfFieldsOccupiedByStone(StoneColor.BLACK);
 
     public int getNumberOfOccupiedFields() {
         return numberOfOccupiedFields;
