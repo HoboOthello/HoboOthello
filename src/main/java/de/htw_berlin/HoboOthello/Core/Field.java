@@ -33,6 +33,8 @@ public class Field {
         this.stone = null;
     }
 
+    //TODO: getter
+
     /**
      * Override toString Method to show the current field state as a string
      *

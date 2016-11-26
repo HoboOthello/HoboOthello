@@ -64,40 +64,35 @@ public class Board {
 
         // add starting stones for both players
         // TODO: Steffen. Clean up && Remove Magic Numbers
-        fieldsToFill[fieldsToFill.length / 2 - 1][fieldsToFill.length / 2 - 1].setBlack();
-        fieldsToFill[fieldsToFill.length / 2][fieldsToFill.length / 2 - 1].setWhite();
-        fieldsToFill[fieldsToFill.length / 2 - 1][fieldsToFill.length / 2].setWhite();
-        fieldsToFill[fieldsToFill.length / 2][fieldsToFill.length / 2].setBlack();
+        Stone stoneBlack = new Stone();
+        stoneBlack.setStoneColor(StoneColor.BLACK);
+        Stone stoneWhite = new Stone();
+        stoneWhite.setStoneColor(StoneColor.WHITE);
+
+        fieldsToFill[fieldsToFill.length / 2 - 1][fieldsToFill.length / 2 - 1].setStone(stoneBlack);
+        fieldsToFill[fieldsToFill.length / 2][fieldsToFill.length / 2 - 1].setStone(stoneWhite);
+        fieldsToFill[fieldsToFill.length / 2 - 1][fieldsToFill.length / 2].setStone(stoneWhite);
+        fieldsToFill[fieldsToFill.length / 2][fieldsToFill.length / 2].setStone(stoneBlack);
 
         return fieldsToFill;
     }
 
-
-    private int numberOfFieldsOccupiedByWhite() {
-        int counterOccupiedByWhite = 0;
+    private int numberOfFieldsOccupiedByStone(StoneColor colorOfStonesToCount) {
+        int counterOccupiedByStoneColor = 0;
+        Stone stone = new Stone();
         for (int i = 0; i < fields.length; i++) {
             for (int j = 0; j < fields.length; j++) {
-                if (this.fields[i][j].isWhite()){
-                    counterOccupiedByWhite++;
+                if (this.fields[i][j].isOccupiedByStone()) {
+                    if (stone.getStoneColor() == colorOfStonesToCount)
+                        counterOccupiedByStoneColor++;
                 }
             }
         }
-        return counterOccupiedByWhite;
+        return counterOccupiedByStoneColor;
     }
 
-    private int numberOfFieldsOccupiedByBlack() {
-    int counterOccupiedByBlack = 0;
-        for (int i = 0; i < fields.length; i++) {
-            for (int j = 0; j < fields.length; j++) {
-                if (this.fields[i][j].isWhite()){
-                    counterOccupiedByBlack++;
-                }
-            }
-        }
-        return counterOccupiedByBlack;
-    }
 
-    private int numberOfOccupiedFields = numberOfFieldsOccupiedByWhite() + numberOfFieldsOccupiedByBlack();
+    private int numberOfOccupiedFields = numberOfFieldsOccupiedByStone(StoneColor.WHITE) + numberOfFieldsOccupiedByStone(StoneColor.BLACK);
 
     public int getNumberOfOccupiedFields() {
         return numberOfOccupiedFields;

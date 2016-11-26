@@ -11,7 +11,7 @@ public class Stone {
 
     private StoneColor stoneColor;
 
-    public StoneColor isStoneColor(){
+    public StoneColor getStoneColor(){
         return this.stoneColor;
     }
 
