@@ -6,3 +6,5 @@ Game Rules
 
 ## Doc
 http://hoboothello.readthedocs.io/en/latest/
+
+![alt text](docs/source/img/mvc-model.png "MVC - Model Overview")
