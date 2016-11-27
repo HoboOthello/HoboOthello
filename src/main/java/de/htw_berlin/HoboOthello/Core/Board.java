@@ -63,16 +63,21 @@ public class Board {
         }
 
         // add starting stones for both players
-        // TODO: Steffen. Clean up && Remove Magic Numbers
         Stone stoneBlack = new Stone();
         stoneBlack.setStoneColor(StoneColor.BLACK);
         Stone stoneWhite = new Stone();
         stoneWhite.setStoneColor(StoneColor.WHITE);
 
-        fieldsToFill[fieldsToFill.length / 2 - 1][fieldsToFill.length / 2 - 1].setStone(stoneBlack);
-        fieldsToFill[fieldsToFill.length / 2][fieldsToFill.length / 2 - 1].setStone(stoneWhite);
-        fieldsToFill[fieldsToFill.length / 2 - 1][fieldsToFill.length / 2].setStone(stoneWhite);
-        fieldsToFill[fieldsToFill.length / 2][fieldsToFill.length / 2].setStone(stoneBlack);
+        int BoardHalfLength = fieldsToFill.length / 2;
+        int middle_x_left = BoardHalfLength -1;
+        int middle_x_right = BoardHalfLength;
+        int middle_y_up = BoardHalfLength -1;
+        int middle_y_down = BoardHalfLength;
+
+        fieldsToFill[middle_x_left][middle_y_up].setStone(stoneBlack);
+        fieldsToFill[middle_x_right][middle_y_up].setStone(stoneWhite);
+        fieldsToFill[middle_x_left][middle_y_down].setStone(stoneWhite);
+        fieldsToFill[middle_x_right][middle_y_down].setStone(stoneBlack);
 
         return fieldsToFill;
     }
@@ -154,92 +159,5 @@ public class Board {
         return Overview;
     }
 */
-    /**
-     * Method which checks the possibility for the CurrentPlayer to
-     * put down the stone in this field
-     *
-     * @param x X-axis of the board, begin with 0
-     * @param y Y-axis of the board, begin with 0
-     */
-    // TODO REFACTOR! --> && move to IsMoveAllowedRule?
-    /*
-    private boolean checkPossibleField(int x, int y) {
-
-        // check if in the field already a stone
-        if (!this.fields[x][y].isEmpty()) {
-            return false;
-        }
-        for (int i = -1; i <= 1; i++) {
-            for (int j = -1; j <= 1; j++) {
-                if (i != 0 && j != 0) {
-                    boolean possible;
-                    possible = checkPossibleFieldDirection(
-                            x,
-                            y,
-                            i,
-                            j,
-                            0
-                    );
-                    if (possible) {
-                        return true;
-                    }
-                }
-            }
-        }
-
-        return false;
-    }
-*/
-
-
-    /**
-     * Recursively check if this field is possible for the CurrentPlayer
-     *
-     * @param x
-     * @param y
-     * @param xDirection
-     * @param yDirection
-     * @param counter
-     * @return <ul>
-     * <li>True == Possible for the CurrentPlayer</li>
-     * <li>False == not Possible for the CurrentPlayer</li>
-     * </ul>
-     */
-    //TODO Refactor!
-    /*
-    public boolean checkPossibleFieldDirection(int x, int y, int xDirection, int yDirection, int counter) {
-        // set current x & y Axis
-        x += xDirection;
-        y += yDirection;
-
-        if (x < 0 | y < 0 | x >= this.fields.length | y >= this.fields.length) {
-            return false;
-        }
-
-        /* If fields state is the same as CurrentPlayer && there is at least
-         * one field from another Player between than return true */
-    /*
-            if (this.fields[x][y].isFieldState() == this.isCurrentPlayerAsChar()
-                    &&
-                    counter > 0
-                    ) {
-                return true;
-            }
-
-        // If fields state != CurrentPlayer, call checkPossibleFieldDirection recursively
-        if (this.fields[x][y].isFieldState() != this.isCurrentPlayerAsChar()) {
-            counter++;
-            return checkPossibleFieldDirection(
-                    x,
-                    y,
-                    xDirection,
-                    yDirection,
-                    counter
-            );
-        }
-
-        return false;
-    }
-    */
 }
 
