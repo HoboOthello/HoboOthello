@@ -5,69 +5,43 @@ package de.htw_berlin.HoboOthello.Core;
  */
 public class Player {
 
-    public Player(){
-
-    }
-
     /**
-     * Set the current Player
-     * true == Black
-     * false == White
-     * default is Black cause Black start the game
+     * A player has a color, which is a enum PlayerColor
      */
-    // TODO: REFACTOR!! You will blow up your leg otherwise!
-    private boolean CurrentPlayer = true;
+    private PlayerColor playerColor;
 
-    public boolean isCurrentPlayer() {
-        return CurrentPlayer;
-    }
+//TODO Question: Do we need smth like this?: player method which sets the stoneColor to its own PlayerColor?
 
     /**
-     * Get current Player and return it as easy readable char
-     *
-     * @return b == Black Player
-     * w == White Player
+     * Default constructor for a player
      */
-    // TODO: REFACTOR! You will blow up your leg otherwise!
-    public char isCurrentPlayerAsChar() {
-        if (CurrentPlayer) {
-            return 'b';
-        } else {
-            return 'w';
-        }
+    public Player() {
+
     }
 
-    public void setCurrentPlayer(boolean currentPlayer) {
-        CurrentPlayer = currentPlayer;
+    public PlayerColor getPlayerColor() {
+        return playerColor;
     }
 
-    /**
-     * Set the current User with a Char, is added to
-     * debug the code
-     *
-     * @param currentPlayer b == Black
-     *                      w == White
-     */
-    public void setCurrentPlayerAsChar(char currentPlayer) {
-        switch (currentPlayer) {
-            case 'b':
-                this.CurrentPlayer = true;
-                break;
-            case 'w':
-                this.CurrentPlayer = false;
-                break;
-            default:
-                throw new IllegalArgumentException("Wrong input. Only b and w are allowed to set!");
-        }
+    public void setPlayerColor(PlayerColor playerColor) {
+        this.playerColor = playerColor;
     }
 
     /**
-     * Method which sets the next Player
-     * If CurrentPlayer is Black than it will be set to White,
-     * and if the CurrentPlayer is White it will be set to Black
+     * Method which sets the next Player (changes the color of the Player)
+     * If Player is white it will be set to black,
+     * and if the Player is black than it will be set to white
      */
     public void setNextPlayer() {
-        this.CurrentPlayer = !this.CurrentPlayer;
+        if (this.playerColor == PlayerColor.WHITE){
+            setPlayerColor(PlayerColor.BLACK);
+        }
+        if (this.playerColor == PlayerColor.BLACK){
+            setPlayerColor(PlayerColor.WHITE);
+        } else {
+            throw new IllegalArgumentException("PlayerColor is not defined! Error.");
+        }
+
     }
 
 

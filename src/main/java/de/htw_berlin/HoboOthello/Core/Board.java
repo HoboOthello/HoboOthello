@@ -9,6 +9,8 @@ public class Board {
     public static final int BOARD_SIZE_SIX = 6;
     public static final int BOARD_SIZE_TEN = 10;
 
+    private int boardSize;
+
     private Field[][] fields;
 
     /**
@@ -24,6 +26,7 @@ public class Board {
 
     private void initBoard(int boardSize) {
         if (isBoardSizeAllowed(boardSize)) {
+            this.boardSize = boardSize;
             fields = new Field[boardSize][boardSize];
             fields = fillWithDefaultValues(fields);
         } else {
@@ -40,7 +43,7 @@ public class Board {
 
     /**
      * Method which fills fields with default values.
-     * Default value of a field is:
+     * Default setup of a new board at the start of the game is:
      * <p>
      * +------------+
      * |            |
@@ -53,7 +56,7 @@ public class Board {
      * <p>
      *
      * @param fieldsToFill fields which are being filled
-     * @return fields with default values (true, false, false)
+     * @return fields with default values as pictured above
      */
     private Field[][] fillWithDefaultValues(Field[][] fieldsToFill) {
         for (int i = 0; i < fieldsToFill.length; i++) {
@@ -69,9 +72,9 @@ public class Board {
         stoneWhite.setStoneColor(StoneColor.WHITE);
 
         int BoardHalfLength = fieldsToFill.length / 2;
-        int middle_x_left = BoardHalfLength -1;
+        int middle_x_left = BoardHalfLength - 1;
         int middle_x_right = BoardHalfLength;
-        int middle_y_up = BoardHalfLength -1;
+        int middle_y_up = BoardHalfLength - 1;
         int middle_y_down = BoardHalfLength;
 
         fieldsToFill[middle_x_left][middle_y_up].setStone(stoneBlack);
@@ -82,7 +85,13 @@ public class Board {
         return fieldsToFill;
     }
 
-    private int numberOfFieldsOccupiedByStone(StoneColor colorOfStonesToCount) {
+    /**
+     * Method which counts how many fields are occupied by a stone of a certain color
+     *
+     * @param colorOfStonesToCount the color of stones which are being counted
+     * @return int number of fields which are occupied by a stone of that color
+     */
+    private int numberOfFieldsOccupiedByStoneColor(StoneColor colorOfStonesToCount) {
         int counterOccupiedByStoneColor = 0;
         Stone stone = new Stone();
         for (int i = 0; i < fields.length; i++) {
@@ -96,68 +105,49 @@ public class Board {
         return counterOccupiedByStoneColor;
     }
 
+    /**
+     * Gets how many fields are occupied by a stone from a specific color
+     *
+     * @param stoneColor the color of stones which are being counted
+     * @return int number of fields which are occupied by a stone of that color
+     */
+    public int getNumberOfFieldsOccupiedByStone(StoneColor stoneColor) {
+        return numberOfFieldsOccupiedByStoneColor(stoneColor);
+    }
 
-    private int numberOfOccupiedFields = numberOfFieldsOccupiedByStone(StoneColor.WHITE) + numberOfFieldsOccupiedByStone(StoneColor.BLACK);
+    /**
+     * Total number of fields which are occupied by a stone
+     */
+    private int numberOfOccupiedFields = numberOfFieldsOccupiedByStoneColor(StoneColor.WHITE) + numberOfFieldsOccupiedByStoneColor(StoneColor.BLACK);
 
+    /**
+     * Gets how many fields are occupied by a stone
+     *
+     * @return the total number of fields which are occupied by a stone
+     */
     public int getNumberOfOccupiedFields() {
         return numberOfOccupiedFields;
     }
 
     /**
-     * Get the Board as an String, to show it for the developers
-     * <p>
-     * Example:
-     * 0 1 2 3 4 5
-     * +-------------+
-     * 0|             |
-     * 1|             |
-     * 2|             |
-     * 3|     b w     |
-     * 4|     w b     |
-     * 5|             |
-     * +-------------+
+     * Boolean to determine is the board is completely filled with stones
      *
-     * @return get the Board Overview as a String
+     * @return true if board is completely filled with stones
      */
-    //TODO Refctor as well
-  /*
-    public String BoardOverview() {
-        // init var
-        String Overview = "  ";
-
-        // add header
-        for (int i = 0; i < this.fields.length; i++) {
-            Overview = Overview + String.format("%2d", i);
-        }
-        Overview = Overview + String.format("%n  +");
-
-        for (int i = 0; i < this.fields.length; i++) {
-            Overview = Overview + String.format("--");
-        }
-        Overview = Overview + String.format("+%n");
-
-        // content
-        for (int i = 0; i < this.fields.length; i++) {
-            Overview = Overview + String.format("%2d|", i);
-            for (int j = 0; j < this.fields.length; j++) {
-                char temp = this.fields[j][i].isFieldState();
-                if (temp == 'e') {
-                    temp = ' ';
-                }
-                Overview = Overview + String.format("%c ", temp);
-            }
-            Overview = Overview + String.format("|%n");
-        }
-
-        // add footer
-        Overview = Overview + String.format("  +");
-        for (int i = 0; i < this.fields.length; i++) {
-            Overview = Overview + String.format("--");
-        }
-        Overview = Overview + String.format("+");
-
-        return Overview;
+    private boolean boardIsFull() {
+        int numberOfFieldsOnBoard = boardSize * boardSize;
+        return (numberOfFieldsOnBoard == this.numberOfOccupiedFields);
     }
-*/
+
+    /**
+     * Boolean to ask the board if the board is completely filled with stones
+     *
+     * @return true if board is completely filled with stones
+     */
+    public boolean getBoardIsFull() {
+        return boardIsFull();
+    }
+
+
 }
 
