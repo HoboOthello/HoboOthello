@@ -6,55 +6,50 @@ package de.htw_berlin.HoboOthello.Core;
  */
 public class Field {
 
+    /**
+     * A field can be occupied by a stone
+     */
     private Stone stone;
 
     /**
      * Default constructor for empty field
      */
-    public Field() { }
-
-    public boolean isEmpty() {
-        return stone == null;
+    public Field() {
     }
 
-    public boolean isOccupiedByStone(){
-        if (this.stone != null) {
-            return true;
-        } else {
-            throw new IllegalArgumentException("Illegal state of field!");
-        }
-    }
-
-    public void setStone(Stone stoneToSet){
+    public void setStone(Stone stoneToSet) {
         this.stone = stoneToSet;
+    }
+
+    public Stone getStone() {
+        return this.stone;
     }
 
     public void setEmpty() {
         this.stone = null;
     }
 
-    //TODO: getter
+    public boolean isEmpty() {
+        return stone == null;
+    }
 
-    /**
-     * Override toString Method to show the current field state as a string
-     *
-     * @return the current field state "field is empty" or "field is occupied by stone"
-     * @throws IllegalArgumentException if the the current field state could not be identified as
-     * empty or occupied by a stone
-     */
-    @Override
-    public String toString() {
-        if (isEmpty()){
-            return "field is empty";
+    public boolean isOccupiedByStone() {
+        if (this.stone != null) {
+            return true;
         }
-        if (isOccupiedByStone()) {
-            return "field is occupied by stone";
+        if (this.stone == null) {
+            return false;
         } else {
             throw new IllegalArgumentException("Illegal state of field!");
         }
     }
 
-
+    @Override
+    public String toString() {
+        return "Field{" +
+                "stone=" + stone +
+                '}';
+    }
 
 
 }
