@@ -11,6 +11,7 @@ public class Player {
     private PlayerColor playerColor;
 
 //TODO Question: Do we need smth like this?: player method which sets the stoneColor to its own PlayerColor?
+    //TODO: Not only for Color, more for Game, example: is a Player User, KI or Network
 
     /**
      * Default constructor for a player

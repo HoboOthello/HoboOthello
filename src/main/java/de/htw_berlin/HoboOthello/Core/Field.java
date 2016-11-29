@@ -12,6 +12,11 @@ public class Field {
     private Stone stone;
 
     /**
+     * Set if this field for the current player a possible move
+     */
+    private boolean possibleMove;
+
+    /**
      * Default constructor for empty field
      */
     public Field() {
@@ -52,4 +57,11 @@ public class Field {
     }
 
 
+    public boolean isPossibleMove() {
+        return possibleMove;
+    }
+
+    public void setPossibleMove(boolean possibleMove) {
+        this.possibleMove = possibleMove;
+    }
 }

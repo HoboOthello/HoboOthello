@@ -24,10 +24,10 @@ public class Board {
         initBoard(i);
     }
 
-    private void initBoard(int boardSize) {
-        if (isBoardSizeAllowed(boardSize)) {
-            this.boardSize = boardSize;
-            fields = new Field[boardSize][boardSize];
+    private void initBoard(int newBoardSize) {
+        if (isBoardSizeAllowed(newBoardSize)) {
+            this.boardSize = newBoardSize;
+            fields = new Field[newBoardSize][newBoardSize];
             fields = fillWithDefaultValues(fields);
         } else {
             throw new IllegalArgumentException("Invalid Board Size!");
@@ -38,6 +38,40 @@ public class Board {
         return boardSize == BOARD_SIZE_EIGHT
                 || boardSize == BOARD_SIZE_SIX
                 || boardSize == BOARD_SIZE_TEN;
+    }
+
+    /**
+     * Construct the current Board as a multiline String for debugging
+     * @return Board overview as a String
+     */
+    public String getBoardOverview() {
+        String boardOverview = "";
+
+        for (int i = 0; i < this.boardSize; i++) {
+            for (int j = 0; j < this.boardSize; j++) {
+                char StoneColor = ' ';
+
+                if (!this.fields[i][j].isEmpty()) {
+                    switch (this.fields[i][j].getStone().getStoneColor()) {
+                        case BLACK:
+                            StoneColor = 'B';
+                            break;
+                        case WHITE:
+                            StoneColor = 'W';
+                            break;
+                    }
+                } else if (this.fields[i][j].isPossibleMove()) {
+                    StoneColor = 'p';
+                }
+
+                boardOverview = boardOverview + StoneColor;
+
+            }
+            // next line
+            boardOverview = boardOverview + String.format("%n");
+        }
+
+        return boardOverview;
     }
 
 
@@ -118,7 +152,14 @@ public class Board {
     /**
      * Total number of fields which are occupied by a stone
      */
-    private int numberOfOccupiedFields = numberOfFieldsOccupiedByStoneColor(StoneColor.WHITE) + numberOfFieldsOccupiedByStoneColor(StoneColor.BLACK);
+    private int numberOfOccupiedFields;
+
+    /**
+     * Count Total number of fields which are occupied by a stone
+     */
+    private void setNumberOfOccupiedFields () {
+        this.numberOfOccupiedFields = numberOfFieldsOccupiedByStoneColor(StoneColor.WHITE) + numberOfFieldsOccupiedByStoneColor(StoneColor.BLACK);
+    }
 
     /**
      * Gets how many fields are occupied by a stone
@@ -146,6 +187,14 @@ public class Board {
      */
     public boolean getBoardIsFull() {
         return boardIsFull();
+    }
+
+    public Field[][] isFields() {
+        return this.fields;
+    }
+
+    public void setFields(Field[][] newFields) {
+        this.fields = newFields;
     }
 
 
