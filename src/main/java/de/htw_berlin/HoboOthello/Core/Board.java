@@ -61,7 +61,7 @@ public class Board {
                             break;
                     }
                 } else if (this.fields[i][j].isPossibleMove()) {
-                    StoneColor = 'p';
+                    StoneColor = 'x';
                 }
 
                 boardOverview = boardOverview + StoneColor;
