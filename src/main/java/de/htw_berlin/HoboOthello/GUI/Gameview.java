@@ -1,4 +1,6 @@
 package de.htw_berlin.HoboOthello.GUI;
+import de.htw_berlin.HoboOthello.Core.Field;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -15,6 +17,8 @@ public class Gameview {
     private static JButton startButton = new JButton();
     private static JButton passButton = new JButton();
 
+
+    private static Field[][] fields;
 
     public static void CreateGameView (){
 
@@ -41,15 +45,15 @@ public class Gameview {
 		 * field ist initialized with magic numbers but that will later be changed to a variable 'boardsize'
 		 */
         //TODO adding a variable for the boardsize and fix the size of the gui for larger or smaller boards
-        Field[][] field = new Field[8][8];
+        fields = new Field[8][8];
 
-        for(int row=0;row<field.length;row++){
-            for(int column=0;column<field.length;column++){
+        for(int row=0;row<fields.length;row++){
+            for(int column=0;column<fields.length;column++){
 
-                field[row][column] = new Field();
-                field[row][column].setBackground(backgroundColor);
-                field[row][column].setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
-                boardPanel.add(field[row][column]).setVisible(true);
+//                fields[row][column] = new Field();
+                fields[row][column].setBackground(backgroundColor);
+                fields[row][column].setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+                boardPanel.add(fields[row][column]).setVisible(true);
 
             }
         }
@@ -86,12 +90,12 @@ public class Gameview {
 //		westPanel.setBorder (BorderFactory.createEtchedBorder());
 
         //adding all elements to the main frame
-        mainFrame.add(scorePanel, "North");
-        mainFrame.add(boardPanel, "Center");
-        mainFrame.add(actionPanel, "South");
-        mainFrame.add(eastPanel, "East");
-        mainFrame.add(westPanel, "West");
-
+        mainFrame.getContentPane().add(scorePanel, "North");
+        mainFrame.getContentPane().add(boardPanel, "Center");
+        mainFrame.getContentPane().add(actionPanel, "South");
+        mainFrame.getContentPane().add(eastPanel, "East");
+        mainFrame.getContentPane().add(westPanel, "West");
+        mainFrame.setJMenuBar(new JMenuBar());
         mainFrame.setVisible(true);
 
     }
