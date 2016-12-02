@@ -50,9 +50,9 @@ public class Gameview {
             for (int column = 0; column < fields.length; column++) {
 
                 // fields[row][column] = new Field();
-                fields[row][column].setBackground(backgroundColor);
-                fields[row][column].setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
-                boardPanel.add(fields[row][column]).setVisible(true);
+                // fields[row][column].setBackground(backgroundColor);
+                // fields[row][column].setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+                // boardPanel.add(fields[row][column]).setVisible(true);
 
             }
         }
