@@ -8,7 +8,7 @@ import java.awt.*;
 /**
  * Created by laura on 24.11.16.
  */
-public class Gameview {
+public class Gameview extends JFrame {
 
     private static JLabel whiteScore = new JLabel("WHITE");
     private static JLabel blackScore = new JLabel("BLACK");
