@@ -150,4 +150,8 @@ public class Game {
             this.currentPlayer = playerBlack;
         }
     }
+
+    public Field[][] isFields() {
+        return this.gameBoard.isFields();
+    }
 }

@@ -10,16 +10,20 @@ import java.awt.*;
  */
 public class Gameview extends JFrame {
 
-    private static JLabel whiteScore = new JLabel("WHITE");
-    private static JLabel blackScore = new JLabel("BLACK");
-    private static Color backgroundColor = new Color(0, 150, 0);
-    private static JButton startButton = new JButton();
-    private static JButton passButton = new JButton();
+    private JLabel whiteScore = new JLabel("WHITE");
+    private JLabel blackScore = new JLabel("BLACK");
+    private Color backgroundColor = new Color(0, 150, 0);
+    private JButton startButton = new JButton();
+    private JButton passButton = new JButton();
 
 
-    private static Field[][] fields;
+    private Field[][] fields;
 
-    public static void CreateGameView() {
+    public void setFields(Field[][] fields) {
+        this.fields = fields;
+    }
+
+    public void CreateGameView() {
 
         //sets up the main frame of the game
         JFrame mainFrame = new JFrame();
@@ -44,11 +48,9 @@ public class Gameview extends JFrame {
 		 * field ist initialized with magic numbers but that will later be changed to a variable 'boardsize'
 		 */
         //TODO adding a variable for the boardsize and fix the size of the gui for larger or smaller boards
-        fields = new Field[8][8];
 
-        for (int row = 0; row < fields.length; row++) {
-            for (int column = 0; column < fields.length; column++) {
-
+        for (int row = 0; row < this.fields.length; row++) {
+            for (int column = 0; column < this.fields.length; column++) {
                 // fields[row][column] = new Field();
                 // fields[row][column].setBackground(backgroundColor);
                 // fields[row][column].setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));

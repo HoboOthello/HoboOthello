@@ -15,6 +15,8 @@ public class Main {
         Game game = new Game();
         game.newGame(8, PlayerTyp.DESKTOP, PlayerTyp.DESKTOP, GameTyp.DESKTOP);
 
+        gameview.setFields(game.isFields());
+
         GameController gameController = new GameController(gameview, game);
 
         gameview.setVisible(true);
