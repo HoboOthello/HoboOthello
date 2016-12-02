@@ -43,3 +43,7 @@ fabric.properties
 # env
 /env
 /venv
+
+# Build dirs
+/target
+/docs/build
