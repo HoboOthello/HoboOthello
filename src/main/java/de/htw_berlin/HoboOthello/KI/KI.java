@@ -11,7 +11,7 @@ public class KI {
 
     private Field[][] fields;
 
-    public void setMove(StoneColor stoneColor){
+    public void setMove(StoneColor stoneColor) {
 
     }
 

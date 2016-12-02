@@ -19,8 +19,9 @@ public class Player {
 
     /**
      * Default constructor for a player
+     *
      * @param playerColor StoneColor wich can be WIHTE or BLACK
-     * @param playerTyp PlayerTyp wich can be DESKTOP, KI or NETWORK
+     * @param playerTyp   PlayerTyp wich can be DESKTOP, KI or NETWORK
      */
     public Player(PlayerColor playerColor, PlayerTyp playerTyp) {
         this.playerColor = playerColor;
@@ -42,10 +43,10 @@ public class Player {
      */
     //TODO laura: do we need this method?
     public void setNextPlayer() {
-        if (this.playerColor == PlayerColor.WHITE){
+        if (this.playerColor == PlayerColor.WHITE) {
             setPlayerColor(PlayerColor.BLACK);
         }
-        if (this.playerColor == PlayerColor.BLACK){
+        if (this.playerColor == PlayerColor.BLACK) {
             setPlayerColor(PlayerColor.WHITE);
         } else {
             throw new IllegalArgumentException("PlayerColor is not defined! Error.");
@@ -56,6 +57,7 @@ public class Player {
     /**
      * Get the StoneColor, is allmost the same like PlayerColor, but it will return
      * a enum StoneColor with the value WHITE or BLACK instead of PlayerColor
+     *
      * @return StoneColor WHITE or BLACK, the same Color like PlayerColor, only another enum class
      */
     public StoneColor getStoneColor() {

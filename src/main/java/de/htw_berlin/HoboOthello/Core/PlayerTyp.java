@@ -2,7 +2,7 @@ package de.htw_berlin.HoboOthello.Core;
 
 /**
  * Created by Steffen Exler on 30.11.16.
- *
+ * <p>
  * Define what typ a Player is
  * DESKTOP --> The User who is running this Programm
  * KI --> Computer

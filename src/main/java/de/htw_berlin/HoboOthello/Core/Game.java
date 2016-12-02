@@ -40,7 +40,7 @@ public class Game {
             this.ki = new KI();
         }
 
-        if (gameTyp == GameTyp.NETWORK ) {
+        if (gameTyp == GameTyp.NETWORK) {
             // todo steffen: need add network stuff
             this.network = new Network();
         }
@@ -53,10 +53,11 @@ public class Game {
 
     /**
      * Set the game turn for the current user, return true if the turn was valid
+     *
      * @param x
      * @param y
      * @return true == trurn is valid
-     *         false == turn is not valid
+     * false == turn is not valid
      */
     public boolean setTurn(int x, int y) {
         if (this.gamestate != Gamestate.STOP) {
@@ -98,7 +99,7 @@ public class Game {
         return false;
     }
 
-    private void setKiNetworkTurn () {
+    private void setKiNetworkTurn() {
         switch (currentPlayer.getPlayerTyp()) {
             case KI:
                 this.ki.setFields(this.gameBoard.isFields());

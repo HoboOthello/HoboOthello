@@ -9,7 +9,7 @@ import de.htw_berlin.HoboOthello.Core.StoneColor;
 public class Network {
     private Field[][] fields;
 
-    public void setMove(StoneColor stoneColor){
+    public void setMove(StoneColor stoneColor) {
 
     }
 

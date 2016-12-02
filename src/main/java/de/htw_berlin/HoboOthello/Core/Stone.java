@@ -13,11 +13,11 @@ public class Stone {
     /**
      * Default constructor for a stone
      */
-    public Stone(){
+    public Stone() {
 
     }
 
-    public StoneColor getStoneColor(){
+    public StoneColor getStoneColor() {
         return this.stoneColor;
     }
 

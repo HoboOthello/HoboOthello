@@ -1,10 +1,9 @@
 package de.htw_berlin.HoboOthello.GUI;
+
 import de.htw_berlin.HoboOthello.Core.Field;
 
-import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
-import  javax.swing.SwingUtilities;
+import java.awt.*;
 
 /**
  * Created by laura on 24.11.16.
@@ -20,7 +19,7 @@ public class Gameview {
 
     private static Field[][] fields;
 
-    public static void CreateGameView (){
+    public static void CreateGameView() {
 
         //sets up the main frame of the game
         JFrame mainFrame = new JFrame();
@@ -28,29 +27,29 @@ public class Gameview {
         mainFrame.setTitle("HoboOthello");
         mainFrame.setLocation(800, 200);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainFrame.setSize(800,800);
+        mainFrame.setSize(800, 800);
         mainFrame.setLayout(new BorderLayout());
         mainFrame.setVisible(true);
 
 
         //create a board
         JPanel boardPanel = new JPanel();
-        boardPanel.setLayout(new GridLayout(8,8));
-        boardPanel.setPreferredSize(new Dimension(650,650));
-        boardPanel.setBorder (BorderFactory.createEtchedBorder());
+        boardPanel.setLayout(new GridLayout(8, 8));
+        boardPanel.setPreferredSize(new Dimension(650, 650));
+        boardPanel.setBorder(BorderFactory.createEtchedBorder());
 
 
 		/*
-		 * create Fields out of the Field class and fill the board with fields
+         * create Fields out of the Field class and fill the board with fields
 		 * field ist initialized with magic numbers but that will later be changed to a variable 'boardsize'
 		 */
         //TODO adding a variable for the boardsize and fix the size of the gui for larger or smaller boards
         fields = new Field[8][8];
 
-        for(int row=0;row<fields.length;row++){
-            for(int column=0;column<fields.length;column++){
+        for (int row = 0; row < fields.length; row++) {
+            for (int column = 0; column < fields.length; column++) {
 
-//                fields[row][column] = new Field();
+                // fields[row][column] = new Field();
                 fields[row][column].setBackground(backgroundColor);
                 fields[row][column].setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
                 boardPanel.add(fields[row][column]).setVisible(true);
@@ -62,12 +61,12 @@ public class Gameview {
         //the panel for all action buttons
         JPanel actionPanel = new JPanel();
         actionPanel.setPreferredSize(new Dimension(800, 100));
-        actionPanel.setBorder (BorderFactory.createEtchedBorder());
+        actionPanel.setBorder(BorderFactory.createEtchedBorder());
         startButton.setText("Start");
-        startButton.setPreferredSize(new Dimension(80,30));
+        startButton.setPreferredSize(new Dimension(80, 30));
         actionPanel.add(startButton);
         passButton.setText("Passen");
-        passButton.setPreferredSize(new Dimension(80,30));
+        passButton.setPreferredSize(new Dimension(80, 30));
         actionPanel.add(passButton);
 
         //the panel to display the actual score
@@ -99,7 +98,6 @@ public class Gameview {
         mainFrame.setVisible(true);
 
     }
-
 
 
 }

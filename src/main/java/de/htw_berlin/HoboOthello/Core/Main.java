@@ -7,16 +7,17 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Board boardStandard = new Board(8);
-        Board boardSmall = new Board(6);
-        Board boardLarge = new Board(10);
+        // Board boardStandard = new Board(8);
+        // Board boardSmall = new Board(6);
+        // Board boardLarge = new Board(10);
 
         //GameRule move = new GameRule();
         //boardStandard.setFields(move.getAllPossibleMoves(StoneColor.BLACK, boardStandard.isFields()));
 
-        System.out.println(boardStandard.getBoardOverview());
+        // System.out.println(boardStandard.getBoardOverview());
 
         // todo steffen: add run Controller
+
 
     }
 }

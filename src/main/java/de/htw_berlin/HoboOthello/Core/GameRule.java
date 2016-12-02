@@ -9,6 +9,7 @@ public class GameRule {
 
     /**
      * Default Constructor
+     *
      * @param fields the gameboard fields
      */
     public GameRule(Field[][] fields) {
@@ -32,11 +33,11 @@ public class GameRule {
     /**
      * Check if the field in fields[x][y] is a possible move for the PlayerColor
      *
-     * @param x x-axis on the board
-     * @param y y-axis on the board
+     * @param x           x-axis on the board
+     * @param y           y-axis on the board
      * @param PlayerColor StoneColor.BLACK or StoneColor.WHITE
      * @return true == the move is possible for this color
-     *         false == the move is not possible for this color
+     * false == the move is not possible for this color
      */
     public boolean IsMoveAllowed(int x, int y, StoneColor PlayerColor) {
         return move(x, y, PlayerColor, false);
@@ -46,11 +47,11 @@ public class GameRule {
      * Set the move in field in fields[x][y] and flip every Stone wich is now owned by
      * this Player
      *
-     * @param x x-axis on the board
-     * @param y y-axis on the board
+     * @param x           x-axis on the board
+     * @param y           y-axis on the board
      * @param PlayerColor StoneColor.BLACK or StoneColor.WHITE
      * @return true == the move is possible for this color
-     *         false == the move is not possible for this color
+     * false == the move is not possible for this color
      */
     public boolean setMove(int x, int y, StoneColor PlayerColor) {
         return move(x, y, PlayerColor, true);
@@ -59,13 +60,13 @@ public class GameRule {
     /**
      * The Method for setMove && IsMoveAllowed wich do the work.
      *
-     * @param x x-axis on the board
-     * @param y y-axis on the board
+     * @param x           x-axis on the board
+     * @param y           y-axis on the board
      * @param PlayerColor StoneColor.BLACK or StoneColor.WHITE
-     * @param flipStones true --> will flip every stone wich will now owned by other Player
-     *                   false --> just return if this field could be use for a possible turn
+     * @param flipStones  true --> will flip every stone wich will now owned by other Player
+     *                    false --> just return if this field could be use for a possible turn
      * @return true == the move is possible for this color
-     *         false == the move is not possible for this color
+     * false == the move is not possible for this color
      */
     private boolean move(int x, int y, StoneColor PlayerColor, boolean flipStones) {
         if (this.fields[x][y].isOccupiedByStone()) {
@@ -91,8 +92,8 @@ public class GameRule {
     /**
      * Flip every Stone on this.fields wich is now owned by the currentPlayer, for setTurn
      *
-     * @param x x-axis on the board
-     * @param y y-axis on the board
+     * @param x           x-axis on the board
+     * @param y           y-axis on the board
      * @param PlayerColor StoneColor.BLACK or StoneColor.WHITE
      * @param x_Direction the direction on the x-axis
      * @param y_Direction the direction on the y-axis
@@ -109,14 +110,14 @@ public class GameRule {
     /**
      * Method for IsMoveAllowed, wich check recursively if this move is possible for this direction
      *
-     * @param x x-axis on the board
-     * @param y y-axis on the board
+     * @param x           x-axis on the board
+     * @param y           y-axis on the board
      * @param PlayerColor StoneColor.BLACK or StoneColor.WHITE
      * @param x_Direction the direction on the x-axis
      * @param y_Direction the direction on the y-axis
-     * @param counter how many stones are between from the start stone and the current stone
+     * @param counter     how many stones are between from the start stone and the current stone
      * @return true == the move is possible for this color
-     *         false == the move is not possible for this color
+     * false == the move is not possible for this color
      */
     private boolean isPossibleField(int x, int y, StoneColor PlayerColor, int x_Direction, int y_Direction, int counter) {
         x = x + x_Direction;
