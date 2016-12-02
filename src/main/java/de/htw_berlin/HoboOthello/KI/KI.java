@@ -1,12 +1,14 @@
-package de.htw_berlin.HoboOthello.Network;
+package de.htw_berlin.HoboOthello.KI;
 
 import de.htw_berlin.HoboOthello.Core.Field;
 import de.htw_berlin.HoboOthello.Core.StoneColor;
 
 /**
- * Created by laura on 24.11.16.
+ * Created by fubu on 01.12.16.
+ * just a sample, need to refactor!
  */
-public class Network {
+public class KI {
+
     private Field[][] fields;
 
     public void setMove(StoneColor stoneColor){

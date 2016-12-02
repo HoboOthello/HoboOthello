@@ -11,10 +11,12 @@ public class Main {
         Board boardSmall = new Board(6);
         Board boardLarge = new Board(10);
 
-        //IsMoveAllowedRule move = new IsMoveAllowedRule();
+        //GameRule move = new GameRule();
         //boardStandard.setFields(move.getAllPossibleMoves(StoneColor.BLACK, boardStandard.isFields()));
 
         System.out.println(boardStandard.getBoardOverview());
+
+        // todo steffen: add run Controller
 
     }
 }
