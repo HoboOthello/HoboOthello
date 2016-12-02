@@ -13,7 +13,7 @@ public class Game {
 
     private Player currentPlayer;
 
-    private Gamestate gamestate;
+    private GameState gameState;
 
     private Board gameBoard;
 
@@ -21,9 +21,14 @@ public class Game {
 
     private KI ki;
 
-    public Game() {
-    }
-
+    /**
+     * create a new Game
+     *
+     * @param boardSize int 6, 8, 10
+     * @param newPlayerBlack the Black Player
+     * @param newPlayerWhite the White Player
+     * @param gameTyp DESKTOP, KI or NETWORK
+     */
     public void newGame(int boardSize, PlayerTyp newPlayerBlack, PlayerTyp newPlayerWhite, GameTyp gameTyp) {
         //TODO add exception
         //init Board
@@ -45,8 +50,8 @@ public class Game {
             this.network = new Network();
         }
 
-        // init gamestate
-        this.gamestate = Gamestate.RUNNING;
+        // init gameState
+        this.gameState = GameState.RUNNING;
 
         // set all others vars to default or create new game class and make this to a constructor
     }
@@ -54,13 +59,13 @@ public class Game {
     /**
      * Set the game turn for the current user, return true if the turn was valid
      *
-     * @param x
-     * @param y
+     * @param x x-axis on the board
+     * @param y y-axis on the board
      * @return true == trurn is valid
      * false == turn is not valid
      */
     public boolean setTurn(int x, int y) {
-        if (this.gamestate != Gamestate.STOP) {
+        if (this.gameState != GameState.STOP) {
             //todo add some kind of output why it fails
             return false;
         }
@@ -89,10 +94,22 @@ public class Game {
 
             if (move.getPossibleMoves() == 0) {
                 // no Player can make a Possible move anymore, so end the game
-                this.gamestate = Gamestate.STOP;
+                this.gameState = GameState.STOP;
             }
 
-            setKiNetworkTurn();
+            // if the currentPlayer ist KI or NETWORK, do there special move
+            switch (currentPlayer.getPlayerTyp()) {
+                case KI:
+                    this.ki.setFields(this.gameBoard.isFields());
+                    ki.setMove(currentPlayer.getStoneColor());
+                    this.gameBoard.setFields(ki.getFields());
+                    nextPlayer();
+                    break;
+                case NETWORK:
+                    //todo steffen do some awesome stuff as well
+                    nextPlayer();
+                    break;
+            }
         }
 
         // return if this tun was successful
@@ -100,21 +117,16 @@ public class Game {
     }
 
     private void setKiNetworkTurn() {
-        switch (currentPlayer.getPlayerTyp()) {
-            case KI:
-                this.ki.setFields(this.gameBoard.isFields());
-                ki.setMove(currentPlayer.getStoneColor());
-                this.gameBoard.setFields(ki.getFields());
-                nextPlayer();
-                break;
-            case NETWORK:
-                //todo steffen do some awesome stuff as well
-                nextPlayer();
-                break;
-        }
+
     }
 
 
+    /**
+     * Get the Player BLACK and WHITE Points as int back.
+     *
+     * @param playerColor BLACK or WHITE
+     * @return Player Points as int
+     */
     public int getPlayerPoints(PlayerColor playerColor) {
 
         StoneColor stoneColor;
@@ -128,6 +140,9 @@ public class Game {
         return gameBoard.getNumberOfFieldsOccupiedByStone(stoneColor);
     }
 
+    /**
+     * set the currentPlayer to playerWhite or playerBlack
+     */
     private void nextPlayer() {
         if (this.currentPlayer == playerBlack) {
             this.currentPlayer = playerWhite;
