@@ -19,6 +19,8 @@ public class Gameview extends JFrame {
 
     private Field[][] fields;
 
+    //TODO: moment mal, das ist eine Methode die wenn schon, dann in Fields gehört? was macht die hier?
+    //TODO gemeinsam überlegen.
     public void setFields(Field[][] fields) {
         this.fields = fields;
     }

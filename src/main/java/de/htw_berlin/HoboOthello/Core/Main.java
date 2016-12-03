@@ -13,7 +13,7 @@ public class Main {
         Gameview gameview = new Gameview();
 
         Game game = new Game();
-        game.newGame(8, PlayerTyp.DESKTOP, PlayerTyp.DESKTOP, GameTyp.DESKTOP);
+        game.newGame(8, PlayerType.DESKTOP, PlayerType.DESKTOP, GameType.DESKTOP);
 
         gameview.setFields(game.isFields());
 

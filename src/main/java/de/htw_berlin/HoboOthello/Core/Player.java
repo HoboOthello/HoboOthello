@@ -12,20 +12,20 @@ public class Player {
 
 
     /**
-     * Player Typ, like DESKTOP, KI, NETWORK, which is a enum PlayerTyp
+     * Player Typ, like DESKTOP, KI, NETWORK, which is a enum PlayerType
      */
-    private PlayerTyp playerTyp;
+    private PlayerType playerType;
 
 
     /**
      * Default constructor for a player
      *
      * @param playerColor StoneColor wich can be WIHTE or BLACK
-     * @param playerTyp   PlayerTyp wich can be DESKTOP, KI or NETWORK
+     * @param playerType   PlayerType wich can be DESKTOP, KI or NETWORK
      */
-    public Player(PlayerColor playerColor, PlayerTyp playerTyp) {
+    public Player(PlayerColor playerColor, PlayerType playerType) {
         this.playerColor = playerColor;
-        this.playerTyp = playerTyp;
+        this.playerType = playerType;
     }
 
     public PlayerColor getPlayerColor() {
@@ -69,11 +69,11 @@ public class Player {
     }
 
 
-    public PlayerTyp getPlayerTyp() {
-        return playerTyp;
+    public PlayerType getPlayerType() {
+        return playerType;
     }
 
-    public void setPlayerTyp(PlayerTyp playerTyp) {
-        this.playerTyp = playerTyp;
+    public void setPlayerType(PlayerType playerType) {
+        this.playerType = playerType;
     }
 }

@@ -24,12 +24,12 @@ public class Game {
     /**
      * create a new Game
      *
-     * @param boardSize int 6, 8, 10
+     * @param boardSize int 6, 8 or 10
      * @param newPlayerBlack the Black Player
      * @param newPlayerWhite the White Player
-     * @param gameTyp DESKTOP, KI or NETWORK
+     * @param gameType DESKTOP, KI or NETWORK
      */
-    public void newGame(int boardSize, PlayerTyp newPlayerBlack, PlayerTyp newPlayerWhite, GameTyp gameTyp) {
+    public void newGame(int boardSize, PlayerType newPlayerBlack, PlayerType newPlayerWhite, GameType gameType) {
         //TODO add exception
         //init Board
         this.gameBoard = new Board(boardSize);
@@ -41,11 +41,11 @@ public class Game {
         this.currentPlayer = this.playerBlack;
 
         // init ki && network, if needed
-        if (gameTyp == GameTyp.KI) {
+        if (gameType == GameType.KI) {
             this.ki = new KI();
         }
 
-        if (gameTyp == GameTyp.NETWORK) {
+        if (gameType == GameType.NETWORK) {
             // todo steffen: need add network stuff
             this.network = new Network();
         }
@@ -61,8 +61,8 @@ public class Game {
      *
      * @param x x-axis on the board
      * @param y y-axis on the board
-     * @return true == trurn is valid
-     * false == turn is not valid
+     * @return  true == turn is valid
+     *          false == turn is not valid
      */
     public boolean setTurn(int x, int y) {
         if (this.gameState != GameState.STOP) {
@@ -70,7 +70,7 @@ public class Game {
             return false;
         }
 
-        // return if the turn was succesfull (possible)
+        // return if the turn was successful (possible)
         GameRule move = new GameRule(this.gameBoard.isFields());
 
         // check if this turn is allowed
@@ -98,7 +98,7 @@ public class Game {
             }
 
             // if the currentPlayer ist KI or NETWORK, do there special move
-            switch (currentPlayer.getPlayerTyp()) {
+            switch (currentPlayer.getPlayerType()) {
                 case KI:
                     this.ki.setFields(this.gameBoard.isFields());
                     ki.setMove(currentPlayer.getStoneColor());
@@ -151,6 +151,7 @@ public class Game {
         }
     }
 
+    //TODO Fields Method, confused. Why here? Also, why is and not get?
     public Field[][] isFields() {
         return this.gameBoard.isFields();
     }

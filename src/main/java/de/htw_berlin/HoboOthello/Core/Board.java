@@ -197,6 +197,10 @@ public class Board {
         this.fields = newFields;
     }
 
+    public int getBoardSize() {
+        return this.boardSize;
+    }
+
 
 }
 
