@@ -14,7 +14,9 @@ public class Field {
     /**
      * Set if this field for the current player a possible move
      */
+    //TODO in order for this to work, we need the implemented gamerules! @Steffen
     private boolean possibleMove;
+
 
     /**
      * Default constructor for empty field
@@ -56,7 +58,7 @@ public class Field {
                 '}';
     }
 
-
+    //TODO in order for this to work, we need the implemented gamerules! @Steffen
     public boolean isPossibleMove() {
         return possibleMove;
     }
