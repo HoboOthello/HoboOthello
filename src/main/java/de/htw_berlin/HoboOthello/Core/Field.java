@@ -14,7 +14,7 @@ public class Field {
     /**
      * Set if this field for the current player a possible move
      */
-    //TODO in order for this to work, we need the implemented gamerules! @Steffen
+    //TODO @Steffen the implemented gamerules seem ready, but i think this is not the right place to check if a move is possible.
     private boolean possibleMove;
 
 
@@ -58,7 +58,7 @@ public class Field {
                 '}';
     }
 
-    //TODO in order for this to work, we need the implemented gamerules! @Steffen
+
     public boolean isPossibleMove() {
         return possibleMove;
     }
