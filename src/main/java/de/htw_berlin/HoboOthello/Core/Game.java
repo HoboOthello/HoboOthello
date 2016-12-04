@@ -74,7 +74,7 @@ public class Game {
         GameRule move = new GameRule(this.gameBoard.isFields());
 
         // check if this turn is allowed
-        boolean moveAllowed = move.IsMoveAllowed(x, y, currentPlayer.getStoneColor());
+        boolean moveAllowed = move.isMoveAllowed(x, y, currentPlayer.getStoneColor());
 
         if (moveAllowed) {
             // set turn

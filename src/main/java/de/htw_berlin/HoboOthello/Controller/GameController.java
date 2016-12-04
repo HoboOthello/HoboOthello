@@ -1,6 +1,7 @@
 package de.htw_berlin.HoboOthello.Controller;
 
 import de.htw_berlin.HoboOthello.Core.Game;
+import de.htw_berlin.HoboOthello.Core.GameRule;
 import de.htw_berlin.HoboOthello.GUI.Gameview;
 
 import java.awt.event.ActionListener;
@@ -12,56 +13,39 @@ import java.awt.event.ActionEvent;
 public class GameController {
 
     private Gameview gameview;
-    private Game theModel;
+    private Game theGame;
+    private GameRule theGameRules;
 
-
-    public GameController(Gameview theView, Game theModel){
+    public GameController(Gameview theView, Game theGame, GameRule theGameRules){
 
         this.gameview = theView;
-        this.theModel = theModel;
-
-        // todo add Listener ?
+        this.theGame = theGame;
+        this.theGameRules = theGameRules;
 
     }
 
-    /*
-    Björns example
 
-    //INNERE KLASSE
+    //inside class
 
-    class CalculationListener implements ActionListener{
+    class BoardListener implements ActionListener{
 
         public void actionPerformed(ActionEvent arg0){
 
-            int firstNumber, secondNumber = 0;
-
             try{
 
-                firstNumber = gameview.getFirstNumber();
-                secondNumber = gameview.getSecondNumber();
-
-                */
-                /**
-                 * Instead, one could do:
-                 theModel.addTwoNumbers(theView.getFirstNumber(), theView.getSecondNumber());
-                 * This way I have two values stored in CONTROL which makes for easier to understand code
-                 */
-                /*
-                theModel.addTwoNumbers(firstNumber, secondNumber);
-
-                gameview.setCalcSolution(theModel.getCalculationValue());
+//                theGameRules.isMoveAllowed()
 
             }
 
             catch(NumberFormatException ex){
 
-                gameview.displayErrorMessage("You need to enter two Integers");
+                gameview.displayErrorMessage("Illegal Move!");
 
             }
         }
 
     }
-                    */
+
 }
 
 
