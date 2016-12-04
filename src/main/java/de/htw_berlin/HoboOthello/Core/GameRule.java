@@ -24,9 +24,9 @@ public class GameRule {
      */
     //TODO change name of method
     public void setAllPossibleMoves(StoneColor playerColor) {
-        for (int i = 0; i < this.fields.length; i++) {
-            for (int j = 0; j < this.fields.length; j++) {
-                this.fields[i][j].setPossibleMove(isMoveAllowed(i, j, playerColor));
+        for (int x = 0; x < this.fields.length; x++) {
+            for (int y = 0; y < this.fields.length; y++) {
+                this.fields[x][y].setPossibleMove(isMoveAllowed(this.fields[x][y], playerColor));
             }
         }
     }
@@ -34,53 +34,50 @@ public class GameRule {
     /**
      * Check if the field in fields[x][y] is a possible move for the PlayerColor
      *
-     * @param x           x-axis on the board
-     * @param y           y-axis on the board
+     * @param field       single Field
      * @param playerColor StoneColor.BLACK or StoneColor.WHITE
      * @return true == the move is possible for this color
      * false == the move is not possible for this color
      */
-    public boolean isMoveAllowed(int x, int y, StoneColor playerColor) {
-        return move(x, y, playerColor, false);
+    public boolean isMoveAllowed(Field field, StoneColor playerColor) {
+        return move(field, playerColor, false);
     }
 
     /**
      * Set the move in field in fields[x][y] and flip every Stone wich is now owned by
      * this Player
      *
-     * @param x           x-axis on the board
-     * @param y           y-axis on the board
+     * @param field       single Field
      * @param playerColor StoneColor.BLACK or StoneColor.WHITE
      * @return true == the move is possible for this color
      * false == the move is not possible for this color
      */
-    public boolean setMove(int x, int y, StoneColor playerColor) {
-        return move(x, y, playerColor, true);
+    public boolean setMove(Field field, StoneColor playerColor) {
+        return move(field, playerColor, true);
     }
 
     /**
      * The Method for setMove && isMoveAllowed wich do the work.
      *
-     * @param x           x-axis on the board
-     * @param y           y-axis on the board
+     * @param field       single Field
      * @param playerColor StoneColor.BLACK or StoneColor.WHITE
      * @param flipStones  true --> will flip every stone wich will now owned by other Player
      *                    false --> just return if this field could be use for a possible turn
      * @return true == the move is possible for this color
      * false == the move is not possible for this color
      */
-    private boolean move(int x, int y, StoneColor playerColor, boolean flipStones) {
-        if (this.fields[x][y].isOccupiedByStone()) {
+    private boolean move(Field field, StoneColor playerColor, boolean flipStones) {
+        if (field.isOccupiedByStone()) {
             return false;
         }
 
-        //TODO STEFFEN refactoring for-Loop
-        for (int i = -1; i <= 1; i++) {
-            for (int j = -1; j <= 1; j++) {
-                if (i != 0 | j != 0) {
-                    if (isPossibleField(x, y, playerColor, i, j, 0)) {
+        // set the vectors
+        for (int x = -1; x <= 1; x++) {
+            for (int y = -1; y <= 1; y++) {
+                if (x != 0 | y != 0) {
+                    if (isPossibleField(field, playerColor, x, y, 0)) {
                         if (flipStones) {
-                            flipStones(x, y, playerColor, i, j);
+                            flipStones(field, playerColor, x, y);
 
                         }
                         //TODO BUGFIX STEFFEN have a look at flipstones if all rows are being flipped
@@ -96,26 +93,26 @@ public class GameRule {
     /**
      * Flip every Stone on this.fields wich is now owned by the currentPlayer, for setTurn
      *
-     * @param x           x-axis on the board
-     * @param y           y-axis on the board
+     * @param field       single Field
      * @param playerColor StoneColor.BLACK or StoneColor.WHITE
      * @param x_Direction the direction on the x-axis
      * @param y_Direction the direction on the y-axis
      */
-    private void flipStones(int x, int y, StoneColor playerColor, int x_Direction, int y_Direction) {
+    private void flipStones(Field field, StoneColor playerColor, int x_Direction, int y_Direction) {
         do {
-            x = x + x_Direction;
-            y = y + y_Direction;
+            int x = field.getX() + x_Direction;
+            int y = field.getY() + y_Direction;
 
-            this.fields[x][y].getStone().setStoneColor(playerColor);
-        } while (this.fields[x][y].getStone().getStoneColor() != playerColor);
+            field = this.fields[x][y];
+
+            field.getStone().setStoneColor(playerColor);
+        } while (field.getStone().getStoneColor() != playerColor);
     }
 
     /**
      * Method for isMoveAllowed, wich check recursively if this move is possible for this direction
      *
-     * @param x           x-axis on the board
-     * @param y           y-axis on the board
+     * @param field       single Field
      * @param playerColor StoneColor.BLACK or StoneColor.WHITE
      * @param x_Direction the direction on the x-axis
      * @param y_Direction the direction on the y-axis
@@ -123,22 +120,24 @@ public class GameRule {
      * @return true == the move is possible for this color
      * false == the move is not possible for this color
      */
-    private boolean isPossibleField(int x, int y, StoneColor playerColor, int x_Direction, int y_Direction, int counter) {
-        x = x + x_Direction;
-        y = y + y_Direction;
+    private boolean isPossibleField(Field field, StoneColor playerColor, int x_Direction, int y_Direction, int counter) {
+        int x = field.getX() + x_Direction;
+        int y = field.getY() + y_Direction;
+
+        field = this.fields[x][y];
 
         if (x >= 0 && y >= 0 && x < this.fields.length && y < this.fields.length) {
-            if (this.fields[x][y].isEmpty()) {
+            if (field.isEmpty()) {
                 return false;
             }
 
-            if (this.fields[x][y].getStone().getStoneColor() == playerColor && counter > 0) {
+            if (field.getStone().getStoneColor() == playerColor && counter > 0) {
                 return true;
             }
 
-            if (this.fields[x][y].getStone().getStoneColor() != playerColor) {
+            if (field.getStone().getStoneColor() != playerColor) {
                 counter++;
-                return isPossibleField(x, y, playerColor, x_Direction, y_Direction, counter);
+                return isPossibleField(field, playerColor, x_Direction, y_Direction, counter);
             }
         }
 
