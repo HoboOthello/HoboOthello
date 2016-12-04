@@ -1,20 +1,20 @@
 package de.htw_berlin.HoboOthello.KI;
 
-import de.htw_berlin.HoboOthello.Core.Board;
-import de.htw_berlin.HoboOthello.Core.Field;
-import de.htw_berlin.HoboOthello.Core.StoneColor;
+import de.htw_berlin.HoboOthello.Core.*;
 
 
-public class KI {
+public class KI extends Player{
 
 
     private Board board;
 
-    public KI() {
+    public KI(PlayerColor kiColor, PlayerType kiType) {
 
     }
 
-    public setMove(Board board) {}
+    public Field setMove(Board board) {
+        return Field;
+    }
 
 
 }

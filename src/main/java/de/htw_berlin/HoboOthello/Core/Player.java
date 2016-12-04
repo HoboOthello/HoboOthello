@@ -11,22 +11,17 @@ public class Player {
     private PlayerColor playerColor;
 
 
-    /**
-     * Player Typ, like DESKTOP, KI, NETWORK, which is a enum PlayerType
-     */
-    private PlayerType playerType;
-
 
 
     /**
      * Default constructor for a player
      *
-     * @param playerColor StoneColor wich can be WIHTE or BLACK
-     * @param playerType   PlayerType wich can be DESKTOP, KI or NETWORK
+     * @param playerColor StoneColor which can be WIHTE or BLACK
+     *
      */
-    public Player(PlayerColor playerColor, PlayerType playerType) {
+    public Player(PlayerColor playerColor) {
         this.playerColor = playerColor;
-        this.playerType = playerType;
+
     }
 
     public PlayerColor getPlayerColor() {
