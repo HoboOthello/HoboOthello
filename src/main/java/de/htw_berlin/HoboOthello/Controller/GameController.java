@@ -1,7 +1,6 @@
 package de.htw_berlin.HoboOthello.Controller;
 
 import de.htw_berlin.HoboOthello.Core.Game;
-import de.htw_berlin.HoboOthello.Core.GameRule;
 import de.htw_berlin.HoboOthello.GUI.Gameview;
 
 import java.awt.event.ActionListener;
