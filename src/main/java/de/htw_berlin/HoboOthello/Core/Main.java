@@ -17,9 +17,9 @@ public class Main {
 
         // gameview.setFields(game.isFields());
 
-        // GameController gameController = new GameController(gameview, game);
+        GameController gameController = new GameController(gameview, game);
 
-        gameview.setVisible(true);
+        gameview.createGameView();
 
         // Board boardStandard = new Board(8);
         // Board boardSmall = new Board(6);

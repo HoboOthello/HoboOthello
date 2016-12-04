@@ -69,13 +69,4 @@ public class Player {
             return StoneColor.WHITE;
         }
     }
-
-
-    public PlayerType getPlayerType() {
-        return playerType;
-    }
-
-    public void setPlayerType(PlayerType playerType) {
-        this.playerType = playerType;
-    }
 }

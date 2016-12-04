@@ -13,7 +13,8 @@ public class KI extends Player{
     }
 
     public Field setMove(Board board) {
-        return Field;
+        //return Field;
+        return null;
     }
 
 
