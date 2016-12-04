@@ -13,13 +13,13 @@ public class Main {
         Gameview gameview = new Gameview();
 
         Game game = new Game();
-        game.newGame(8, PlayerType.DESKTOP, PlayerType.DESKTOP, GameType.DESKTOP);
+        game.newGame(8, new Player(PlayerColor.BLACK), new Player(PlayerColor.WHITE));
 
-        gameview.setFields(game.isFields());
+        // gameview.setFields(game.isFields());
 
         GameController gameController = new GameController(gameview, game);
 
-        gameview.setVisible(true);
+        gameview.createGameView();
 
         // Board boardStandard = new Board(8);
         // Board boardSmall = new Board(6);

@@ -14,17 +14,15 @@ public class GameController {
 
     private Gameview gameview;
     private Game theGame;
-    private GameRule theGameRules;
 
-    public GameController(Gameview theView, Game theGame, GameRule theGameRules){
+    public GameController(Gameview theView, Game theGame){
 
         this.gameview = theView;
         this.theGame = theGame;
-        this.theGameRules = theGameRules;
 
-        this.gameview.addBoardListener(new BoardListener());
-        this.gameview.addMenuListener(new MenuListener());
-        this.gameview.addExitListener(new ExitListener());
+        // this.gameview.addBoardListener(new BoardListener());
+        // this.gameview.addMenuListener(new MenuListener());
+        // this.gameview.addExitListener(new ExitListener());
 
     }
 
