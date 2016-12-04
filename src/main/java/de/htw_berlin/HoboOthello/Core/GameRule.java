@@ -17,11 +17,12 @@ public class GameRule {
     }
 
     /**
-     * Set all fields wich are possible move for the player with the color playerColor to true in PossibleMove
+     * Set all fields which are possible move for the player with the color playerColor to true in PossibleMove
      *
      * @param playerColor StoneColor.BLACK or StoneColor.WHITE
      * @return fields where PossibleMove is set right
      */
+    //TODO change name of method
     public void setAllPossibleMoves(StoneColor playerColor) {
         for (int i = 0; i < this.fields.length; i++) {
             for (int j = 0; j < this.fields.length; j++) {
