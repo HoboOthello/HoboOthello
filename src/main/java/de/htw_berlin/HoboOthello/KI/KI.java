@@ -13,8 +13,11 @@ public class KI extends Player{
     }
 
     public Field setMove(Board board) {
+        //in board gucken welche fields possible sind, liste zurück geben
         return Field;
     }
+
+
 
 
 }

@@ -22,7 +22,7 @@ public class Player {
     /**
      * Constructor for a player
      *
-     * @param playerColor StoneColor which can be WIHTE or BLACK
+     * @param playerColor StoneColor which can be WHITE or BLACK
      *
      */
     public Player(PlayerColor playerColor) {
