@@ -12,9 +12,14 @@ public class Field {
     private Stone stone;
 
     /**
+     * Int x and y describe the location of the field on the board
+     */
+    private int x;
+    private int y;
+
+    /**
      * Set if this field for the current player a possible move
      */
-    //TODO @Steffen the implemented gamerules seem ready, but i think this is not the right place to check if a move is possible.
     private boolean possibleMove;
 
 
@@ -22,6 +27,15 @@ public class Field {
      * Default constructor for empty field
      */
     public Field() {
+
+    }
+
+    /**
+     * Constructor for field with exact location on the board
+     */
+    public Field(int x, int y){
+        this.x = x;
+        this.y = y;
     }
 
     public void setStone(Stone stoneToSet) {
@@ -51,12 +65,6 @@ public class Field {
         }
     }
 
-    @Override
-    public String toString() {
-        return "Field{" +
-                "stone=" + stone +
-                '}';
-    }
 
 
     public boolean isPossibleMove() {
@@ -65,5 +73,24 @@ public class Field {
 
     public void setPossibleMove(boolean possibleMove) {
         this.possibleMove = possibleMove;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+
+    @java.lang.Override
+    public java.lang.String toString() {
+        return "Field{" +
+                "stone=" + stone +
+                ", x=" + x +
+                ", y=" + y +
+                ", possibleMove=" + possibleMove +
+                '}';
     }
 }

@@ -17,6 +17,7 @@ public class Player {
     private PlayerType playerType;
 
 
+
     /**
      * Default constructor for a player
      *
