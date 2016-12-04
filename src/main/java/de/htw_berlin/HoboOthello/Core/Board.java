@@ -101,9 +101,9 @@ public class Board {
 
         // add starting stones for both players
         Stone stoneBlack = new Stone();
-        stoneBlack.setStoneColor(StoneColor.BLACK);
+        stoneBlack.setStoneColor(Color.BLACK);
         Stone stoneWhite = new Stone();
-        stoneWhite.setStoneColor(StoneColor.WHITE);
+        stoneWhite.setStoneColor(Color.WHITE);
 
         int BoardHalfLength = fieldsToFill.length / 2;
         int middle_x_left = BoardHalfLength - 1;
@@ -125,7 +125,7 @@ public class Board {
      * @param colorOfStonesToCount the color of stones which are being counted
      * @return int number of fields which are occupied by a stone of that color
      */
-    private int numberOfFieldsOccupiedByStoneColor(StoneColor colorOfStonesToCount) {
+    private int numberOfFieldsOccupiedByStoneColor(Color colorOfStonesToCount) {
         int counterOccupiedByStoneColor = 0;
         Stone stone = new Stone();
         for (int i = 0; i < fields.length; i++) {
@@ -145,7 +145,7 @@ public class Board {
      * @param stoneColor the color of stones which are being counted
      * @return int number of fields which are occupied by a stone of that color
      */
-    public int getNumberOfFieldsOccupiedByStone(StoneColor stoneColor) {
+    public int getNumberOfFieldsOccupiedByStone(Color stoneColor) {
         return numberOfFieldsOccupiedByStoneColor(stoneColor);
     }
 
@@ -158,7 +158,7 @@ public class Board {
      * Count Total number of fields which are occupied by a stone
      */
     private void setNumberOfOccupiedFields () {
-        this.numberOfOccupiedFields = numberOfFieldsOccupiedByStoneColor(StoneColor.WHITE) + numberOfFieldsOccupiedByStoneColor(StoneColor.BLACK);
+        this.numberOfOccupiedFields = numberOfFieldsOccupiedByStoneColor(Color.WHITE) + numberOfFieldsOccupiedByStoneColor(Color.BLACK);
     }
 
     /**
