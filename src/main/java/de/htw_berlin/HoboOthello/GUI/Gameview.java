@@ -62,16 +62,31 @@ public class Gameview extends JFrame {
         this.setLayout(new BorderLayout());
         this.setVisible(true);
 
+
         /*
          * Menue
          */
         this.setJMenuBar( new JMenuBar() );
+
         JMenu gameMenu = new JMenu ("Datei");
         JMenuItem closeGame = new JMenuItem("Exit");
         JMenuItem newGame = new JMenuItem("New Game");
         gameMenu.add(newGame);
         gameMenu.add(closeGame);
         this.getJMenuBar().add(gameMenu);
+
+        JMenu aboutMenu = new JMenu ("About");
+        this.getJMenuBar().add(aboutMenu);
+        JMenuItem aboutItem = new JMenuItem ("About");
+        aboutItem.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        JOptionPane.showMessageDialog (null, "HoboOthello created by: Laura, Steffen and Bjoern","Info", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                }
+        );
+        aboutMenu.add(aboutItem);
+
 
         /*
          * create a board. board is the center panel
@@ -80,25 +95,24 @@ public class Gameview extends JFrame {
         boardPanel.setLayout( new GridLayout(8,8) );
         boardPanel.setBorder( BorderFactory.createEtchedBorder() );
 
+
 		/*
 		 * create Fields out of the Field class and fill the board with fields
 		 * field ist initialized with magic numbers but that will later be changed to a variable 'boardsize'
 		 */
         //TODO add the double for-loop to the method setBoard()
-
-
         fieldView = new JButton[8][8];
 
-        for(int row=0;row<fieldView.length;row++){
-            for(int column=0;column<fieldView.length;column++){
+            for(int row=0;row<fieldView.length;row++){
+                for(int column=0;column<fieldView.length;column++){
 
-                fieldView[row][column] = new JButton();
-                fieldView[row][column].setBackground( backgroundColor );
-                fieldView[row][column].setBorder( BorderFactory.createLineBorder( Color.BLACK, 1) );
-                boardPanel.add( fieldView[row][column] ).setVisible( true );
+                    fieldView[row][column] = new JButton();
+                    fieldView[row][column].setBackground( backgroundColor );
+                    fieldView[row][column].setBorder( BorderFactory.createLineBorder( Color.BLACK, 1) );
+                    boardPanel.add( fieldView[row][column] ).setVisible( true );
 
+                }
             }
-        }
 
 
         /*
@@ -155,7 +169,7 @@ public class Gameview extends JFrame {
      * the method to add an actionListener to the Gameview
      */
     //TODO add ActionListener to Controller
-    void addButtonListener(ActionListener listenerForFieldButton) {
+    public void addBoardListener(ActionListener listenerForFieldButton) {
 
         for( int row=0; row<fieldView.length; row++ ) {
             for( int column=0; column<fieldView.length; column++ ) {
@@ -165,6 +179,25 @@ public class Gameview extends JFrame {
             }
         }
     }
+
+    /*
+     * the ActionListener checking the JMenu
+     *
+     */
+    public void addMenuListener(ActionListener listenerForMenuClick) {
+
+        //TODO Bjoern see Controller
+        this.getJMenuBar().getMenu(0).addActionListener(listenerForMenuClick);
+
+    }
+
+    public void addExitListener(ActionListener listenerForMenuClick) {
+
+        //TODO Bjoern see Controller
+        this.getJMenuBar().getMenu(1).addActionListener(listenerForMenuClick);
+
+    }
+
 
     /*
      * error message to display errors

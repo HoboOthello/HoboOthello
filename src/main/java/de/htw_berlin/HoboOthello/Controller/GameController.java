@@ -22,10 +22,14 @@ public class GameController {
         this.theGame = theGame;
         this.theGameRules = theGameRules;
 
+        this.gameview.addBoardListener(new BoardListener());
+        this.gameview.addMenuListener(new MenuListener());
+        this.gameview.addExitListener(new ExitListener());
+
     }
 
 
-    //inside class
+    //inside classes
 
     class BoardListener implements ActionListener{
 
@@ -33,7 +37,7 @@ public class GameController {
 
             try{
 
-//                theGameRules.isMoveAllowed()
+                //TODO BJOERN write a line that checks if the field is a legal field to click on
 
             }
 
@@ -45,6 +49,49 @@ public class GameController {
         }
 
     }
+
+    class MenuListener implements ActionListener{
+
+        public void actionPerformed(ActionEvent arg0){
+
+            try{
+
+                //TODO BJOERN write a line that starts a new game
+
+            }
+
+            catch(NumberFormatException ex){
+
+                gameview.displayErrorMessage("Ups! Something is wrong?!");
+
+            }
+        }
+
+    }
+
+    class ExitListener implements ActionListener{
+
+        public void actionPerformed(ActionEvent arg0){
+
+            try{
+
+                //TODO BJOERN write a line that ends a new game
+                gameview.setVisible(false);
+                gameview.displayErrorMessage("You're a true Hobo!");
+            }
+
+            catch(NumberFormatException ex){
+
+                gameview.displayErrorMessage("Ups! Something is wrong?!");
+
+            }
+        }
+
+    }
+
+
+
+
 
 }
 
