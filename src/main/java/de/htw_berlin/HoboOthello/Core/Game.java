@@ -60,11 +60,12 @@ public class Game {
     /**
      * Set the game turn for the current user, return true if the turn was valid
      *
-     * @param field       single Field
+     * @param x x-axis on the board
+     * @param y y-axis on the board
      * @return  true == turn is valid
      *          false == turn is not valid
      */
-    public boolean setTurn(Field field) {
+    public boolean setTurn(int x, int y) {
         if (this.gameState != GameState.STOP) {
             //todo add some kind of output why it fails
             return false;
@@ -74,13 +75,13 @@ public class Game {
         GameRule move = new GameRule(this.gameBoard.isFields());
 
         // check if this turn is allowed
-        boolean moveAllowed = move.isMoveAllowed(field, currentPlayer.getStoneColor());
+        boolean moveAllowed = move.isMoveAllowed(x, y, currentPlayer.getStoneColor());
 
         if (moveAllowed) {
             // set turn
-            move.setMove(field, currentPlayer.getStoneColor());
+            move.setMove(x, y, currentPlayer.getStoneColor());
             nextPlayer();
-            move.setAllPossibleMoves(currentPlayer.getStoneColor());
+            move.changeAllPossibleFieldsToTrue(currentPlayer.getStoneColor());
             this.gameBoard.setFields(move.getFields());
         } else {
             return false;
@@ -89,7 +90,7 @@ public class Game {
         if (move.getPossibleMoves() == 0) {
             // currentPlayer can't make a possible turn, so set the next Player
             nextPlayer();
-            move.setAllPossibleMoves(currentPlayer.getStoneColor());
+            move.changeAllPossibleFieldsToTrue(currentPlayer.getStoneColor());
             this.gameBoard.setFields(move.getFields());
 
             if (move.getPossibleMoves() == 0) {

@@ -17,13 +17,13 @@ public class GameRule {
     }
 
     /**
-     * Set all fields which are possible move for the player with the color playerColor to true in PossibleMove
+     * Method which switches the boolean possibleMove for all fields which are a
+     * possible option for the current Player to true
      *
      * @param playerColor StoneColor.BLACK or StoneColor.WHITE
      * @return fields where PossibleMove is set right
      */
-    //TODO change name of method
-    public void setAllPossibleMoves(StoneColor playerColor) {
+    public void changeAllPossibleFieldsToTrue(StoneColor playerColor) {
         for (int x = 0; x < this.fields.length; x++) {
             for (int y = 0; y < this.fields.length; y++) {
                 this.fields[x][y].setPossibleMove(isMoveAllowed(this.fields[x][y], playerColor));
@@ -44,7 +44,7 @@ public class GameRule {
     }
 
     /**
-     * Set the move in field in fields[x][y] and flip every Stone wich is now owned by
+     * Set the move in field in fields[x][y] and flip every Stone which is now owned by
      * this Player
      *
      * @param field       single Field
@@ -57,11 +57,11 @@ public class GameRule {
     }
 
     /**
-     * The Method for setMove && isMoveAllowed wich do the work.
+     * The Method for setMove && isMoveAllowed which do the work.
      *
      * @param field       single Field
      * @param playerColor StoneColor.BLACK or StoneColor.WHITE
-     * @param flipStones  true --> will flip every stone wich will now owned by other Player
+     * @param flipStones  true --> will flip every stone which will now owned by other Player
      *                    false --> just return if this field could be use for a possible turn
      * @return true == the move is possible for this color
      * false == the move is not possible for this color
