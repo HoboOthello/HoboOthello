@@ -1,5 +1,8 @@
 package de.htw_berlin.HoboOthello.Core;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by laura on 17.11.16.
  */
@@ -40,8 +43,21 @@ public class Board {
                 || boardSize == BOARD_SIZE_TEN;
     }
 
+    public List<Field> iterateThroughAllFields() {
+
+        List<Field> listOfFields = new ArrayList<Field>();
+
+        for (int i = 0; i < this.fields.length; i++) {
+            for (int j = 0; j < this.fields[i].length; j++) {
+                listOfFields.add(this.fields[i][j]);
+            }
+        }
+        return listOfFields;
+    }
+
     /**
      * Construct the current Board as a multiline String for debugging
+     *
      * @return Board overview as a String
      */
     public String getBoardOverview() {
@@ -157,7 +173,7 @@ public class Board {
     /**
      * Count Total number of fields which are occupied by a stone
      */
-    private void setNumberOfOccupiedFields () {
+    private void setNumberOfOccupiedFields() {
         this.numberOfOccupiedFields = numberOfFieldsOccupiedByStoneColor(Color.WHITE) + numberOfFieldsOccupiedByStoneColor(Color.BLACK);
     }
 
