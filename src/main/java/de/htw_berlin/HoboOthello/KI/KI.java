@@ -8,7 +8,7 @@ public class KI extends Player{
 
     private Board board;
 
-    public KI(PlayerColor kiColor, PlayerType kiType) {
+    public KI(PlayerColor kiColor) {
 
     }
 

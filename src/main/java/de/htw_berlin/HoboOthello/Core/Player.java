@@ -11,10 +11,16 @@ public class Player {
     private PlayerColor playerColor;
 
 
+    /**
+     * Default constructor for a player
+     */
+    public Player(){
+
+    }
 
 
     /**
-     * Default constructor for a player
+     * Constructor for a player
      *
      * @param playerColor StoneColor which can be WIHTE or BLACK
      *
