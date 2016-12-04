@@ -27,19 +27,19 @@ public class Game {
      * @param boardSize int 6, 8 or 10
      * @param newPlayerBlack the Black Player
      * @param newPlayerWhite the White Player
-     * @param gameType DESKTOP, KI or NETWORK
      */
-    public void newGame(int boardSize, PlayerType newPlayerBlack, PlayerType newPlayerWhite, GameType gameType) {
+    public void newGame(int boardSize, Player newPlayerBlack, Player newPlayerWhite) {
         //TODO add exception
         //init Board
         this.gameBoard = new Board(boardSize);
 
         // init Players
-        this.playerBlack = new Player(PlayerColor.BLACK, newPlayerBlack);
-        this.playerWhite = new Player(PlayerColor.WHITE, newPlayerWhite);
+        this.playerBlack = newPlayerBlack;
+        this.playerWhite = newPlayerWhite;
 
         this.currentPlayer = this.playerBlack;
 
+        /*
         // init ki && network, if needed
         if (gameType == GameType.KI) {
             this.ki = new KI();
@@ -49,6 +49,7 @@ public class Game {
             // todo steffen: need add network stuff
             this.network = new Network();
         }
+        */
 
         // init gameState
         this.gameState = GameState.RUNNING;
@@ -97,6 +98,7 @@ public class Game {
                 this.gameState = GameState.STOP;
             }
 
+            /*
             // if the currentPlayer ist KI or NETWORK, do there special move
             switch (currentPlayer.getPlayerType()) {
                 case KI:
@@ -110,6 +112,7 @@ public class Game {
                     nextPlayer();
                     break;
             }
+            */
         }
 
         // return if this tun was successful
