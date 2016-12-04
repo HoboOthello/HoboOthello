@@ -6,9 +6,9 @@ package de.htw_berlin.HoboOthello.Core;
 public class Player {
 
     /**
-     * A player has a color, which is a enum PlayerColor
+     * A player has a color, which is a enum Color
      */
-    private PlayerColor playerColor;
+    private Color color;
 
 
     /**
@@ -22,20 +22,20 @@ public class Player {
     /**
      * Constructor for a player
      *
-     * @param playerColor StoneColor which can be WHITE or BLACK
+     * @param color StoneColor which can be WHITE or BLACK
      *
      */
-    public Player(PlayerColor playerColor) {
-        this.playerColor = playerColor;
+    public Player(Color color) {
+        this.color = color;
 
     }
 
-    public PlayerColor getPlayerColor() {
-        return playerColor;
+    public Color getColor() {
+        return color;
     }
 
-    public void setPlayerColor(PlayerColor playerColor) {
-        this.playerColor = playerColor;
+    public void setColor(Color color) {
+        this.color = color;
     }
 
     /**
@@ -45,25 +45,25 @@ public class Player {
      */
     //TODO laura: do we need this method?
     public void setNextPlayer() {
-        if (this.playerColor == PlayerColor.WHITE) {
-            setPlayerColor(PlayerColor.BLACK);
+        if (this.color == Color.WHITE) {
+            setColor(Color.BLACK);
         }
-        if (this.playerColor == PlayerColor.BLACK) {
-            setPlayerColor(PlayerColor.WHITE);
+        if (this.color == Color.BLACK) {
+            setColor(Color.WHITE);
         } else {
-            throw new IllegalArgumentException("PlayerColor is not defined! Error.");
+            throw new IllegalArgumentException("Color is not defined! Error.");
         }
 
     }
 
     /**
-     * Get the StoneColor, is allmost the same like PlayerColor, but it will return
-     * a enum StoneColor with the value WHITE or BLACK instead of PlayerColor
+     * Get the StoneColor, is allmost the same like Color, but it will return
+     * a enum StoneColor with the value WHITE or BLACK instead of Color
      *
-     * @return StoneColor WHITE or BLACK, the same Color like PlayerColor, only another enum class
+     * @return StoneColor WHITE or BLACK, the same Color like Color, only another enum class
      */
     public StoneColor getStoneColor() {
-        if (this.playerColor == PlayerColor.BLACK) {
+        if (this.color == Color.BLACK) {
             return StoneColor.BLACK;
         } else {
             return StoneColor.WHITE;

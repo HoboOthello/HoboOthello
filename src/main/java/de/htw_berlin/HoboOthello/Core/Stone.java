@@ -6,9 +6,9 @@ package de.htw_berlin.HoboOthello.Core;
 public class Stone {
 
     /**
-     * A stone has a color, which is a enum StoneColor
+     * A stone has a color, which is a enum named Color
      */
-    private StoneColor stoneColor;
+    private Color stoneColor;
 
     /**
      * Default constructor for a stone
@@ -17,11 +17,11 @@ public class Stone {
 
     }
 
-    public StoneColor getStoneColor() {
+    public Color getStoneColor() {
         return this.stoneColor;
     }
 
-    public void setStoneColor(StoneColor color) {
+    public void setStoneColor(Color color) {
         this.stoneColor = color;
     }
 

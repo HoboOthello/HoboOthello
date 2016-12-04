@@ -1,8 +1,8 @@
 package de.htw_berlin.HoboOthello.Core;
 
 /**
- * Created by laura on 26.11.16.
+ * Created by laura on 27.11.16.
  */
-public enum StoneColor {
+public enum Color {
     WHITE, BLACK
 }

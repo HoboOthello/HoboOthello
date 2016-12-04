@@ -7,13 +7,13 @@ import java.util.HashMap;
 
 public class KI extends Player{
 
-    private PlayerColor kiColor;
+    private Color kiColor;
 
     private Board board;
     private Field field;
     private GameRule gameRule;
 
-    public KI(PlayerColor kiColor) {
+    public KI(Color kiColor) {
         this.kiColor = kiColor;
     }
 

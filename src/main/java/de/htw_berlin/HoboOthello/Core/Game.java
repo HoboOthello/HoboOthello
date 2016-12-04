@@ -127,14 +127,14 @@ public class Game {
     /**
      * Get the Player BLACK and WHITE Points as int back.
      *
-     * @param playerColor BLACK or WHITE
+     * @param color BLACK or WHITE
      * @return Player Points as int
      */
-    public int getPlayerPoints(PlayerColor playerColor) {
+    public int getPlayerPoints(Color color) {
 
         StoneColor stoneColor;
 
-        if (playerColor == PlayerColor.BLACK) {
+        if (color == Color.BLACK) {
             stoneColor = StoneColor.BLACK;
         } else {
             stoneColor = StoneColor.WHITE;

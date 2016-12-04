@@ -13,7 +13,7 @@ public class Main {
         Gameview gameview = new Gameview();
 
         Game game = new Game();
-        game.newGame(8, new Player(PlayerColor.BLACK), new Player(PlayerColor.WHITE));
+        game.newGame(8, new Player(Color.BLACK), new Player(Color.WHITE));
 
         // gameview.setFields(game.isFields());
 
