@@ -43,20 +43,56 @@ public class Board {
                 || boardSize == BOARD_SIZE_TEN;
     }
 
+    /**
+     * Method which iterates through all the fields on the board in this specific order:
+     * Starts at [0][0], moves down the first vertical vector ([0][++]),
+     * then moves one column to the right ([1][0]) and down the second  vertical vector ([1][++]), etc.
+     * int i = counter on x-axis
+     * int j = counter on y-axis
+     *
+     * @return listOfFields which is a lists of all fields, in this specific order
+     */
     public List<Field> iterateThroughAllFields() {
 
         List<Field> listOfFields = new ArrayList<Field>();
 
         for (int i = 0; i < this.fields.length; i++) {
-            for (int j = 0; j < this.fields[i].length; j++) {
+            for (int j = 0; j < this.fields.length; j++) {
                 listOfFields.add(this.fields[i][j]);
             }
         }
         return listOfFields;
     }
 
+    public boolean isCornerField(Field field) {
+        if (field == this.fields[0][0] ||
+                field == this.fields[0][fields.length] ||
+                field == this.fields[fields.length][0] ||
+                field == this.fields[fields.length][fields.length]) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean isSideField(Field field) {
+        boolean isSideField = false;
+        int counter = 0;
+        while (counter < fields.length || isSideField){
+            if (field == this.fields[0][counter] ||
+                    field == this.fields[counter][0] ||
+                    field == this.fields[fields.length][counter] ||
+                    field == this.fields[counter][fields.length]) {
+                isSideField = true;
+            } else {
+                counter++;
+            }
+        }
+        return isSideField;
+    }
+
     /**
-     * Construct the current Board as a multiline String for debugging
+     * Construct the current Board as a multi-line String for debugging
      *
      * @return Board overview as a String
      */
@@ -171,18 +207,12 @@ public class Board {
     private int numberOfOccupiedFields;
 
     /**
-     * Count Total number of fields which are occupied by a stone
-     */
-    private void setNumberOfOccupiedFields() {
-        this.numberOfOccupiedFields = numberOfFieldsOccupiedByStoneColor(Color.WHITE) + numberOfFieldsOccupiedByStoneColor(Color.BLACK);
-    }
-
-    /**
      * Gets how many fields are occupied by a stone
      *
      * @return the total number of fields which are occupied by a stone
      */
     public int getNumberOfOccupiedFields() {
+        this.numberOfOccupiedFields = numberOfFieldsOccupiedByStoneColor(Color.WHITE) + numberOfFieldsOccupiedByStoneColor(Color.BLACK);
         return numberOfOccupiedFields;
     }
 

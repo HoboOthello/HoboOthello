@@ -46,6 +46,7 @@ public class Field {
         return this.stone;
     }
 
+    //TODO: methode schreiben die den spieler den letzten Zug rückgängig machen lässt (achte auch auf stones die wieder umgedreht werden müssen)
     public void setEmpty() {
         this.stone = null;
     }
@@ -71,6 +72,7 @@ public class Field {
         return possibleMove;
     }
 
+    //TODO: Steffen: check if setter is needed, i don't think so (laura)
     public void setPossibleMove(boolean possibleMove) {
         this.possibleMove = possibleMove;
     }

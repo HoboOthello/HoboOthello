@@ -52,7 +52,7 @@ public class KI extends Player {
 
         for (Field field : board.iterateThroughAllFields()) {
             if (gameRule.isMoveAllowed(field, kiColor)) {
-                listOfPossibleMoves.add(this.field);
+                listOfPossibleMoves.add(field);
             }
         }
         return listOfPossibleMoves;
