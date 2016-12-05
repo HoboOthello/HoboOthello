@@ -10,16 +10,21 @@ public class Main {
 
     public static void main(String[] args) {
 
+
         Gameview gameview = new Gameview();
 
         Game game = new Game();
         game.newGame(8, new Player(Color.BLACK), new Player(Color.WHITE));
 
-        // gameview.setFields(game.isFields());
+
 
         GameController gameController = new GameController(gameview, game);
 
         gameview.createGameView();
+
+
+        // gameview.setFields(game.isFields());
+
 
         // Board boardStandard = new Board(8);
         // Board boardSmall = new Board(6);

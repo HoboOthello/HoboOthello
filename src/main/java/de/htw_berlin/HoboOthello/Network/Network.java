@@ -1,7 +1,7 @@
 package de.htw_berlin.HoboOthello.Network;
 
 import de.htw_berlin.HoboOthello.Core.Field;
-import de.htw_berlin.HoboOthello.Core.StoneColor;
+import de.htw_berlin.HoboOthello.Core.Color;
 
 /**
  * Created by laura on 24.11.16.
@@ -9,7 +9,7 @@ import de.htw_berlin.HoboOthello.Core.StoneColor;
 public class Network {
     private Field[][] fields;
 
-    public void setMove(StoneColor stoneColor) {
+    public void setMove(Color stoneColor) {
 
     }
 

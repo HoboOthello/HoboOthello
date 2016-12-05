@@ -62,11 +62,12 @@ public class Player {
      *
      * @return StoneColor WHITE or BLACK, the same Color like Color, only another enum class
      */
-    public StoneColor getStoneColor() {
+    //TODO change code and then remove because enums have been changed
+    public Color getStoneColor() {
         if (this.color == Color.BLACK) {
-            return StoneColor.BLACK;
+            return Color.BLACK;
         } else {
-            return StoneColor.WHITE;
+            return Color.WHITE;
         }
     }
 }

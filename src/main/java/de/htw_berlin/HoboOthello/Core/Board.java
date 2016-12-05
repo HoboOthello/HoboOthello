@@ -64,6 +64,12 @@ public class Board {
         return listOfFields;
     }
 
+    /**
+     * Method to check if a field is in the corner of the board
+     *
+     * @param field that is being checked
+     * @return true is field is in the corner of the board
+     */
     public boolean isCornerField(Field field) {
         if (field == this.fields[0][0] ||
                 field == this.fields[0][fields.length] ||
@@ -75,10 +81,16 @@ public class Board {
         }
     }
 
+    /**
+     * Method to check if a field is on the side of the board
+     *
+     * @param field that is being checked
+     * @return true is field is on the side of the board
+     */
     public boolean isSideField(Field field) {
         boolean isSideField = false;
         int counter = 0;
-        while (counter < fields.length || isSideField){
+        while (counter < fields.length || isSideField) {
             if (field == this.fields[0][counter] ||
                     field == this.fields[counter][0] ||
                     field == this.fields[fields.length][counter] ||
