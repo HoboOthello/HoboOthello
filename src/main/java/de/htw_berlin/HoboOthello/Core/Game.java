@@ -65,7 +65,7 @@ public class Game {
      * @return  true == turn is valid
      *          false == turn is not valid
      */
-    public boolean setTurn(int x, int y) {
+    public boolean setTurn(Field field) {
         if (this.gameState != GameState.STOP) {
             //todo add some kind of output why it fails
             return false;
@@ -75,13 +75,13 @@ public class Game {
         GameRule move = new GameRule(this.gameBoard.isFields());
 
         // check if this turn is allowed
-        boolean moveAllowed = move.isMoveAllowed(x, y, currentPlayer.getStoneColor());
+        boolean moveAllowed = move.isMoveAllowed(field, currentPlayer.getColor());
 
         if (moveAllowed) {
             // set turn
-            move.setMove(x, y, currentPlayer.getStoneColor());
+            move.setMove(field, currentPlayer.getColor());
             nextPlayer();
-            move.changeAllPossibleFieldsToTrue(currentPlayer.getStoneColor());
+            move.changeAllPossibleFieldsToTrue(currentPlayer.getColor());
             this.gameBoard.setFields(move.getFields());
         } else {
             return false;
@@ -90,7 +90,7 @@ public class Game {
         if (move.getPossibleMoves() == 0) {
             // currentPlayer can't make a possible turn, so set the next Player
             nextPlayer();
-            move.changeAllPossibleFieldsToTrue(currentPlayer.getStoneColor());
+            move.changeAllPossibleFieldsToTrue(currentPlayer.getColor());
             this.gameBoard.setFields(move.getFields());
 
             if (move.getPossibleMoves() == 0) {
@@ -103,7 +103,7 @@ public class Game {
             switch (currentPlayer.getPlayerType()) {
                 case KI:
                     this.ki.setFields(this.gameBoard.isFields());
-                    ki.setMove(currentPlayer.getStoneColor());
+                    ki.setMove(currentPlayer.getColor());
                     this.gameBoard.setFields(ki.getFields());
                     nextPlayer();
                     break;
@@ -125,22 +125,27 @@ public class Game {
 
 
     /**
-     * Get the Player BLACK and WHITE Points as int back.
+     * Calls a method to count the number of BLACK and WHITE Stones
      *
      * @param color BLACK or WHITE
      * @return Player Points as int
+     *
      */
-    public int getPlayerPoints(Color color) {
+    //TODO Steffen: hab die Methode refactored, aber erscheint mir ein wenig überflüssig?
+    public int countPlayerPoints(Color color) {
 
-        StoneColor stoneColor;
+        Color colorToCount = null;
 
-        if (color == Color.BLACK) {
-            stoneColor = StoneColor.BLACK;
+        if (colorToCount == Color.BLACK) {
+            colorToCount = Color.BLACK;
+        }
+        if (colorToCount == Color.WHITE){
+            colorToCount = Color.WHITE;
         } else {
-            stoneColor = StoneColor.WHITE;
+            throw new NullPointerException("Color is null!");
         }
 
-        return gameBoard.getNumberOfFieldsOccupiedByStone(stoneColor);
+        return gameBoard.getNumberOfFieldsOccupiedByStone(colorToCount);
     }
 
     /**
@@ -154,7 +159,7 @@ public class Game {
         }
     }
 
-    //TODO Fields Method, confused. Why here? Also, why is and not get?
+    //TODO Fields Method, confused. What is this? Why here? Also, why is and not get? It's not a boolean..
     public Field[][] isFields() {
         return this.gameBoard.isFields();
     }

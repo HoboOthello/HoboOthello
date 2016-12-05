@@ -116,7 +116,7 @@ public class Board {
                 char StoneColor = ' ';
 
                 if (!this.fields[i][j].isEmpty()) {
-                    switch (this.fields[i][j].getStone().getStoneColor()) {
+                    switch (this.fields[i][j].getStone().getColor()) {
                         case BLACK:
                             StoneColor = 'B';
                             break;
@@ -165,9 +165,9 @@ public class Board {
 
         // add starting stones for both players
         Stone stoneBlack = new Stone();
-        stoneBlack.setStoneColor(Color.BLACK);
+        stoneBlack.setColor(Color.BLACK);
         Stone stoneWhite = new Stone();
-        stoneWhite.setStoneColor(Color.WHITE);
+        stoneWhite.setColor(Color.WHITE);
 
         int BoardHalfLength = fieldsToFill.length / 2;
         int middle_x_left = BoardHalfLength - 1;
@@ -195,7 +195,7 @@ public class Board {
         for (int i = 0; i < fields.length; i++) {
             for (int j = 0; j < fields.length; j++) {
                 if (this.fields[i][j].isOccupiedByStone()) {
-                    if (stone.getStoneColor() == colorOfStonesToCount)
+                    if (stone.getColor() == colorOfStonesToCount)
                         counterOccupiedByStoneColor++;
                 }
             }

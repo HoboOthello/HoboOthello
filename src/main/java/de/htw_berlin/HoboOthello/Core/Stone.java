@@ -17,11 +17,11 @@ public class Stone {
 
     }
 
-    public Color getStoneColor() {
+    public Color getColor() {
         return this.stoneColor;
     }
 
-    public void setStoneColor(Color color) {
+    public void setColor(Color color) {
         this.stoneColor = color;
     }
 

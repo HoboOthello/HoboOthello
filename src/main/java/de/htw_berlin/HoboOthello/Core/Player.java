@@ -27,7 +27,6 @@ public class Player {
      */
     public Player(Color color) {
         this.color = color;
-
     }
 
     public Color getColor() {
@@ -56,18 +55,4 @@ public class Player {
 
     }
 
-    /**
-     * Get the StoneColor, is allmost the same like Color, but it will return
-     * a enum StoneColor with the value WHITE or BLACK instead of Color
-     *
-     * @return StoneColor WHITE or BLACK, the same Color like Color, only another enum class
-     */
-    //TODO change code and then remove because enums have been changed
-    public Color getStoneColor() {
-        if (this.color == Color.BLACK) {
-            return Color.BLACK;
-        } else {
-            return Color.WHITE;
-        }
-    }
 }
