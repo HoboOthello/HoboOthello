@@ -25,18 +25,26 @@ public class KI extends Player {
      * @param board actual board, information for the KI to act upon
      * @return Field with coordinates where the KI wants to put down a stone
      */
+    //TODO bestimmen was wir machen wenn das field null ist
     //rückgabe an controller ist ein field
     public Field setMove(Board board) {
         if (level == level.LEVEL1) {
             return pickRandomFieldFromList();
         }
+
         if (level == level.LEVEL2) {
-            //return Field fieldToSetMove;
-            return null;
+            Field fieldToSetMove;
+            fieldToSetMove = pickCornerOrSideFieldFromList();
+            if (fieldToSetMove == null) {
+                fieldToSetMove = pickRandomFieldFromList();
+            }
+            return fieldToSetMove;
         }
+
         if (level == level.LEVEL3) {
             //return Field fieldToSetMove;
             return null;
+
         } else {
             throw new IllegalArgumentException("Level of KI is off...!");
         }
@@ -47,6 +55,7 @@ public class KI extends Player {
      *
      * @return listOfPossibleMoves
      */
+    //TODO: what do we do if there are no possible moves for the ki; aka list is empty
     private List<Field> listPossibleMoves() {
         List<Field> listOfPossibleMoves = new ArrayList<Field>();
 
@@ -65,9 +74,42 @@ public class KI extends Player {
      */
     private Field pickRandomFieldFromList() {
         List<Field> listOfPossibleMoves = listPossibleMoves();
-        int randomNumber = (int) (Math.random() * listOfPossibleMoves.size() + 1); // picks random index of field in list
+        int randomNumber = (int) (Math.random() * listOfPossibleMoves.size()); // picks random index of field in list
         return listOfPossibleMoves.get(randomNumber);
-
     }
+
+    /**
+     * Method which picks the first possible corner field or the first possible side field for a turn
+     * If there are no corner or side fields possible for this turn, this method returns null
+     *
+     * @return cornerOrSideField a possible corner or side field, null field if both are impossible
+     */
+    private Field pickCornerOrSideFieldFromList() {
+        List<Field> listOfPossibleMoves = listPossibleMoves();
+        Field cornerOrSideField = null;
+
+        int cornerFieldIndex = 0;
+        while (cornerFieldIndex < listOfPossibleMoves.size()) {
+            Field field = listOfPossibleMoves.get(cornerFieldIndex);
+            if (board.isCornerField(field)) {
+                cornerOrSideField = field;
+            } else {
+                cornerFieldIndex++;
+            }
+        }
+
+        int sideFieldIndex = 0;
+        while (sideFieldIndex < listOfPossibleMoves.size()) {
+            Field field = listOfPossibleMoves.get(sideFieldIndex);
+            if (board.isSideField(field)) {
+                cornerOrSideField = field;
+            } else {
+                sideFieldIndex++;
+            }
+        }
+        return cornerOrSideField;
+    }
+
+
 
 }
