@@ -60,8 +60,7 @@ public class Game {
     /**
      * Set the game turn for the current user, return true if the turn was valid
      *
-     * @param x x-axis on the board
-     * @param y y-axis on the board
+     * @param field field to set the turn in
      * @return  true == turn is valid
      *          false == turn is not valid
      */
