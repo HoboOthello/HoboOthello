@@ -25,15 +25,17 @@ public class KI extends Player {
      * @param board actual board, information for the KI to act upon
      * @return Field with coordinates where the KI wants to put down a stone
      */
-    //TODO bestimmen was wir machen wenn das field null ist
+
     //rückgabe an controller ist ein field
     public Field setMove(Board board) {
+        Field fieldToSetMove = null;
+
         if (level == level.LEVEL1) {
-            return pickRandomFieldFromList();
+            fieldToSetMove = pickRandomFieldFromList();
+            return fieldToSetMove;
         }
 
         if (level == level.LEVEL2) {
-            Field fieldToSetMove;
             fieldToSetMove = pickCornerOrSideFieldFromList();
             if (fieldToSetMove == null) {
                 fieldToSetMove = pickRandomFieldFromList();
@@ -42,8 +44,8 @@ public class KI extends Player {
         }
 
         if (level == level.LEVEL3) {
-            //return Field fieldToSetMove;
-            return null;
+            return fieldToSetMove;
+
 
         } else {
             throw new IllegalArgumentException("Level of KI is off...!");
@@ -55,7 +57,6 @@ public class KI extends Player {
      *
      * @return listOfPossibleMoves
      */
-    //TODO: what do we do if there are no possible moves for the ki; aka list is empty
     private List<Field> listPossibleMoves() {
         List<Field> listOfPossibleMoves = new ArrayList<Field>();
 
@@ -73,9 +74,11 @@ public class KI extends Player {
      * @return field which is randomly chosen by this method
      */
     private Field pickRandomFieldFromList() {
+        Field fieldToSet;
         List<Field> listOfPossibleMoves = listPossibleMoves();
         int randomNumber = (int) (Math.random() * listOfPossibleMoves.size()); // picks random index of field in list
-        return listOfPossibleMoves.get(randomNumber);
+        fieldToSet = listOfPossibleMoves.get(randomNumber);
+        return fieldToSet;
     }
 
     /**
@@ -109,7 +112,6 @@ public class KI extends Player {
         }
         return cornerOrSideField;
     }
-
 
 
 }
