@@ -22,20 +22,24 @@ import java.awt.event.ActionListener;
 public class Gameview extends JFrame {
 
 
-    public Gameview(){
-        super();
-    }
+    private static final long serialVersionUID = 1L;
 
     private JLabel whiteScore = new JLabel("WHITE");
     private JLabel blackScore = new JLabel("BLACK");
     private Color backgroundColor = new Color(0, 150, 0);
     private JButton startButton = new JButton();
-    private JButton fieldView[][];
+    private JButton[][] fieldView;
 
+    private JMenu gameMenu;
+    private JMenuItem closeGame;
+    private JMenuItem newGame;
+    private JMenu aboutMenu;
+    private JMenuItem aboutItem;
 
     /**
      * the method to set up the board
      * @param boardSize
+     * TODO in the Controller set Boardsize or add int boardSize to the Constructor Gameview()
      *
      */
     //TODO create instance of method in controller
@@ -47,10 +51,10 @@ public class Gameview extends JFrame {
 
 
     /**
-     * method to create the gui
+     * Constructor to create the gui
      */
 
-    public void createGameView() {
+    public Gameview() {
 
         /*
          * sets up the main frame of the game
@@ -64,28 +68,28 @@ public class Gameview extends JFrame {
 
 
         /*
-         * Menue
+         * MenuBar and all components
          */
-        this.setJMenuBar( new JMenuBar() );
-
-        JMenu gameMenu = new JMenu ("Datei");
-        JMenuItem closeGame = new JMenuItem("Exit");
-        JMenuItem newGame = new JMenuItem("New Game");
+        gameMenu = new JMenu ("Datei");
+        closeGame = new JMenuItem("Exit");
+        newGame = new JMenuItem("New Game");
+        closeGame.addActionListener(
+                new ActionListener() {public void actionPerformed(ActionEvent e) {
+                    JOptionPane.showMessageDialog (null, "You're a true Hobo!","GoodBye!", JOptionPane.INFORMATION_MESSAGE);
+                    setVisible(false);
+                }});
         gameMenu.add(newGame);
         gameMenu.add(closeGame);
         this.getJMenuBar().add(gameMenu);
 
-        JMenu aboutMenu = new JMenu ("About");
-        this.getJMenuBar().add(aboutMenu);
-        JMenuItem aboutItem = new JMenuItem ("About");
+        aboutMenu = new JMenu ("About");
+        aboutItem = new JMenuItem ("About");
         aboutItem.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        JOptionPane.showMessageDialog (null, "HoboOthello created by: Laura, Steffen and Bjoern","Info", JOptionPane.INFORMATION_MESSAGE);
-                    }
-                }
-        );
+                new ActionListener() {public void actionPerformed(ActionEvent e) {
+                    JOptionPane.showMessageDialog (null, "HoboOthello created by: Laura, Steffen and Bjoern","Info", JOptionPane.INFORMATION_MESSAGE);
+                }});
         aboutMenu.add(aboutItem);
+        this.getJMenuBar().add(aboutMenu);
 
 
         /*
@@ -100,7 +104,7 @@ public class Gameview extends JFrame {
 		 * create Fields out of the Field class and fill the board with fields
 		 * field ist initialized with magic numbers but that will later be changed to a variable 'boardsize'
 		 */
-        //TODO add the double for-loop to the method setBoard()
+        //TODO add the method setBoard() and get the getBoardSize()
         fieldView = new JButton[8][8];
 
             for(int row=0;row<fieldView.length;row++){
@@ -109,6 +113,7 @@ public class Gameview extends JFrame {
                     fieldView[row][column] = new JButton();
                     fieldView[row][column].setBackground( backgroundColor );
                     fieldView[row][column].setBorder( BorderFactory.createLineBorder( Color.BLACK, 1) );
+
                     boardPanel.add( fieldView[row][column] ).setVisible( true );
 
                 }
@@ -143,7 +148,7 @@ public class Gameview extends JFrame {
 
 
         /*
-         * BorderLayout dimensions
+         * BorderLayout dimensions of the Center Panel
          */
         actionPanel.setPreferredSize( new Dimension(0, 100) );
         scorePanel.setPreferredSize( new Dimension(0, 50) );
@@ -159,44 +164,43 @@ public class Gameview extends JFrame {
         this.getContentPane().add( actionPanel, BorderLayout.SOUTH );
         this.getContentPane().add( eastPanel, BorderLayout.EAST );
         this.getContentPane().add( westPanel, BorderLayout.WEST );
-        this.setJMenuBar( new JMenuBar() );
+
         this.setVisible(true);
 
     }
 
 
+
+
     /*
-     * the method to add an actionListener to the Gameview
+     * method to add ActionListener to the board
      */
-    //TODO add ActionListener to Controller
     public void addBoardListener(ActionListener listenerForFieldButton) {
 
         for( int row=0; row<fieldView.length; row++ ) {
             for( int column=0; column<fieldView.length; column++ ) {
-
-                fieldView[ row ][ column ].addActionListener( listenerForFieldButton );
-
+                fieldView[row][column].addActionListener( listenerForFieldButton );
             }
         }
     }
 
+
+
     /*
-     * the ActionListener checking the JMenu
-     *
+     * Getter for the board to check which Button was clicked
+     * and to check the length of the board (6, 8, 10)
+     * used in GameController -> inner Class BoardListener
      */
-    public void addMenuListener(ActionListener listenerForMenuClick) {
-
-        //TODO Bjoern see Controller
-        this.getJMenuBar().getMenu(0).addActionListener(listenerForMenuClick);
-
+    public JButton getFieldView(int x, int y)
+    {
+        return fieldView[x][y];
     }
 
-    public void addExitListener(ActionListener listenerForMenuClick) {
-
-        //TODO Bjoern see Controller
-        this.getJMenuBar().getMenu(1).addActionListener(listenerForMenuClick);
-
+    public int getFieldViewLength()
+    {
+        return fieldView.length;
     }
+
 
 
     /*

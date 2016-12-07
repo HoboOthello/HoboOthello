@@ -3,6 +3,7 @@ package de.htw_berlin.HoboOthello.Controller;
 import de.htw_berlin.HoboOthello.Core.Game;
 import de.htw_berlin.HoboOthello.GUI.Gameview;
 
+import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -19,24 +20,37 @@ public class GameController {
         this.gameview = theView;
         this.theGame = theGame;
 
-        // this.gameview.addBoardListener(new BoardListener());
-        // this.gameview.addMenuListener(new MenuListener());
-        // this.gameview.addExitListener(new ExitListener());
+        theView.addBoardListener(new BoardListener());
 
     }
 
 
-    //inside classes
-
+    /**
+     * inside class
+     * BoardListener method to check which Button has been clicked
+     */
     class BoardListener implements ActionListener{
 
-        public void actionPerformed(ActionEvent arg0){
+        public void actionPerformed(ActionEvent e){
 
             try{
 
-                //TODO BJOERN write a line that checks if the field is a legal field to click on
+                for( int r=0; r<gameview.getFieldViewLength() ; r++ )
+                {	for( int c=0; c<gameview.getFieldViewLength() ; c++ )
+                    {
+                        if( e.getSource() == gameview.getFieldView(r, c) )
+                        {
 
-            }
+                            System.out.println("IT'S A HIT!");
+                            System.out.println(r);
+                            System.out.println(c);
+                            System.out.println();
+
+                        }
+                    }
+                }
+
+                }
 
             catch(NumberFormatException ex){
 
@@ -46,7 +60,7 @@ public class GameController {
         }
 
     }
-
+    //TODO this class is unused may be deleted
     class MenuListener implements ActionListener{
 
         public void actionPerformed(ActionEvent arg0){
@@ -66,15 +80,15 @@ public class GameController {
 
     }
 
+    //TODO this class is unused may be deleted
     class ExitListener implements ActionListener{
 
         public void actionPerformed(ActionEvent arg0){
 
             try{
 
-                //TODO BJOERN write a line that ends a new game
-                gameview.setVisible(false);
                 gameview.displayErrorMessage("You're a true Hobo!");
+                gameview.setVisible(false);
             }
 
             catch(NumberFormatException ex){

@@ -20,7 +20,7 @@ public class Main {
 
         GameController gameController = new GameController(gameview, game);
 
-        gameview.createGameView();
+        gameview.setVisible(true);
 
 
         // gameview.setFields(game.isFields());
