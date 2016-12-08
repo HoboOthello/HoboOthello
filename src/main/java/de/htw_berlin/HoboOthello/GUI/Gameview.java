@@ -30,6 +30,7 @@ public class Gameview extends JFrame {
     private JButton startButton = new JButton();
     private JButton[][] fieldView;
 
+    private JMenuBar menuBar;
     private JMenu gameMenu;
     private JMenuItem closeGame;
     private JMenuItem newGame;
@@ -70,6 +71,8 @@ public class Gameview extends JFrame {
         /*
          * MenuBar and all components
          */
+
+        menuBar = new JMenuBar();
         gameMenu = new JMenu ("Datei");
         closeGame = new JMenuItem("Exit");
         newGame = new JMenuItem("New Game");
@@ -78,6 +81,7 @@ public class Gameview extends JFrame {
                     JOptionPane.showMessageDialog (null, "You're a true Hobo!","GoodBye!", JOptionPane.INFORMATION_MESSAGE);
                     setVisible(false);
                 }});
+        menuBar.add(gameMenu);
         gameMenu.add(newGame);
         gameMenu.add(closeGame);
         // todo bugfix nullpointexception
@@ -90,6 +94,7 @@ public class Gameview extends JFrame {
                 new ActionListener() {public void actionPerformed(ActionEvent e) {
                     JOptionPane.showMessageDialog (null, "HoboOthello created by: Laura, Steffen and Bjoern","Info", JOptionPane.INFORMATION_MESSAGE);
                 }});
+        menuBar.add(aboutMenu);
         aboutMenu.add(aboutItem);
         // todo bugfix nullpointexception
         // ticket in https://github.com/HoboOthello/HoboOthello/issues/4
