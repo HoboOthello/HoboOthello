@@ -22,9 +22,9 @@ public class KI extends Player {
     /**
      * Method which will be used by the controller to let the KI pick a field
      *
-     * @param   board actual board, information for the KI to act upon
-     * @return  field with coordinates where the KI wants to put down a stone,
-     *          return field is null in case there is no possible move for the KI
+     * @param board actual board, information for the KI to act upon
+     * @return field with coordinates where the KI wants to put down a stone,
+     * return field is null in case there is no possible move for the KI
      */
     public Field setMove(Board board) {
         Field fieldToSetMove = null;
@@ -112,16 +112,26 @@ public class KI extends Player {
         return cornerOrSideField;
     }
 
-    private Field pickFieldNotSideMinusOne() {
+    private List<Field> pickFieldNotCloseToBorder() {
         Field fieldToSet;
         List<Field> listOfPossibleMoves = listPossibleMoves();
-
-        if (board.isSideMinusOneField(field))
-
-        fieldToSet = listOfPossibleMoves.get(randomNumber);
-        return fieldToSet;
+        List<Field> listOfFieldsNotCloseToBorder = null;
+        int count = 0;
+        while (count < listOfPossibleMoves.size()) {
+            Field field = listOfPossibleMoves.get(count);
+            if (board.isNotSideMinusOneField(field)) {
+                listOfFieldsNotCloseToBorder.add(field);
+            } else {
+                count++;
+            }
+        }
+        return listOfFieldsNotCloseToBorder;
     }
 
 
-
+/*
+    int randomNumber = (int) (Math.random() * listOfFieldsNotCloseToBorder.size()); // picks random index of field in list
+    fieldToSet = listOfFieldsNotCloseToBorder.get(randomNumber);
+        return fieldToSet;
+*/
 }

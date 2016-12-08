@@ -103,21 +103,21 @@ public class Board {
         return isSideField;
     }
 
-    public boolean isSideMinusOneField(Field field) {
-        boolean isSideMinusOne = false;
+    public boolean isNotSideMinusOneField(Field field) {
+        boolean isNotSideMinusOne = false;
         int counter = 0;
-        while (counter < (fields.length - 1) || isSideMinusOne) {
+        while (counter < (fields.length - 1) || isNotSideMinusOne) {
             if (field.equals(isSideField(field)) ||
-                    field == this.fields[1][counter] ||
-                    field == this.fields[counter][1] ||
-                    field == this.fields[fields.length - 1][counter] ||
-                    field == this.fields[counter][fields.length - 1]) {
-                isSideMinusOne = true;
+                    field != this.fields[1][counter] ||
+                    field != this.fields[counter][1] ||
+                    field != this.fields[fields.length - 1][counter] ||
+                    field != this.fields[counter][fields.length - 1]) {
+                isNotSideMinusOne = true;
             } else {
                 counter++;
             }
         }
-        return isSideMinusOne;
+        return isNotSideMinusOne;
     }
 
     /**
