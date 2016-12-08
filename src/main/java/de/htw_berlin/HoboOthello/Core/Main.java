@@ -9,30 +9,14 @@ import de.htw_berlin.HoboOthello.GUI.Gameview;
 public class Main {
 
     public static void main(String[] args) {
-
-
         Gameview gameview = new Gameview();
 
         Game game = new Game();
+
         game.newGame(8, new Player(Color.BLACK), new Player(Color.WHITE));
-
-
 
         GameController gameController = new GameController(gameview, game);
 
         gameview.setVisible(true);
-
-
-        // gameview.setFields(game.isFields());
-
-
-        // Board boardStandard = new Board(8);
-        // Board boardSmall = new Board(6);
-        // Board boardLarge = new Board(10);
-
-        //GameRule move = new GameRule();
-        //boardStandard.setFields(move.getAllPossibleMoves(StoneColor.BLACK, boardStandard.isFields()));
-
-        // System.out.println(boardStandard.getBoardOverview());
     }
 }
