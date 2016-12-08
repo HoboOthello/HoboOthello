@@ -72,7 +72,6 @@ public class Gameview extends JFrame {
          * MenuBar and all components
          */
 
-        menuBar = new JMenuBar();
         gameMenu = new JMenu ("Datei");
         closeGame = new JMenuItem("Exit");
         newGame = new JMenuItem("New Game");
@@ -81,12 +80,8 @@ public class Gameview extends JFrame {
                     JOptionPane.showMessageDialog (null, "You're a true Hobo!","GoodBye!", JOptionPane.INFORMATION_MESSAGE);
                     setVisible(false);
                 }});
-        menuBar.add(gameMenu);
         gameMenu.add(newGame);
         gameMenu.add(closeGame);
-        // todo bugfix nullpointexception
-        // ticket in https://github.com/HoboOthello/HoboOthello/issues/4
-        // this.getJMenuBar().add(gameMenu);
 
         aboutMenu = new JMenu ("About");
         aboutItem = new JMenuItem ("About");
@@ -94,11 +89,7 @@ public class Gameview extends JFrame {
                 new ActionListener() {public void actionPerformed(ActionEvent e) {
                     JOptionPane.showMessageDialog (null, "HoboOthello created by: Laura, Steffen and Bjoern","Info", JOptionPane.INFORMATION_MESSAGE);
                 }});
-        menuBar.add(aboutMenu);
         aboutMenu.add(aboutItem);
-        // todo bugfix nullpointexception
-        // ticket in https://github.com/HoboOthello/HoboOthello/issues/4
-        // this.getJMenuBar().add(aboutMenu);
 
 
         /*
@@ -173,6 +164,9 @@ public class Gameview extends JFrame {
         this.getContentPane().add( actionPanel, BorderLayout.SOUTH );
         this.getContentPane().add( eastPanel, BorderLayout.EAST );
         this.getContentPane().add( westPanel, BorderLayout.WEST );
+        this.setJMenuBar(new JMenuBar());
+        this.getJMenuBar().add(gameMenu);
+        this.getJMenuBar().add(aboutMenu);
 
         this.setVisible(true);
 
