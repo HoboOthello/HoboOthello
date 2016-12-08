@@ -71,6 +71,8 @@ public class GameRule {
             return false;
         }
 
+        boolean possibleField = false;
+
         // set the vectors
         for (int x = -1; x <= 1; x++) {
             for (int y = -1; y <= 1; y++) {
@@ -78,16 +80,16 @@ public class GameRule {
                     if (isPossibleField(field, color, x, y, 0)) {
                         if (flipStones) {
                             flipStones(field, color, x, y);
-
+                            possibleField = true;
+                        } else {
+                            return true;
                         }
-                        //TODO BUGFIX STEFFEN have a look at flipstones if all rows are being flipped
-                        return true;
                     }
                 }
             }
         }
 
-        return false;
+        return possibleField;
     }
 
     /**

@@ -34,7 +34,7 @@ public class GameController {
         public void actionPerformed(ActionEvent e){
 
             try{
-
+                // todo Björn refaktor magic numbers r & c
                 for( int r=0; r<gameview.getFieldViewLength() ; r++ )
                 {	for( int c=0; c<gameview.getFieldViewLength() ; c++ )
                     {
