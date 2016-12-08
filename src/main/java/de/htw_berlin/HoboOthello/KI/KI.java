@@ -112,8 +112,7 @@ public class KI extends Player {
         return cornerOrSideField;
     }
 
-    private List<Field> pickFieldNotCloseToBorder() {
-        Field fieldToSet;
+    private List<Field> listFieldsNotTooCloseToBorder() {
         List<Field> listOfPossibleMoves = listPossibleMoves();
         List<Field> listOfFieldsNotCloseToBorder = null;
         int count = 0;
@@ -128,6 +127,33 @@ public class KI extends Player {
         return listOfFieldsNotCloseToBorder;
     }
 
+    private Field pickTacticalField() {
+        List<Field> listOfFieldsNotTooCloseToBorder = listFieldsNotTooCloseToBorder();
+        List<Field> allPossibleMoves = listPossibleMoves();
+        Field tacticalField = null;
+
+        int soManyFlipped;
+        int mostFlipped = 0;
+        for (int fieldIndex = 0; fieldIndex < listOfFieldsNotTooCloseToBorder.size(); fieldIndex++) {
+            soManyFlipped = testHowManyStonesAreFlipped(listOfFieldsNotTooCloseToBorder.get(fieldIndex));
+            if (soManyFlipped > mostFlipped){
+                tacticalField = listOfFieldsNotTooCloseToBorder.get(soManyFlipped);
+                mostFlipped = soManyFlipped;
+            }
+        }
+
+    //
+
+        return tacticalField;
+    }
+
+    private int testHowManyStonesAreFlipped(Field field){
+        int actualNumberOfStones = board.getNumberOfFieldsOccupiedByStone(kiColor);
+        gameRule.setMove(field, kiColor);
+        int newNumberOfStones = board.getNumberOfFieldsOccupiedByStone(kiColor);
+        int soManyStonesFlipped = (newNumberOfStones - actualNumberOfStones);
+        return soManyStonesFlipped;
+    }
 
 /*
     int randomNumber = (int) (Math.random() * listOfFieldsNotCloseToBorder.size()); // picks random index of field in list
