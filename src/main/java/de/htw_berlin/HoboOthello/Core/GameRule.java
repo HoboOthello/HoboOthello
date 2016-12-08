@@ -71,9 +71,10 @@ public class GameRule {
             return false;
         }
 
+        // if there is a possible field, set it to true
         boolean possibleField = false;
 
-        // set the vectors
+        // set the direction vectors for methods flipStones && isPossibleField
         for (int x = -1; x <= 1; x++) {
             for (int y = -1; y <= 1; y++) {
                 if (x != 0 | y != 0) {
@@ -82,6 +83,7 @@ public class GameRule {
                             flipStones(field, color, x, y);
                             possibleField = true;
                         } else {
+                            // if this method called from isMoveAllowed than return true and break this loop
                             return true;
                         }
                     }
