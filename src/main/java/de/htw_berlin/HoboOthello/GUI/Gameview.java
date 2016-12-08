@@ -59,13 +59,13 @@ public class Gameview extends JFrame {
         /*
          * sets up the main frame of the game
          */
+
         this.setTitle("HoboOthello");
         this.setLocation(800, 200);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(800,800);
         this.setLayout(new BorderLayout());
         this.setVisible(true);
-
 
         /*
          * MenuBar and all components
@@ -80,7 +80,9 @@ public class Gameview extends JFrame {
                 }});
         gameMenu.add(newGame);
         gameMenu.add(closeGame);
-        this.getJMenuBar().add(gameMenu);
+        // todo bugfix nullpointexception
+        // ticket in https://github.com/HoboOthello/HoboOthello/issues/4
+        // this.getJMenuBar().add(gameMenu);
 
         aboutMenu = new JMenu ("About");
         aboutItem = new JMenuItem ("About");
@@ -89,7 +91,9 @@ public class Gameview extends JFrame {
                     JOptionPane.showMessageDialog (null, "HoboOthello created by: Laura, Steffen and Bjoern","Info", JOptionPane.INFORMATION_MESSAGE);
                 }});
         aboutMenu.add(aboutItem);
-        this.getJMenuBar().add(aboutMenu);
+        // todo bugfix nullpointexception
+        // ticket in https://github.com/HoboOthello/HoboOthello/issues/4
+        // this.getJMenuBar().add(aboutMenu);
 
 
         /*
