@@ -17,10 +17,6 @@ public class Game {
 
     private Board gameBoard;
 
-    private Network network;
-
-    private KI ki;
-
     /**
      * create a new Game
      *
@@ -39,22 +35,8 @@ public class Game {
 
         this.currentPlayer = this.playerBlack;
 
-        /*
-        // init ki && network, if needed
-        if (gameType == GameType.KI) {
-            this.ki = new KI();
-        }
-
-        if (gameType == GameType.NETWORK) {
-            // todo steffen: need add network stuff
-            this.network = new Network();
-        }
-        */
-
         // init gameState
         this.gameState = GameState.RUNNING;
-
-        // set all others vars to default or create new game class and make this to a constructor
     }
 
     /**
@@ -96,32 +78,16 @@ public class Game {
                 // no Player can make a Possible move anymore, so end the game
                 this.gameState = GameState.STOP;
             }
-
-            /*
-            // if the currentPlayer ist KI or NETWORK, do there special move
-            switch (currentPlayer.getPlayerType()) {
-                case KI:
-                    this.ki.setFields(this.gameBoard.isFields());
-                    ki.setMove(currentPlayer.getColor());
-                    this.gameBoard.setFields(ki.getFields());
-                    nextPlayer();
-                    break;
-                case NETWORK:
-                    //todo steffen do some awesome stuff as well
-                    nextPlayer();
-                    break;
+        } else {
+            Field playerTurn = currentPlayer.setMove(this.gameBoard);
+            if (playerTurn != null) {
+                setTurn(playerTurn);
             }
-            */
         }
 
         // return if this tun was successful
-        return false;
+        return true;
     }
-
-    private void setKiNetworkTurn() {
-
-    }
-
 
     /**
      * Calls a method to count the number of BLACK and WHITE Stones
@@ -158,7 +124,10 @@ public class Game {
         }
     }
 
-    //TODO Fields Method, confused. What is this? Why here? Also, why is and not get? It's not a boolean..
+    /**
+     *  Fields for Controller
+     * @return alls fields in Field[][]
+     */
     public Field[][] isFields() {
         return this.gameBoard.isFields();
     }

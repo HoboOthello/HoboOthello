@@ -1,5 +1,6 @@
 package de.htw_berlin.HoboOthello.Controller;
 
+import de.htw_berlin.HoboOthello.Core.Field;
 import de.htw_berlin.HoboOthello.Core.Game;
 import de.htw_berlin.HoboOthello.GUI.Gameview;
 
@@ -40,12 +41,8 @@ public class GameController {
                     {
                         if( e.getSource() == gameview.getFieldView(r, c) )
                         {
-
-                            System.out.println("IT'S A HIT!");
-                            System.out.println(r);
-                            System.out.println(c);
-                            System.out.println();
-
+                            theGame.setTurn(new Field(r, c));
+                            // todo update the view with the new fields
                         }
                     }
                 }

@@ -37,22 +37,8 @@ public class Player {
         this.color = color;
     }
 
-    /**
-     * Method which sets the next Player (changes the color of the Player)
-     * If Player is white it will be set to black,
-     * and if the Player is black than it will be set to white
-     */
-    //TODO laura: do we need this method?
-    public void setNextPlayer() {
-        if (this.color == Color.WHITE) {
-            setColor(Color.BLACK);
-        }
-        if (this.color == Color.BLACK) {
-            setColor(Color.WHITE);
-        } else {
-            throw new IllegalArgumentException("Color is not defined! Error.");
-        }
-
+    public Field setMove(Board board) {
+        return null;
     }
 
 }
