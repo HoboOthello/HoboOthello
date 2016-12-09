@@ -162,8 +162,8 @@ public class KI extends Player {
         //TODO Frage: Wo wird das gespeichert, wie lösche ich das wieder? thnx!
         gameRule.setMove(field, kiColor);
         int newNumberOfStones = board.getNumberOfFieldsOccupiedByStone(kiColor);
-        int soManyStonesFlipped = (newNumberOfStones - actualNumberOfStones);
-        return soManyStonesFlipped;
+        int numberOfStonesFlipped = (newNumberOfStones - actualNumberOfStones);
+        return numberOfStonesFlipped;
     }
 
 /*
