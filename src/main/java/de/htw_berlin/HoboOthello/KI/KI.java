@@ -129,25 +129,35 @@ public class KI extends Player {
 
     private Field pickTacticalField() {
         List<Field> listOfFieldsNotTooCloseToBorder = listFieldsNotTooCloseToBorder();
-        List<Field> allPossibleMoves = listPossibleMoves();
+        List<Field> listOfAllPossibleMoves = listPossibleMoves();
         Field tacticalField = null;
+        int numberOfStonesFlipped;
+        int mostFlippedStones = 0;
 
-        int soManyFlipped;
-        int mostFlipped = 0;
-        for (int fieldIndex = 0; fieldIndex < listOfFieldsNotTooCloseToBorder.size(); fieldIndex++) {
-            soManyFlipped = testHowManyStonesAreFlipped(listOfFieldsNotTooCloseToBorder.get(fieldIndex));
-            if (soManyFlipped > mostFlipped){
-                tacticalField = listOfFieldsNotTooCloseToBorder.get(soManyFlipped);
-                mostFlipped = soManyFlipped;
+        //It is smart to make a move on a field not too close to the border,
+        //so the other player can't get a stone in a corner of on a border field.
+        if (listOfFieldsNotTooCloseToBorder != null) {
+            for (int indexFieldToCheck = 0; indexFieldToCheck < listOfFieldsNotTooCloseToBorder.size(); indexFieldToCheck++) {
+                numberOfStonesFlipped = testHowManyStonesAreFlipped(listOfFieldsNotTooCloseToBorder.get(indexFieldToCheck));
+                if (numberOfStonesFlipped > mostFlippedStones) {
+                    tacticalField = listOfFieldsNotTooCloseToBorder.get(numberOfStonesFlipped);
+                    mostFlippedStones = numberOfStonesFlipped;
+                }
+            }
+        } else {
+            for (int indexFieldToCheck = 0; indexFieldToCheck < listOfAllPossibleMoves.size(); indexFieldToCheck++) {
+                numberOfStonesFlipped = testHowManyStonesAreFlipped(listOfAllPossibleMoves.get(indexFieldToCheck));
+                if (numberOfStonesFlipped > mostFlippedStones) {
+                    tacticalField = listOfFieldsNotTooCloseToBorder.get(numberOfStonesFlipped);
+                    mostFlippedStones = numberOfStonesFlipped;
+                }
             }
         }
-
-    //
-
         return tacticalField;
     }
 
-    private int testHowManyStonesAreFlipped(Field field){
+
+    private int testHowManyStonesAreFlipped(Field field) {
         int actualNumberOfStones = board.getNumberOfFieldsOccupiedByStone(kiColor);
         //TODO Frage: Wo wird das gespeichert, wie lösche ich das wieder? thnx!
         gameRule.setMove(field, kiColor);
