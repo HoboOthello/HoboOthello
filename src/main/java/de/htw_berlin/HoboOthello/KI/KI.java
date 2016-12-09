@@ -149,6 +149,7 @@ public class KI extends Player {
 
     private int testHowManyStonesAreFlipped(Field field){
         int actualNumberOfStones = board.getNumberOfFieldsOccupiedByStone(kiColor);
+        //TODO Frage: Wo wird das gespeichert, wie lösche ich das wieder? thnx!
         gameRule.setMove(field, kiColor);
         int newNumberOfStones = board.getNumberOfFieldsOccupiedByStone(kiColor);
         int soManyStonesFlipped = (newNumberOfStones - actualNumberOfStones);
