@@ -48,3 +48,6 @@ fabric.properties
 # Build dirs
 /target
 /docs/build
+
+# savegames
+savegame.json

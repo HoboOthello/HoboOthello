@@ -91,6 +91,8 @@ public class Game {
 
             if (move.getPossibleMoves() == 0) {
                 // no Player can make a Possible move anymore, so end the game
+                // todo add userfeedback
+                // todo delete savegame.json
                 this.gameState = GameState.STOP;
             }
         } else {

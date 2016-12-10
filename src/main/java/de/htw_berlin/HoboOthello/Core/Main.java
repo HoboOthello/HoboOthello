@@ -14,9 +14,14 @@ public class Main {
 
         Gameview gameview = new Gameview(boardDefaultSize);
 
-        Game game = new Game();
+        // todo load for a network game?
+        Savegames savegames = new Savegames();
+        Game game = savegames.load();
 
-        game.newGame(boardDefaultSize, new Player(Color.BLACK), new Player(Color.WHITE));
+        if (game == null) {
+            game = new Game();
+            game.newGame(boardDefaultSize, new Player(Color.BLACK), new Player(Color.WHITE));
+        }
 
         // for KI Debuging
         // game.newGame(boardDefaultSize, new Player(Color.BLACK), new KI(Color.WHITE, Level.LEVEL1));

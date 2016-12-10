@@ -44,6 +44,9 @@ public class GameController {
                         if (e.getSource() == gameview.getFieldView(x, y)) {
                             theGame.setTurn(new Field(x, y));
                             updateGameBoard();
+                            // todo save for a network game?
+                            Savegames savegames = new Savegames();
+                            savegames.save(theGame);
                         }
                     }
                 }
