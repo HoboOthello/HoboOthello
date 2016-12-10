@@ -23,12 +23,11 @@ public class KI extends Player {
      * Method which will be used by the controller to let the KI pick a field
      *
      * @param board actual board, information for the KI to act upon
-     * @return Field with coordinates where the KI wants to put down a stone
+     * @return field with coordinates where the KI wants to put down a stone,
+     * return field is null in case there is no possible move for the KI
      */
-
-    //rückgabe an controller ist ein field
     public Field setMove(Board board) {
-        Field fieldToSetMove = null;
+        Field fieldToSetMove;
 
         if (level == level.LEVEL1) {
             fieldToSetMove = pickRandomFieldFromList();
@@ -44,8 +43,8 @@ public class KI extends Player {
         }
 
         if (level == level.LEVEL3) {
+            fieldToSetMove = pickTacticalField();
             return fieldToSetMove;
-
 
         } else {
             throw new IllegalArgumentException("Level of KI is off...!");
@@ -113,5 +112,141 @@ public class KI extends Player {
         return cornerOrSideField;
     }
 
+    /**
+     * Method which lists all corner fields that are available for the ki in the current turn
+     *
+     * @return listOfPossibleCornerFields, null if there are no possible corner fields
+     */
+    private List<Field> listPossibleCornerFields() {
+        List<Field> listOfPossibleMoves = listPossibleMoves();
+        List<Field> listOfPossibleCornerFields = null;
 
+        int cornerFieldIndex = 0;
+        while (cornerFieldIndex < listOfPossibleMoves.size()) {
+            Field field = listOfPossibleMoves.get(cornerFieldIndex);
+            if (board.isCornerField(field)) {
+                listOfPossibleCornerFields.add(field);
+            } else {
+                cornerFieldIndex++;
+            }
+        }
+        return listOfPossibleCornerFields;
+    }
+
+    /**
+     * Method which lists all side (or border) fields that are available for the ki in the current turn
+     *
+     * @return listOfPossibleSideFields, null if there are no possible side fields
+     */
+    private List<Field> listPossibleSideFields() {
+        List<Field> listOfPossibleMoves = listPossibleMoves();
+        List<Field> listOfPossibleSideFields = null;
+
+        int sideFieldIndex = 0;
+        while (sideFieldIndex < listOfPossibleMoves.size()) {
+            Field field = listOfPossibleMoves.get(sideFieldIndex);
+            if (board.isSideField(field)) {
+                listOfPossibleSideFields.add(field);
+            } else {
+                sideFieldIndex++;
+            }
+        }
+        return listOfPossibleSideFields;
+
+    }
+
+    /**
+     * Method which lists all fields that are not on the border-minus-one-range and are available for the ki in the current turn.
+     * It is smart to make a move on a field not too close to the border,
+     * so the other player can't get a stone in a corner of on a border field.
+     *
+     * @return listOfPossibleSideFields, null if there are no possible side fields
+     */
+    private List<Field> listPossibleFieldsNotTooCloseToBorder() {
+        List<Field> listOfPossibleMoves = listPossibleMoves();
+        List<Field> listOfFieldsNotCloseToBorder = null;
+        int count = 0;
+        while (count < listOfPossibleMoves.size()) {
+            Field field = listOfPossibleMoves.get(count);
+            if (board.isNotSideMinusOneField(field)) {
+                listOfFieldsNotCloseToBorder.add(field);
+            } else {
+                count++;
+            }
+        }
+        return listOfFieldsNotCloseToBorder;
+    }
+
+    /**
+     * Method which picks the most tactical field to make a move on
+     *
+     * @return tacticalField, return null if there is no possible move
+     */
+    private Field pickTacticalField() {
+
+        //If there are corner fields available, these are a very good and tactical pick!
+        List<Field> listOfCornerFields = listPossibleCornerFields();
+        if (listOfCornerFields != null) {
+            return pickTacticalFieldFromList(listOfCornerFields);
+        }
+
+        //Side fields are also very good and tactical spots
+        List<Field> listOfSideFields = listPossibleSideFields();
+        if (listOfSideFields != null) {
+            return pickTacticalFieldFromList(listOfSideFields);
+        }
+
+        //It is smart to make a move on a field not too close to the border,
+        //so the other player can't get a stone in a corner of on a border field.
+        List<Field> listOfFieldsNotTooCloseToBorder = listPossibleFieldsNotTooCloseToBorder();
+        if (listOfFieldsNotTooCloseToBorder != null) {
+            return pickTacticalFieldFromList(listOfFieldsNotTooCloseToBorder);
+        }
+
+        List<Field> listOfAllPossibleMoves = listPossibleMoves();
+        if (listOfAllPossibleMoves != null) {
+            return pickTacticalFieldFromList(listOfAllPossibleMoves);
+        } else {
+            return null;
+        }
+    }
+
+
+    /**
+     * Method which goes through a list of possible tactical fields and checks how many stones would be turned
+     * if this field would be chosen to put the stone on
+     *
+     * @param listToPickFrom hands over a list of fields this method needs to calculate and pick the best option from
+     * @return tacticalField, return null if there is no possible move
+     */
+    private Field pickTacticalFieldFromList(List<Field> listToPickFrom) {
+        Field tacticalField = null;
+        int numberOfStonesFlipped;
+        int mostFlippedStones = 0;
+
+        for (int indexFieldToCheck = 0; indexFieldToCheck < listToPickFrom.size(); indexFieldToCheck++) {
+            numberOfStonesFlipped = testHowManyStonesAreFlipped(listToPickFrom.get(indexFieldToCheck));
+            if (numberOfStonesFlipped > mostFlippedStones) {
+                tacticalField = listToPickFrom.get(numberOfStonesFlipped);
+                mostFlippedStones = numberOfStonesFlipped;
+            }
+        }
+        return tacticalField;
+    }
+
+
+    private int testHowManyStonesAreFlipped(Field field) {
+        int actualNumberOfStones = board.getNumberOfFieldsOccupiedByStone(kiColor);
+        //TODO Frage: Wo wird das gespeichert, wie lösche ich das wieder? thnx!
+        gameRule.setMove(field, kiColor);
+        int newNumberOfStones = board.getNumberOfFieldsOccupiedByStone(kiColor);
+        int numberOfStonesFlipped = (newNumberOfStones - actualNumberOfStones);
+        return numberOfStonesFlipped;
+    }
+
+/*
+    int randomNumber = (int) (Math.random() * listOfFieldsNotCloseToBorder.size()); // picks random index of field in list
+    fieldToSet = listOfFieldsNotCloseToBorder.get(randomNumber);
+        return fieldToSet;
+*/
 }

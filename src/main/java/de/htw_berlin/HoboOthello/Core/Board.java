@@ -103,11 +103,29 @@ public class Board {
         return isSideField;
     }
 
+    public boolean isNotSideMinusOneField(Field field) {
+        boolean isNotSideMinusOne = false;
+        int counter = 0;
+        while (counter < (fields.length - 1) || isNotSideMinusOne) {
+            if (field.equals(isSideField(field)) ||
+                    field != this.fields[1][counter] ||
+                    field != this.fields[counter][1] ||
+                    field != this.fields[fields.length - 1][counter] ||
+                    field != this.fields[counter][fields.length - 1]) {
+                isNotSideMinusOne = true;
+            } else {
+                counter++;
+            }
+        }
+        return isNotSideMinusOne;
+    }
+
     /**
      * Construct the current Board as a multi-line String for debugging
      *
      * @return Board overview as a String
      */
+
     public String getBoardOverview() {
         String boardOverview = "";
 
