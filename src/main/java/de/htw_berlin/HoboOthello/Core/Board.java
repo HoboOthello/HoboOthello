@@ -209,11 +209,10 @@ public class Board {
      */
     private int numberOfFieldsOccupiedByStoneColor(Color colorOfStonesToCount) {
         int counterOccupiedByStoneColor = 0;
-        Stone stone = new Stone();
         for (int i = 0; i < fields.length; i++) {
             for (int j = 0; j < fields.length; j++) {
                 if (this.fields[i][j].isOccupiedByStone()) {
-                    if (stone.getColor() == colorOfStonesToCount)
+                    if (this.fields[i][j].getStone().getColor() == colorOfStonesToCount)
                         counterOccupiedByStoneColor++;
                 }
             }
