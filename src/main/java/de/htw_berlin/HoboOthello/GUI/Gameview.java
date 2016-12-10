@@ -47,9 +47,8 @@ public class Gameview extends JFrame {
 
     /**
      * the method to set up the board
-     * @param boardSize
-     * TODO in the Controller set Boardsize or add int boardSize to the Constructor Gameview()
      *
+     * @param boardSize TODO in the Controller set Boardsize or add int boardSize to the Constructor Gameview()
      */
     //TODO create instance of method in controller
     public void setBoard(int boardSize) {
@@ -240,6 +239,11 @@ public class Gameview extends JFrame {
 
     }
 
+    /**
+     * update a Field in GameView
+     *
+     * @param field The field wich should be update
+     */
     public void updateBoardFields(Field field) {
         Color color = backgroundColor;
 
@@ -261,6 +265,12 @@ public class Gameview extends JFrame {
         fieldView[field.getX()][field.getY()].setBackground(color);
     }
 
+    /**
+     * update the Player Scores in GameView
+     *
+     * @param color  the Player Color BLACK or WHITE
+     * @param points the Player current Points
+     */
     public void updateBoardPlayerPoints(de.htw_berlin.HoboOthello.Core.Color color, int points) {
         if (color == de.htw_berlin.HoboOthello.Core.Color.BLACK) {
             this.blackScore.setText("BLACK " + points);
