@@ -3,7 +3,7 @@ package de.htw_berlin.HoboOthello.GUI;
 /**
  * Gameview class
  * methods
- *
+ * <p>
  * createGameView()
  * addButtonListener()
  * displayErrorMessage()
@@ -11,8 +11,11 @@ package de.htw_berlin.HoboOthello.GUI;
  */
 
 
+import de.htw_berlin.HoboOthello.Core.*;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -49,7 +52,7 @@ public class Gameview extends JFrame {
      *
      */
     //TODO create instance of method in controller
-    public void setBoard(int boardSize){
+    public void setBoard(int boardSize) {
 
         fieldView = new JButton[boardSize][boardSize];
 
@@ -70,7 +73,7 @@ public class Gameview extends JFrame {
         this.setTitle("HoboOthello");
         this.setLocation(800, 200);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(800,800);
+        this.setSize(800, 800);
         this.setLayout(new BorderLayout());
         this.setVisible(true);
 
@@ -78,11 +81,11 @@ public class Gameview extends JFrame {
          * MenuBar and all components
          */
 
-        gameMenu = new JMenu ("Datei");
+        gameMenu = new JMenu("Datei");
         closeGame = new JMenuItem("Exit");
         newGame = new JMenu("New Game");
-        aboutMenu = new JMenu ("About");
-        aboutItem = new JMenuItem ("About");
+        aboutMenu = new JMenu("About");
+        aboutItem = new JMenuItem("About");
         six = new JMenuItem("6 x 6");
         eight = new JMenuItem("8 x 8");
         ten = new JMenuItem("10 x 10");
@@ -110,37 +113,37 @@ public class Gameview extends JFrame {
          * create a board. board is the center panel
          */
         JPanel boardPanel = new JPanel();
-        boardPanel.setLayout( new GridLayout(boardSize,boardSize) );
-        boardPanel.setBorder( BorderFactory.createEtchedBorder() );
+        boardPanel.setLayout(new GridLayout(boardSize, boardSize));
+        boardPanel.setBorder(BorderFactory.createEtchedBorder());
 
 
 		/*
-		 * create Fields out of the Field class and fill the board with fields
+         * create Fields out of the Field class and fill the board with fields
 		 * field ist initialized with magic numbers but that will later be changed to a variable 'boardsize'
 		 */
         //TODO add the method setBoard() and get the getBoardSize()
         fieldView = new JButton[boardSize][boardSize];
 
-            for(int row=0;row<fieldView.length;row++){
-                for(int column=0;column<fieldView.length;column++){
+        for (int x = 0; x < fieldView.length; x++) {
+            for (int y = 0; y < fieldView.length; y++) {
 
-                    fieldView[row][column] = new JButton();
-                    fieldView[row][column].setBackground( backgroundColor );
-                    fieldView[row][column].setBorder( BorderFactory.createLineBorder( Color.BLACK, 1) );
+                fieldView[y][x] = new JButton();
+                fieldView[y][x].setBackground(backgroundColor);
+                fieldView[y][x].setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 
-                    boardPanel.add( fieldView[row][column] ).setVisible( true );
+                boardPanel.add(fieldView[y][x]).setVisible(true);
 
-                }
             }
+        }
 
 
         /*
          * the action panel which holds the start button
          */
         JPanel actionPanel = new JPanel();
-        actionPanel.setBorder (BorderFactory.createEtchedBorder());
+        actionPanel.setBorder(BorderFactory.createEtchedBorder());
         startButton.setText("Start");
-        startButton.setPreferredSize(new Dimension(80,30));
+        startButton.setPreferredSize(new Dimension(80, 30));
         actionPanel.add(startButton);
 
 
@@ -164,21 +167,21 @@ public class Gameview extends JFrame {
         /*
          * BorderLayout dimensions of the Center Panel
          */
-        actionPanel.setPreferredSize( new Dimension(0, 100) );
-        scorePanel.setPreferredSize( new Dimension(0, 50) );
-        westPanel.setPreferredSize( new Dimension(75, 0) );
-        eastPanel.setPreferredSize( new Dimension(75, 0) );
+        actionPanel.setPreferredSize(new Dimension(0, 100));
+        scorePanel.setPreferredSize(new Dimension(0, 50));
+        westPanel.setPreferredSize(new Dimension(75, 0));
+        eastPanel.setPreferredSize(new Dimension(75, 0));
 
 
         /*
          * adding all elements to the main frame
          */
 
-        this.getContentPane().add( scorePanel, BorderLayout.NORTH );
-        this.getContentPane().add( boardPanel, BorderLayout.CENTER );
-        this.getContentPane().add( actionPanel, BorderLayout.SOUTH );
-        this.getContentPane().add( eastPanel, BorderLayout.EAST );
-        this.getContentPane().add( westPanel, BorderLayout.WEST );
+        this.getContentPane().add(scorePanel, BorderLayout.NORTH);
+        this.getContentPane().add(boardPanel, BorderLayout.CENTER);
+        this.getContentPane().add(actionPanel, BorderLayout.SOUTH);
+        this.getContentPane().add(eastPanel, BorderLayout.EAST);
+        this.getContentPane().add(westPanel, BorderLayout.WEST);
 
         //adding the menu bar to the main frame
         this.setJMenuBar(new JMenuBar());
@@ -190,24 +193,20 @@ public class Gameview extends JFrame {
     }
 
 
-
-
     /*
      * method to add ActionListener to the board
      */
     public void addBoardListener(ActionListener listenerForFieldButton) {
 
-        for( int row=0; row<fieldView.length; row++ ) {
-            for( int column=0; column<fieldView.length; column++ ) {
-                fieldView[row][column].addActionListener( listenerForFieldButton );
+        for (int row = 0; row < fieldView.length; row++) {
+            for (int column = 0; column < fieldView.length; column++) {
+                fieldView[row][column].addActionListener(listenerForFieldButton);
             }
         }
     }
 
-    public void addMenuListener(ActionListener listenerForMenuClick)
-    {
-        for( int i = 0; i<toogleMenu.length; i++)
-        {
+    public void addMenuListener(ActionListener listenerForMenuClick) {
+        for (int i = 0; i < toogleMenu.length; i++) {
             toogleMenu[i].addActionListener(listenerForMenuClick);
         }
     }
@@ -218,18 +217,15 @@ public class Gameview extends JFrame {
      * and to check the length of the board (6, 8, 10)
      * used in GameController -> inner Class BoardListener
      */
-    public JButton getFieldView(int x, int y)
-    {
+    public JButton getFieldView(int x, int y) {
         return fieldView[x][y];
     }
 
-    public int getFieldViewLength()
-    {
+    public int getFieldViewLength() {
         return fieldView.length;
     }
 
-    public JMenuItem getToogleMenu(int nbr)
-    {
+    public JMenuItem getToogleMenu(int nbr) {
         return toogleMenu[nbr];
     }
 
@@ -238,10 +234,39 @@ public class Gameview extends JFrame {
      * error message to display errors
      * e.g. wrong button clicked = illegal move
      */
-    public void displayErrorMessage( String errorMessage ) {
+    public void displayErrorMessage(String errorMessage) {
 
         JOptionPane.showMessageDialog(this, errorMessage);
 
+    }
+
+    public void updateBoardFields(Field field) {
+        Color color = backgroundColor;
+
+        if (field.isOccupiedByStone()) {
+            switch (field.getStone().getColor()) {
+                case BLACK:
+                    color = Color.BLACK;
+                    break;
+                case WHITE:
+                    color = Color.WHITE;
+                    break;
+            }
+        }
+
+        if (field.isPossibleMove()) {
+            color = Color.blue;
+        }
+
+        fieldView[field.getX()][field.getY()].setBackground(color);
+    }
+
+    public void updateBoardPlayerPoints(de.htw_berlin.HoboOthello.Core.Color color, int points) {
+        if (color == de.htw_berlin.HoboOthello.Core.Color.BLACK) {
+            this.blackScore.setText("BLACK " + points);
+        } else {
+            this.whiteScore.setText("WHITE " + points);
+        }
     }
 
 }

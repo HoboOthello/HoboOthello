@@ -3,6 +3,8 @@ package de.htw_berlin.HoboOthello.Core;
 import de.htw_berlin.HoboOthello.KI.KI;
 import de.htw_berlin.HoboOthello.Network.Network;
 
+import java.util.List;
+
 /**
  * Created by Steffen Exler on 30.11.16.
  */
@@ -114,21 +116,13 @@ public class Game {
      * @return Player Points as int
      *
      */
-    //TODO Steffen: hab die Methode refactored, aber erscheint mir ein wenig überflüssig?
     public int countPlayerPoints(Color color) {
 
-        Color colorToCount = null;
-
-        if (colorToCount == Color.BLACK) {
-            colorToCount = Color.BLACK;
-        }
-        if (colorToCount == Color.WHITE){
-            colorToCount = Color.WHITE;
-        } else {
+        if (color == null) {
             throw new NullPointerException("Color is null!");
         }
 
-        return gameBoard.getNumberOfFieldsOccupiedByStone(colorToCount);
+        return gameBoard.getNumberOfFieldsOccupiedByStone(color);
     }
 
     /**
@@ -148,5 +142,9 @@ public class Game {
      */
     public Field[][] isFields() {
         return this.gameBoard.isFields();
+    }
+
+    public List<Field> iterateThroughAllFields() {
+        return gameBoard.iterateThroughAllFields();
     }
 }
