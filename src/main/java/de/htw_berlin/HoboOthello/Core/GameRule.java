@@ -53,6 +53,7 @@ public class GameRule {
      *          false == the move is not possible for this color
      */
     public boolean setMove(Field field, Color color) {
+        this.fields[field.getX()][field.getY()].setStone(new Stone(color));
         return move(field, color, true);
     }
 
@@ -109,7 +110,7 @@ public class GameRule {
 
             field = this.fields[x][y];
 
-            field.getStone().setColor(color);
+            this.fields[x][y].setStone(new Stone(color));
         } while (field.getStone().getColor() != color);
     }
 
@@ -128,9 +129,9 @@ public class GameRule {
         int x = field.getX() + x_Direction;
         int y = field.getY() + y_Direction;
 
-        field = this.fields[x][y];
-
         if (x >= 0 && y >= 0 && x < this.fields.length && y < this.fields.length) {
+            field = this.fields[x][y];
+
             if (field.isEmpty()) {
                 return false;
             }

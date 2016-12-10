@@ -41,7 +41,7 @@ public class GameController {
                     {
                         if( e.getSource() == gameview.getFieldView(r, c) )
                         {
-                            theGame.setTurn(new Field(r, c));
+                            theGame.setTurn(new Field(c, r));
                             // todo update the view with the new fields
                         }
                     }

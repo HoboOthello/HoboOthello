@@ -17,6 +17,10 @@ public class Stone {
 
     }
 
+    public Stone(Color stoneColor) {
+        this.stoneColor = stoneColor;
+    }
+
     public Color getColor() {
         return this.stoneColor;
     }

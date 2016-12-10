@@ -111,12 +111,12 @@ public class Board {
     public String getBoardOverview() {
         String boardOverview = "";
 
-        for (int i = 0; i < this.boardSize; i++) {
-            for (int j = 0; j < this.boardSize; j++) {
+        for (int y = 0; y < this.boardSize; y++) {
+            for (int x = 0; x < this.boardSize; x++) {
                 char StoneColor = ' ';
 
-                if (!this.fields[i][j].isEmpty()) {
-                    switch (this.fields[i][j].getStone().getColor()) {
+                if (!this.fields[x][y].isEmpty()) {
+                    switch (this.fields[x][y].getStone().getColor()) {
                         case BLACK:
                             StoneColor = 'B';
                             break;
@@ -124,7 +124,7 @@ public class Board {
                             StoneColor = 'W';
                             break;
                     }
-                } else if (this.fields[i][j].isPossibleMove()) {
+                } else if (this.fields[x][y].isPossibleMove()) {
                     StoneColor = 'x';
                 }
 
@@ -157,9 +157,9 @@ public class Board {
      * @return fields with default values as pictured above
      */
     private Field[][] fillWithDefaultValues(Field[][] fieldsToFill) {
-        for (int i = 0; i < fieldsToFill.length; i++) {
-            for (int j = 0; j < fieldsToFill.length; j++) {
-                fieldsToFill[i][j] = new Field();
+        for (int x = 0; x < fieldsToFill.length; x++) {
+            for (int y = 0; y < fieldsToFill.length; y++) {
+                fieldsToFill[x][y] = new Field(x, y);
             }
         }
 

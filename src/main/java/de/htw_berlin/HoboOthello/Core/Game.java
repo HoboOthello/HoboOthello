@@ -37,6 +37,14 @@ public class Game {
 
         // init gameState
         this.gameState = GameState.RUNNING;
+
+        // set possible moves
+        GameRule move = new GameRule(this.gameBoard.isFields());
+        move.changeAllPossibleFieldsToTrue(currentPlayer.getColor());
+        this.gameBoard.setFields(move.getFields());
+
+        // todo remove debug code
+        System.out.println(gameBoard.getBoardOverview());
     }
 
     /**
@@ -47,13 +55,19 @@ public class Game {
      *          false == turn is not valid
      */
     public boolean setTurn(Field field) {
-        if (this.gameState != GameState.STOP) {
+        if (this.gameState == GameState.STOP) {
             //todo add some kind of output why it fails
             return false;
         }
 
         // return if the turn was successful (possible)
         GameRule move = new GameRule(this.gameBoard.isFields());
+
+        // todo remove debug code
+        System.out.printf("Field: %d:%d%n", field.getX(), field.getY());
+        move.getPossibleMoves();
+        this.gameBoard.setFields(move.getFields());
+        System.out.println(gameBoard.getBoardOverview());
 
         // check if this turn is allowed
         boolean moveAllowed = move.isMoveAllowed(field, currentPlayer.getColor());
@@ -83,7 +97,11 @@ public class Game {
             if (playerTurn != null) {
                 setTurn(playerTurn);
             }
+
         }
+
+        // todo remove debug code
+        System.out.println(gameBoard.getBoardOverview());
 
         // return if this tun was successful
         return true;
