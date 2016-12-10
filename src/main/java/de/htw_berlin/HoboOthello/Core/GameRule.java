@@ -34,10 +34,10 @@ public class GameRule {
     /**
      * Check if the field in fields[x][y] is a possible move for the current Player (which is defined by it's Color)
      *
-     * @param field     a single Field
-     * @param color     Color.BLACK or Color.WHITE
-     * @return  true == the move is possible for this color
-     *          false == the move is not possible for this color
+     * @param field a single Field
+     * @param color Color.BLACK or Color.WHITE
+     * @return true == the move is possible for this color
+     * false == the move is not possible for this color
      */
     public boolean isMoveAllowed(Field field, Color color) {
         return move(field, color, false);
@@ -47,25 +47,29 @@ public class GameRule {
      * Set the move in field in fields[x][y] and flip every Stone which is now owned by
      * this Player
      *
-     * @param field     a single Field
-     * @param color     Color.BLACK or Color.WHITE
-     * @return  true == the move is possible for this color
-     *          false == the move is not possible for this color
+     * @param field a single Field
+     * @param color Color.BLACK or Color.WHITE
+     * @return true == the move is possible for this color
+     * false == the move is not possible for this color
      */
     public boolean setMove(Field field, Color color) {
-        this.fields[field.getX()][field.getY()].setStone(new Stone(color));
-        return move(field, color, true);
+        if (move(field, color, true)) {
+            this.fields[field.getX()][field.getY()].setStone(new Stone(color));
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
      * The Method for setMove && isMoveAllowed which do the work.
      *
-     * @param field       single Field
-     * @param color Color.BLACK or Color.WHITE
-     * @param flipStones  true --> will flip every stone which will now owned by other Player
-     *                    false --> just return if this field could be use for a possible turn
-     * @return  true == the move is possible for this color
-     *          false == the move is not possible for this color
+     * @param field      single Field
+     * @param color      Color.BLACK or Color.WHITE
+     * @param flipStones true --> will flip every stone which will now owned by other Player
+     *                   false --> just return if this field could be use for a possible turn
+     * @return true == the move is possible for this color
+     * false == the move is not possible for this color
      */
     private boolean move(Field field, Color color, boolean flipStones) {
         if (field.isOccupiedByStone()) {
@@ -104,26 +108,27 @@ public class GameRule {
      * @param y_Direction the direction on the y-axis
      */
     private void flipStones(Field field, Color color, int x_Direction, int y_Direction) {
-        do {
-            int x = field.getX() + x_Direction;
-            int y = field.getY() + y_Direction;
+        int x = field.getX() + x_Direction;
+        int y = field.getY() + y_Direction;
 
-            field = this.fields[x][y];
-
+        while (this.fields[x][y].getStone().getColor() != color) {
             this.fields[x][y].setStone(new Stone(color));
-        } while (field.getStone().getColor() != color);
+
+            x = x + x_Direction;
+            y = y + y_Direction;
+        }
     }
 
     /**
      * Method for isMoveAllowed, which check recursively if this move is possible for this direction
      *
      * @param field       single Field
-     * @param color Color.BLACK or Color.WHITE
+     * @param color       Color.BLACK or Color.WHITE
      * @param x_Direction the direction on the x-axis
      * @param y_Direction the direction on the y-axis
      * @param counter     how many stones are between from the start stone and the current stone
-     * @return  true == the move is possible for this color
-     *          false == the move is not possible for this color
+     * @return true == the move is possible for this color
+     * false == the move is not possible for this color
      */
     private boolean isPossibleField(Field field, Color color, int x_Direction, int y_Direction, int counter) {
         int x = field.getX() + x_Direction;

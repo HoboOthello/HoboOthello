@@ -67,7 +67,6 @@ public class Game {
 
         // todo remove debug code
         System.out.printf("Field: %d:%d%n", field.getX(), field.getY());
-        move.getPossibleMoves();
         this.gameBoard.setFields(move.getFields());
         System.out.println(gameBoard.getBoardOverview());
 
@@ -134,6 +133,10 @@ public class Game {
         } else {
             this.currentPlayer = playerBlack;
         }
+    }
+
+    public Player getCurrentPlayer() {
+        return currentPlayer;
     }
 
     /**

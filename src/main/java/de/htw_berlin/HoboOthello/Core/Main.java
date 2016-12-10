@@ -9,12 +9,13 @@ import de.htw_berlin.HoboOthello.GUI.Gameview;
 public class Main {
 
     public static void main(String[] args) {
-        //TODO MAGIC NUMBER DELETION
-        Gameview gameview = new Gameview(8);
+        int boardDefaultSize = 8;
+
+        Gameview gameview = new Gameview(boardDefaultSize);
 
         Game game = new Game();
 
-        game.newGame(8, new Player(Color.BLACK), new Player(Color.WHITE));
+        game.newGame(boardDefaultSize, new Player(Color.BLACK), new Player(Color.WHITE));
 
         GameController gameController = new GameController(gameview, game);
 

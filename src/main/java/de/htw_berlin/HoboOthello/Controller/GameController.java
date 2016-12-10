@@ -38,7 +38,6 @@ public class GameController {
         public void actionPerformed(ActionEvent e) {
 
             try {
-                // magic numbers r & c to x and y refactored
                 for (int x = 0; x < gameview.getFieldViewLength(); x++) {
                     for (int y = 0; y < gameview.getFieldViewLength(); y++) {
                         if (e.getSource() == gameview.getFieldView(x, y)) {
@@ -138,6 +137,9 @@ public class GameController {
         // update player points
         gameview.updateBoardPlayerPoints(Color.BLACK, theGame.countPlayerPoints(Color.BLACK));
         gameview.updateBoardPlayerPoints(Color.WHITE, theGame.countPlayerPoints(Color.WHITE));
+
+        // show which player is
+        System.out.println(theGame.getCurrentPlayer().getColor());
     }
 
 }
