@@ -30,10 +30,15 @@ public class Gameview extends JFrame {
     private JButton startButton = new JButton();
     private JButton[][] fieldView;
 
+    private JMenuItem[] toogleMenu;
+
     private JMenuBar menuBar;
     private JMenu gameMenu;
     private JMenuItem closeGame;
-    private JMenuItem newGame;
+    private JMenu newGame;
+    private JMenuItem six;
+    private JMenuItem eight;
+    private JMenuItem ten;
     private JMenu aboutMenu;
     private JMenuItem aboutItem;
 
@@ -55,11 +60,12 @@ public class Gameview extends JFrame {
      * Constructor to create the gui
      */
 
-    public Gameview() {
+    public Gameview(int boardSize) {
 
         /*
          * sets up the main frame of the game
          */
+
 
         this.setTitle("HoboOthello");
         this.setLocation(800, 200);
@@ -74,29 +80,37 @@ public class Gameview extends JFrame {
 
         gameMenu = new JMenu ("Datei");
         closeGame = new JMenuItem("Exit");
-        newGame = new JMenuItem("New Game");
-        closeGame.addActionListener(
-                new ActionListener() {public void actionPerformed(ActionEvent e) {
-                    JOptionPane.showMessageDialog (null, "You're a true Hobo!","GoodBye!", JOptionPane.INFORMATION_MESSAGE);
-                    setVisible(false);
-                }});
-        gameMenu.add(newGame);
-        gameMenu.add(closeGame);
-
+        newGame = new JMenu("New Game");
         aboutMenu = new JMenu ("About");
         aboutItem = new JMenuItem ("About");
-        aboutItem.addActionListener(
-                new ActionListener() {public void actionPerformed(ActionEvent e) {
-                    JOptionPane.showMessageDialog (null, "HoboOthello created by: Laura, Steffen and Bjoern","Info", JOptionPane.INFORMATION_MESSAGE);
-                }});
+        six = new JMenuItem("6 x 6");
+        eight = new JMenuItem("8 x 8");
+        ten = new JMenuItem("10 x 10");
+
+
+        gameMenu.add(newGame);
+        gameMenu.add(closeGame);
         aboutMenu.add(aboutItem);
+
+
+        newGame.add(six);
+        newGame.add(eight);
+        newGame.add(ten);
+
+        //adding all JMenuItems to an array. Changes here need to be check in the GameController as well
+        toogleMenu = new JMenuItem[5];
+        toogleMenu[0] = six;
+        toogleMenu[1] = eight;
+        toogleMenu[2] = ten;
+        toogleMenu[3] = closeGame;
+        toogleMenu[4] = aboutItem;
 
 
         /*
          * create a board. board is the center panel
          */
         JPanel boardPanel = new JPanel();
-        boardPanel.setLayout( new GridLayout(8,8) );
+        boardPanel.setLayout( new GridLayout(boardSize,boardSize) );
         boardPanel.setBorder( BorderFactory.createEtchedBorder() );
 
 
@@ -105,7 +119,7 @@ public class Gameview extends JFrame {
 		 * field ist initialized with magic numbers but that will later be changed to a variable 'boardsize'
 		 */
         //TODO add the method setBoard() and get the getBoardSize()
-        fieldView = new JButton[8][8];
+        fieldView = new JButton[boardSize][boardSize];
 
             for(int row=0;row<fieldView.length;row++){
                 for(int column=0;column<fieldView.length;column++){
@@ -159,11 +173,14 @@ public class Gameview extends JFrame {
         /*
          * adding all elements to the main frame
          */
+
         this.getContentPane().add( scorePanel, BorderLayout.NORTH );
         this.getContentPane().add( boardPanel, BorderLayout.CENTER );
         this.getContentPane().add( actionPanel, BorderLayout.SOUTH );
         this.getContentPane().add( eastPanel, BorderLayout.EAST );
         this.getContentPane().add( westPanel, BorderLayout.WEST );
+
+        //adding the menu bar to the main frame
         this.setJMenuBar(new JMenuBar());
         this.getJMenuBar().add(gameMenu);
         this.getJMenuBar().add(aboutMenu);
@@ -187,6 +204,13 @@ public class Gameview extends JFrame {
         }
     }
 
+    public void addMenuListener(ActionListener listenerForMenuClick)
+    {
+        for( int i = 0; i<toogleMenu.length; i++)
+        {
+            toogleMenu[i].addActionListener(listenerForMenuClick);
+        }
+    }
 
 
     /*
@@ -204,6 +228,10 @@ public class Gameview extends JFrame {
         return fieldView.length;
     }
 
+    public JMenuItem getToogleMenu(int nbr)
+    {
+        return toogleMenu[nbr];
+    }
 
 
     /*
