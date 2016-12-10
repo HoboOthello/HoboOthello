@@ -14,6 +14,7 @@ public class GameController {
 
     private Gameview gameview;
     private Game theGame;
+    // todo what does theBoard & theMain ?!
     private Board theBoard;
     private Main theMain;
 

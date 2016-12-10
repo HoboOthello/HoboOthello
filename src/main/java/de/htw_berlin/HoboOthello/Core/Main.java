@@ -2,6 +2,7 @@ package de.htw_berlin.HoboOthello.Core;
 
 import de.htw_berlin.HoboOthello.Controller.GameController;
 import de.htw_berlin.HoboOthello.GUI.Gameview;
+import de.htw_berlin.HoboOthello.KI.KI;
 
 /**
  * Created by Steffen Exler on 16.11.16.
@@ -16,6 +17,9 @@ public class Main {
         Game game = new Game();
 
         game.newGame(boardDefaultSize, new Player(Color.BLACK), new Player(Color.WHITE));
+
+        // for KI Debuging
+        // game.newGame(boardDefaultSize, new Player(Color.BLACK), new KI(Color.WHITE, Level.LEVEL1));
 
         GameController gameController = new GameController(gameview, game);
 

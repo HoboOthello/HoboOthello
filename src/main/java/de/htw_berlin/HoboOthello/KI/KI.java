@@ -15,8 +15,10 @@ public class KI extends Player {
     private Field field;
     private GameRule gameRule;
 
-    public KI(Color kiColor) {
-        this.kiColor = kiColor;
+    public KI(Color color, Level level) {
+        super(color);
+        this.kiColor = color;
+        this.level = level;
     }
 
     /**
