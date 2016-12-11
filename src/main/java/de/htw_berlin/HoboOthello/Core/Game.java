@@ -1,5 +1,12 @@
 package de.htw_berlin.HoboOthello.Core;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -44,6 +51,7 @@ public class Game {
 
         // todo remove debug code
         System.out.println(gameBoard.getBoardOverview());
+        saveFieldToJson();
     }
 
     /**
@@ -65,6 +73,7 @@ public class Game {
         System.out.printf("Field: %d:%d%n", field.getX(), field.getY());
         this.gameBoard.setFields(move.getFields());
         System.out.println(gameBoard.getBoardOverview());
+        saveFieldToJson();
 
         // check if this turn is allowed
         boolean moveAllowed = move.isMoveAllowed(field, currentPlayer.getColor());
@@ -135,6 +144,26 @@ public class Game {
 
     public Player getCurrentPlayer() {
         return currentPlayer;
+    }
+
+    /**
+     * Debug Method, save current gameBoard.fields to a Json File
+     */
+    private void saveFieldToJson () {
+        File file = new File("field.json");
+
+        Gson gson = new GsonBuilder().create();
+        String content = gson.toJson(gameBoard.isFields());
+
+        try {
+            FileWriter fw = new FileWriter(file.getAbsoluteFile());
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(content);
+            bw.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

@@ -2,7 +2,6 @@ package de.htw_berlin.HoboOthello.Core;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import de.htw_berlin.HoboOthello.GUI.Gameview;
 
 import java.io.*;
 
