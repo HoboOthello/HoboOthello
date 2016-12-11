@@ -38,10 +38,7 @@ public class Gameview extends JFrame {
     private JMenuBar menuBar;
     private JMenu gameMenu;
     private JMenuItem closeGame;
-    private JMenu newGame;
-    private JMenuItem six;
-    private JMenuItem eight;
-    private JMenuItem ten;
+    private JMenuItem newGame;
     private JMenu aboutMenu;
     private JMenuItem aboutItem;
 
@@ -82,30 +79,19 @@ public class Gameview extends JFrame {
 
         gameMenu = new JMenu("Datei");
         closeGame = new JMenuItem("Exit");
-        newGame = new JMenu("New Game");
+        newGame = new JMenuItem("New Game");
         aboutMenu = new JMenu("About");
         aboutItem = new JMenuItem("About");
-        six = new JMenuItem("6 x 6");
-        eight = new JMenuItem("8 x 8");
-        ten = new JMenuItem("10 x 10");
-
 
         gameMenu.add(newGame);
         gameMenu.add(closeGame);
         aboutMenu.add(aboutItem);
 
-
-        newGame.add(six);
-        newGame.add(eight);
-        newGame.add(ten);
-
         //adding all JMenuItems to an array. Changes here need to be check in the GameController as well
-        toogleMenu = new JMenuItem[5];
-        toogleMenu[0] = six;
-        toogleMenu[1] = eight;
-        toogleMenu[2] = ten;
-        toogleMenu[3] = closeGame;
-        toogleMenu[4] = aboutItem;
+        toogleMenu = new JMenuItem[3];
+        toogleMenu[0] = newGame;
+        toogleMenu[1] = closeGame;
+        toogleMenu[2] = aboutItem;
 
 
         /*

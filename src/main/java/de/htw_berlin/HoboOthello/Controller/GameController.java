@@ -2,6 +2,7 @@ package de.htw_berlin.HoboOthello.Controller;
 
 import de.htw_berlin.HoboOthello.Core.*;
 import de.htw_berlin.HoboOthello.GUI.Gameview;
+import de.htw_berlin.HoboOthello.KI.KI;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
@@ -19,7 +20,10 @@ public class GameController {
     private Main theMain;
 
     public GameController(Gameview theView, Game theGame) {
+        newGame(theView, theGame);
+    }
 
+    public void newGame(Gameview theView, Game theGame) {
         this.gameview = theView;
         this.theGame = theGame;
 
@@ -47,6 +51,16 @@ public class GameController {
                             // todo save for a network game?
                             Savegames savegames = new Savegames();
                             savegames.save(theGame);
+
+                            // check if the game is ended
+                            String gameWinner = theGame.getWinner();
+                            if (gameWinner != null) {
+                                JOptionPane.showMessageDialog(
+                                        null,
+                                        gameWinner,
+                                        "Game End",
+                                        JOptionPane.INFORMATION_MESSAGE);
+                            }
                         }
                     }
                 }
@@ -67,35 +81,129 @@ public class GameController {
 
             //TODO BJOERN write a line that starts a new game. the restart() method does throw a nullPointer
             try {
-
+                // todo refactor? look not quite efficient
                 /*
                 see
-                toogleMenu = new JMenuItem[5];
-                toogleMenu[0] = six;
-                toogleMenu[1] = eight;
-                toogleMenu[2] = ten;
-                toogleMenu[3] = closeGame;
-                toogleMenu[4] = aboutItem;
+                toogleMenu[0] = newGame;
+                toogleMenu[1] = closeGame;
+                toogleMenu[2] = aboutItem;
                  */
 
                 if (e.getSource() == gameview.getToogleMenu(0)) {
-                    theMain.restart(6);
+                    // todo have fun björn to redesign the showConfirmDialog :)
+                    JPanel panel = new JPanel();
+
+                    // board size panel
+                    panel.add(new JLabel("Game Board Size:"));
+                    DefaultComboBoxModel boardSize = new DefaultComboBoxModel();
+                    boardSize.addElement("6");
+                    boardSize.addElement("8");
+                    boardSize.addElement("10");
+                    JComboBox comboBoxBoardSize = new JComboBox(boardSize);
+                    panel.add(comboBoxBoardSize);
+
+                    // player Black
+                    panel.add(new JLabel("Black Player:"));
+                    DefaultComboBoxModel playerBlack = new DefaultComboBoxModel();
+                    playerBlack.addElement("Human");
+                    playerBlack.addElement("Computer Level 1");
+                    playerBlack.addElement("Computer Level 2");
+                    playerBlack.addElement("Computer Level 3");
+                    playerBlack.addElement("Network Server");
+                    playerBlack.addElement("Network Client");
+                    JComboBox comboBoxPlayerBlack = new JComboBox(playerBlack);
+                    panel.add(comboBoxPlayerBlack);
+
+                    // player White
+                    panel.add(new JLabel("Black Player:"));
+                    DefaultComboBoxModel playerWhite = new DefaultComboBoxModel();
+                    playerWhite.addElement("Human");
+                    playerWhite.addElement("Computer Level 1");
+                    playerWhite.addElement("Computer Level 2");
+                    playerWhite.addElement("Computer Level 3");
+                    playerWhite.addElement("Network Server");
+                    playerWhite.addElement("Network Client");
+                    JComboBox comboBoxPlayerWhite = new JComboBox(playerWhite);
+                    panel.add(comboBoxPlayerWhite);
+
+                    // Server IP
+                    panel.add(new JLabel("Server IP:"));
+                    JTextField serverIP = new JTextField();
+                    serverIP.setColumns(25);
+                    panel.add(serverIP);
+
+                    int result = JOptionPane.showConfirmDialog(null, panel, "New Game", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+                    if (result == JOptionPane.OK_OPTION) {
+                        Player newBlackPlayer = new Player(Color.BLACK);
+                        Player newWhitePlayer = new Player(Color.WHITE);
+                        int newBoardSize = Integer.parseInt(boardSize.getSelectedItem().toString());
+
+                        switch (comboBoxPlayerBlack.getSelectedIndex()) {
+                            case 0:
+                                newBlackPlayer = new Player(Color.BLACK);
+                                break;
+                            case 1:
+                                newBlackPlayer = new KI(Color.BLACK, Level.LEVEL1);
+                                break;
+                            case 2:
+                                newBlackPlayer = new KI(Color.BLACK, Level.LEVEL2);
+                                break;
+                            case 3:
+                                newBlackPlayer = new KI(Color.BLACK, Level.LEVEL3);
+                                break;
+                            case 4:
+                                // todo add network player
+                                break;
+                            case 5:
+                                // todo add network player
+                                break;
+                        }
+
+                        switch (comboBoxPlayerWhite.getSelectedIndex()) {
+                            case 0:
+                                newWhitePlayer = new Player(Color.WHITE);
+                                break;
+                            case 1:
+                                newWhitePlayer = new KI(Color.WHITE, Level.LEVEL1);
+                                break;
+                            case 2:
+                                newWhitePlayer = new KI(Color.WHITE, Level.LEVEL2);
+                                break;
+                            case 3:
+                                newWhitePlayer = new KI(Color.WHITE, Level.LEVEL3);
+                                break;
+                            case 4:
+                                // todo add network player
+                                break;
+                            case 5:
+                                // todo add network player
+                                break;
+                        }
+
+                        if (newBlackPlayer.getClass() != Player.class & newWhitePlayer.getClass() != Player.class) {
+                            throw new IllegalArgumentException("Min one Human Player is required!");
+                        }
+
+                        // destory the current JFrame
+                        gameview.dispose();
+
+                        // new game
+                        Game game = new Game();
+                        game.newGame(newBoardSize, newBlackPlayer, newWhitePlayer);
+                        Gameview newGameview = new Gameview(newBoardSize);
+                        newGame(newGameview, game);
+                    }
 
                 } else if (e.getSource() == gameview.getToogleMenu(1)) {
-                    theMain.restart(8);
-
-                } else if (e.getSource() == gameview.getToogleMenu(2)) {
-                    theMain.restart(10);
-
-                } else if (e.getSource() == gameview.getToogleMenu(3)) {
                     JOptionPane.showMessageDialog(
                             null,
                             "You're a true Hobo!",
                             "GoodBye!",
                             JOptionPane.INFORMATION_MESSAGE);
-                    gameview.setVisible(false);
+                    System.exit(0);
 
-                } else if (e.getSource() == gameview.getToogleMenu(4)) {
+                } else if (e.getSource() == gameview.getToogleMenu(2)) {
                     JOptionPane.showMessageDialog(
                             null,
                             "HoboOthello created by: Laura, Steffen and Bjoern",
@@ -133,7 +241,7 @@ public class GameController {
     /**
      * Update the Gameview with the current Board Infos
      */
-    public void updateGameBoard () {
+    public void updateGameBoard() {
         // todo may need refactor
 
         // update fields

@@ -2,6 +2,7 @@ package de.htw_berlin.HoboOthello.Core;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.sun.javafx.binding.StringFormatter;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -26,7 +27,7 @@ public class Game {
     /**
      * create a new Game
      *
-     * @param boardSize int 6, 8 or 10
+     * @param boardSize      int 6, 8 or 10
      * @param newPlayerBlack the Black Player
      * @param newPlayerWhite the White Player
      */
@@ -58,8 +59,8 @@ public class Game {
      * Set the game turn for the current user, return true if the turn was valid
      *
      * @param field field to set the turn in
-     * @return  true == turn is valid
-     *          false == turn is not valid
+     * @return true == turn is valid
+     * false == turn is not valid
      */
     public boolean setTurn(Field field) {
         if (this.gameState == GameState.STOP) {
@@ -73,7 +74,7 @@ public class Game {
         System.out.printf("Field: %d:%d%n", field.getX(), field.getY());
         this.gameBoard.setFields(move.getFields());
         System.out.println(gameBoard.getBoardOverview());
-        saveFieldToJson();
+
 
         // check if this turn is allowed
         boolean moveAllowed = move.isMoveAllowed(field, currentPlayer.getColor());
@@ -110,6 +111,7 @@ public class Game {
 
         // todo remove debug code
         System.out.println(gameBoard.getBoardOverview());
+        saveFieldToJson();
 
         // return if this tun was successful
         return true;
@@ -120,7 +122,6 @@ public class Game {
      *
      * @param color BLACK or WHITE
      * @return Player Points as int
-     *
      */
     public int countPlayerPoints(Color color) {
 
@@ -149,7 +150,7 @@ public class Game {
     /**
      * Debug Method, save current gameBoard.fields to a Json File
      */
-    private void saveFieldToJson () {
+    private void saveFieldToJson() {
         File file = new File("field.json");
 
         Gson gson = new GsonBuilder().create();
@@ -164,6 +165,26 @@ public class Game {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * get the winner text, if there is a winner
+     *
+     * @return if there is no winner, the return is null
+     * if the game is stop, it will create a winner output string
+     */
+    public String getWinner() {
+        if (this.gameState == GameState.STOP) {
+            if (this.gameBoard.getNumberOfFieldsOccupiedByStone(Color.BLACK) < this.gameBoard.getNumberOfFieldsOccupiedByStone(Color.WHITE)) {
+                return String.format("White Player win with %d points!", this.gameBoard.getNumberOfFieldsOccupiedByStone(Color.WHITE));
+            } else if (this.gameBoard.getNumberOfFieldsOccupiedByStone(Color.BLACK) > this.gameBoard.getNumberOfFieldsOccupiedByStone(Color.WHITE)) {
+                return String.format("Black Player win with %d points!", this.gameBoard.getNumberOfFieldsOccupiedByStone(Color.BLACK));
+            } else {
+                return String.format("Both player got %d points!", this.gameBoard.getNumberOfFieldsOccupiedByStone(Color.WHITE));
+            }
+        }
+
+        return null;
     }
 
     /**
