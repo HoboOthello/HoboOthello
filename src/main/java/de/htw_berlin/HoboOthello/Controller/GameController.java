@@ -115,7 +115,7 @@ public class GameController {
                     panel.add(comboBoxPlayerBlack);
 
                     // player White
-                    panel.add(new JLabel("Black Player:"));
+                    panel.add(new JLabel("White Player:"));
                     DefaultComboBoxModel playerWhite = new DefaultComboBoxModel();
                     playerWhite.addElement("Human");
                     playerWhite.addElement("Computer Level 1");
