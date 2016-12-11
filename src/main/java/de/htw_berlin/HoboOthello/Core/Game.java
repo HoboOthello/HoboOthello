@@ -51,6 +51,12 @@ public class Game {
         move.changeAllPossibleFieldsToTrue(currentPlayer.getColor());
         this.gameBoard.setFields(move.getFields());
 
+        // if playerBlack is KI, do the turn
+        // todo add network
+        if (currentPlayer.getClass() == KI.class) {
+            setTurn(currentPlayer.setMove(gameBoard));
+        }
+
         // todo remove debug code
         System.out.println(gameBoard.getBoardOverview());
         saveFieldToJson();
