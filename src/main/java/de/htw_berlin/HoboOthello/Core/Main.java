@@ -14,6 +14,11 @@ public class Main {
 
         Gameview gameview = new Gameview(boardDefaultSize);
 
+        Game game = new Game();
+        game.newGame(boardDefaultSize, new Player(Color.BLACK), new KI(Color.WHITE, Level.LEVEL1));
+
+        /*
+        savegames temp deactivate
         // todo load for a network game?
         Savegames savegames = new Savegames();
         Game game = savegames.load();
@@ -22,6 +27,7 @@ public class Main {
             game = new Game();
             game.newGame(boardDefaultSize, new Player(Color.BLACK), new Player(Color.WHITE));
         }
+        */
 
         // for KI Debuging
         // game.newGame(boardDefaultSize, new Player(Color.BLACK), new KI(Color.WHITE, Level.LEVEL1));
