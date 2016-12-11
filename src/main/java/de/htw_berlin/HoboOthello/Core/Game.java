@@ -1,8 +1,5 @@
 package de.htw_berlin.HoboOthello.Core;
 
-import de.htw_berlin.HoboOthello.KI.KI;
-import de.htw_berlin.HoboOthello.Network.Network;
-
 import java.util.List;
 
 /**
@@ -138,14 +135,6 @@ public class Game {
 
     public Player getCurrentPlayer() {
         return currentPlayer;
-    }
-
-    /**
-     *  Fields for Controller
-     * @return alls fields in Field[][]
-     */
-    public Field[][] isFields() {
-        return this.gameBoard.isFields();
     }
 
     /**

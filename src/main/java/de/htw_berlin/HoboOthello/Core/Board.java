@@ -90,7 +90,9 @@ public class Board {
     public boolean isSideField(Field field) {
         boolean isSideField = false;
         int counter = 0;
+
         while (counter < fields.length || isSideField) {
+
             if (field == this.fields[0][counter] ||
                     field == this.fields[counter][0] ||
                     field == this.fields[fields.length][counter] ||
@@ -99,7 +101,9 @@ public class Board {
             } else {
                 counter++;
             }
+
         }
+        // todo intellij mean isSideField is always false
         return isSideField;
     }
 
@@ -240,6 +244,7 @@ public class Board {
      *
      * @return the total number of fields which are occupied by a stone
      */
+    // todo has the method any use? For the game end we just test 2 times if there is a possible move!
     public int getNumberOfOccupiedFields() {
         this.numberOfOccupiedFields = numberOfFieldsOccupiedByStoneColor(Color.WHITE) + numberOfFieldsOccupiedByStoneColor(Color.BLACK);
         return numberOfOccupiedFields;
@@ -260,6 +265,7 @@ public class Board {
      *
      * @return true if board is completely filled with stones
      */
+    // todo has the method any use? For the game end we just test 2 times if there is a possible move!
     public boolean getBoardIsFull() {
         return boardIsFull();
     }
@@ -272,6 +278,7 @@ public class Board {
         this.fields = newFields;
     }
 
+    // todo do we need this?
     public int getBoardSize() {
         return this.boardSize;
     }
