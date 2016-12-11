@@ -34,7 +34,7 @@ public class Field {
     /**
      * Constructor for field with exact location on the board
      */
-    public Field(int x, int y){
+    public Field(int x, int y) {
         this.x = x;
         this.y = y;
     }
@@ -49,12 +49,19 @@ public class Field {
 
     //TODO: methode schreiben die den spieler den letzten Zug rückgängig machen lässt (achte auch auf stones die wieder umgedreht werden müssen)
     //todo unötige funktion, neues spiel -> neues Board!
+    // TODO: meine kein neues spiel, nur den letzten zug ruckgängig machen!
     public void setEmpty() {
         this.stone = null;
     }
 
     public boolean isEmpty() {
-        return stone == null;
+        boolean stoneOnField;
+        if (this.stone == null) {
+            stoneOnField = true;
+        } else {
+            stoneOnField = false;
+        }
+        return stoneOnField;
     }
 
     public boolean isOccupiedByStone() {
@@ -69,7 +76,6 @@ public class Field {
     }
 
 
-
     public boolean isPossibleMove() {
         return possibleMove;
     }
@@ -77,6 +83,7 @@ public class Field {
 
     /**
      * Set this field to a possible move for the current Player
+     *
      * @param possibleMove true == this field is a possible move for the current player
      *                     false == this field is not a possible move for the current player
      */
