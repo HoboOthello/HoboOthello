@@ -74,7 +74,7 @@ public class GameRule {
      * false == the move is not possible for this color
      */
     private boolean move(Field field, Color color, boolean flipStones) {
-        if (field.isOccupiedByStone()) {
+        if (this.fields[field.getX()][field.getY()].isOccupiedByStone()) {
             return false;
         }
 
