@@ -11,7 +11,7 @@ public class KI extends Player {
     private Color kiColor;
     private Level level;
 
-    private Board board;
+    private Board board = new Board(getBoardSize());
     private Field field;
     private GameRule gameRule;
 
