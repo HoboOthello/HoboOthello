@@ -47,6 +47,7 @@ public class Field {
     }
 
     //TODO: methode schreiben die den spieler den letzten Zug rückgängig machen lässt (achte auch auf stones die wieder umgedreht werden müssen)
+    //todo unötige funktion, neues spiel -> neues Board!
     public void setEmpty() {
         this.stone = null;
     }
@@ -72,7 +73,11 @@ public class Field {
         return possibleMove;
     }
 
-    //TODO: Steffen: check if setter is needed, i don't think so (laura)
+
+    /**
+     * Set this field to a possible move for the current Player
+     * @param possibleMove
+     */
     public void setPossibleMove(boolean possibleMove) {
         this.possibleMove = possibleMove;
     }

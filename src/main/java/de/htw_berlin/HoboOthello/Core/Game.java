@@ -58,7 +58,6 @@ public class Game {
      */
     public boolean setTurn(Field field) {
         if (this.gameState == GameState.STOP) {
-            //todo add some kind of output why it fails
             return false;
         }
 

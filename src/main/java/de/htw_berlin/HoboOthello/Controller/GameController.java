@@ -130,6 +130,9 @@ public class GameController {
 
     }
 
+    /**
+     * Update the Gameview with the current Board Infos
+     */
     public void updateGameBoard () {
         // todo may need refactor
 
