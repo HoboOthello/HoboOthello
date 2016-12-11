@@ -11,7 +11,7 @@ public class KI extends Player {
     private Color kiColor;
     private Level level;
 
-    private Board board = new Board(getBoardSize());
+    private Board board;
     private Field field;
     private GameRule gameRule;
 
@@ -60,8 +60,9 @@ public class KI extends Player {
      */
     private List<Field> listPossibleMoves() {
         List<Field> listOfPossibleMoves = new ArrayList<Field>();
+        List<Field> listOfAllFields = board.iterateThroughAllFields();
 
-        for (Field field : board.iterateThroughAllFields()) {
+        for (Field field : listOfAllFields) {
             if (gameRule.isMoveAllowed(field, kiColor)) {
                 listOfPossibleMoves.add(field);
             }
