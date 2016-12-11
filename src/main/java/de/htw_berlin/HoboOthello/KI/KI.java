@@ -29,6 +29,7 @@ public class KI extends Player {
      * return field is null in case there is no possible move for the KI
      */
     public Field setMove(Board board) {
+        this.board = board;
         Field fieldToSetMove;
 
         if (level == level.LEVEL1) {
