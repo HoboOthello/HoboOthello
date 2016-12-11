@@ -158,6 +158,11 @@ public class GameRule {
         return fields;
     }
 
+    /**
+     * Count every possible move for the current player
+     *
+     * @return all possible moves for the current player in INT
+     */
     public int getPossibleMoves() {
         int countPossibleMoves = 0;
         for (int i = 0; i < this.fields.length; i++) {

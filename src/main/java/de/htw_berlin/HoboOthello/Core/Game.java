@@ -148,6 +148,15 @@ public class Game {
         return this.gameBoard.isFields();
     }
 
+    /**
+     * Method which iterates through all the fields on the board in this specific order:
+     * Starts at [0][0], moves down the first vertical vector ([0][++]),
+     * then moves one column to the right ([1][0]) and down the second  vertical vector ([1][++]), etc.
+     * int i = counter on x-axis
+     * int j = counter on y-axis
+     *
+     * @return listOfFields which is a lists of all fields, in this specific order
+     */
     public List<Field> iterateThroughAllFields() {
         return gameBoard.iterateThroughAllFields();
     }

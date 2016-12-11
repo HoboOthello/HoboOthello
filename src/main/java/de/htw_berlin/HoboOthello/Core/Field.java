@@ -26,6 +26,7 @@ public class Field {
     /**
      * Default constructor for empty field
      */
+    // todo do we need this construktor? It's dangerous for bugs!
     public Field() {
 
     }
@@ -76,7 +77,8 @@ public class Field {
 
     /**
      * Set this field to a possible move for the current Player
-     * @param possibleMove
+     * @param possibleMove true == this field is a possible move for the current player
+     *                     false == this field is not a possible move for the current player
      */
     public void setPossibleMove(boolean possibleMove) {
         this.possibleMove = possibleMove;

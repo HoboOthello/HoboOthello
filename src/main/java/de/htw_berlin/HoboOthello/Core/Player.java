@@ -14,6 +14,7 @@ public class Player {
     /**
      * Default constructor for a player
      */
+    // todo do we need a empty construktor? Very dangerous!
     public Player(){
 
     }

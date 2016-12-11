@@ -13,6 +13,11 @@ public class Savegames {
 
     private File file = new File("savegame.json");
 
+    /**
+     * Load the last game from this.file
+     *
+     * @return the last which was played on the machiene
+     */
     public Game load() {
         Game game = null;
 
@@ -35,7 +40,6 @@ public class Savegames {
             Gson gson = new GsonBuilder().create();
 
 
-
             game = gson.fromJson(content, Game.class);
 
         } catch (IOException e) {
@@ -45,6 +49,11 @@ public class Savegames {
         return game;
     }
 
+    /**
+     * Save the Current Game to a JSON file
+     *
+     * @param game the game which should be saved
+     */
     public void save(Game game) {
         Gson gson = new GsonBuilder().create();
         String content = gson.toJson(game);
