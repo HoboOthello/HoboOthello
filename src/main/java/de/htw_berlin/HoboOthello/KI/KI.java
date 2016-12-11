@@ -30,6 +30,7 @@ public class KI extends Player {
      */
     public Field setMove(Board board) {
         this.board = board;
+        this.gameRule = new GameRule(this.board.isFields());
         Field fieldToSetMove;
 
         if (level == level.LEVEL1) {
