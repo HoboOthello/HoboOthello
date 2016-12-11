@@ -29,6 +29,7 @@ public class KI extends Player {
      * return field is null in case there is no possible move for the KI
      */
     public Field setMove(Board board) {
+        this.board = board;
         Field fieldToSetMove;
 
         if (level == level.LEVEL1) {
@@ -59,13 +60,18 @@ public class KI extends Player {
      * @return listOfPossibleMoves
      */
     private List<Field> listPossibleMoves() {
+
         List<Field> listOfPossibleMoves = new ArrayList<Field>();
         List<Field> listOfAllFields = board.iterateThroughAllFields();
 
-        for (Field field : listOfAllFields) {
-            if (gameRule.isMoveAllowed(field, kiColor)) {
-                listOfPossibleMoves.add(field);
+        if (listOfAllFields != null) {
+            for (Field field : listOfAllFields) {
+                if (gameRule.isMoveAllowed(field, kiColor)) {
+                    listOfPossibleMoves.add(field);
+                }
             }
+        } else {
+            //TODO what to do if list is null?
         }
         return listOfPossibleMoves;
     }
