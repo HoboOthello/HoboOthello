@@ -40,6 +40,9 @@ public class Savegames {
 
 
             game = gson.fromJson(content, Game.class);
+            if (game != null) {
+                game.updatePlayerTyp();
+            }
 
         } catch (IOException e) {
             e.printStackTrace();

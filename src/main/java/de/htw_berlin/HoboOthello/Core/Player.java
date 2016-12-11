@@ -1,5 +1,7 @@
 package de.htw_berlin.HoboOthello.Core;
 
+import java.awt.*;
+
 /**
  * Created by laura on 24.11.16.
  */
@@ -10,15 +12,9 @@ public class Player {
      */
     private Color color;
 
+    private PlayerTyp playerTyp;
 
-    /**
-     * Default constructor for a player
-     */
-    // todo do we need a empty construktor? Very dangerous!
-    public Player(){
-
-    }
-
+    private Level level;
 
     /**
      * Constructor for a player
@@ -28,6 +24,7 @@ public class Player {
      */
     public Player(Color color) {
         this.color = color;
+        this.playerTyp = PlayerTyp.DESKTOP;
     }
 
     public Color getColor() {
@@ -42,4 +39,20 @@ public class Player {
         return null;
     }
 
+
+    public PlayerTyp getPlayerTyp() {
+        return playerTyp;
+    }
+
+    public void setPlayerTyp(PlayerTyp playerTyp) {
+        this.playerTyp = playerTyp;
+    }
+
+    public Level getLevel() {
+        return level;
+    }
+
+    public void setLevel(Level level) {
+        this.level = level;
+    }
 }

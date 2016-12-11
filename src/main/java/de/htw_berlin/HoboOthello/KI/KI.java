@@ -9,7 +9,6 @@ import java.util.List;
 public class KI extends Player {
 
     private Color kiColor;
-    private Level level;
 
     private Board board;
     private Field field;
@@ -18,7 +17,8 @@ public class KI extends Player {
     public KI(Color color, Level level) {
         super(color);
         this.kiColor = color;
-        this.level = level;
+        setLevel(level);
+        setPlayerTyp(PlayerTyp.KI);
     }
 
     /**
@@ -33,12 +33,12 @@ public class KI extends Player {
         this.gameRule = new GameRule(this.board.isFields());
         Field fieldToSetMove;
 
-        if (level == level.LEVEL1) {
+        if (getLevel() == Level.LEVEL1) {
             fieldToSetMove = pickRandomFieldFromList();
             return fieldToSetMove;
         }
 
-        if (level == level.LEVEL2) {
+        if (getLevel() == Level.LEVEL2) {
             fieldToSetMove = pickCornerOrSideFieldFromList();
             if (fieldToSetMove == null) {
                 fieldToSetMove = pickRandomFieldFromList();
@@ -46,7 +46,7 @@ public class KI extends Player {
             return fieldToSetMove;
         }
 
-        if (level == level.LEVEL3) {
+        if (getLevel() == Level.LEVEL3) {
             fieldToSetMove = pickTacticalField();
             return fieldToSetMove;
 

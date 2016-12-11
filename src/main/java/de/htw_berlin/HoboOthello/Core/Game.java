@@ -3,6 +3,7 @@ package de.htw_berlin.HoboOthello.Core;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.sun.javafx.binding.StringFormatter;
+import de.htw_berlin.HoboOthello.KI.KI;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -145,6 +146,30 @@ public class Game {
 
     public Player getCurrentPlayer() {
         return currentPlayer;
+    }
+
+    /**
+     * update the player Typ after load a Game from a savegame
+     */
+    public void updatePlayerTyp () {
+        // todo update for network
+        switch (this.currentPlayer.getPlayerTyp()) {
+            case KI:
+                this.currentPlayer = new KI(this.currentPlayer.getColor(), this.currentPlayer.getLevel());
+                break;
+        }
+
+        switch (this.playerBlack.getPlayerTyp()) {
+            case KI:
+                this.playerBlack = new KI(this.playerBlack.getColor(), this.playerBlack.getLevel());
+                break;
+        }
+
+        switch (this.playerWhite.getPlayerTyp()) {
+            case KI:
+                this.playerWhite = new KI(this.playerWhite.getColor(), this.playerWhite.getLevel());
+                break;
+        }
     }
 
     /**

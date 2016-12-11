@@ -1,0 +1,8 @@
+package de.htw_berlin.HoboOthello.Core;
+
+/**
+ * Created by fubu on 12.12.16.
+ */
+public enum PlayerTyp {
+    DESKTOP, KI, NETWORK
+}
