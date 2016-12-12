@@ -14,7 +14,6 @@ public class Player {
 
     private PlayerTyp playerTyp;
 
-    private Level level;
 
     /**
      * Constructor for a player
@@ -46,13 +45,5 @@ public class Player {
 
     public void setPlayerTyp(PlayerTyp playerTyp) {
         this.playerTyp = playerTyp;
-    }
-
-    public Level getLevel() {
-        return level;
-    }
-
-    public void setLevel(Level level) {
-        this.level = level;
     }
 }

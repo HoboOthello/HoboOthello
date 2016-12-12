@@ -159,21 +159,27 @@ public class Game {
      */
     public void updatePlayerTyp () {
         // todo update for network
-        switch (this.currentPlayer.getPlayerTyp()) {
-            case KI:
-                this.currentPlayer = new KI(this.currentPlayer.getColor(), this.currentPlayer.getLevel());
-                break;
-        }
-
         switch (this.playerBlack.getPlayerTyp()) {
-            case KI:
-                this.playerBlack = new KI(this.playerBlack.getColor(), this.playerBlack.getLevel());
+            case KI_LEVEL1:
+                this.playerBlack = new KI(this.playerBlack.getColor(), Level.LEVEL1);
+                break;
+            case KI_LEVEL2:
+                this.playerBlack = new KI(this.playerBlack.getColor(), Level.LEVEL2);
+                break;
+            case KI_LEVEL3:
+                this.playerBlack = new KI(this.playerBlack.getColor(), Level.LEVEL3);
                 break;
         }
 
         switch (this.playerWhite.getPlayerTyp()) {
-            case KI:
-                this.playerWhite = new KI(this.playerWhite.getColor(), this.playerWhite.getLevel());
+            case KI_LEVEL1:
+                this.playerWhite = new KI(this.playerWhite.getColor(), Level.LEVEL1);
+                break;
+            case KI_LEVEL2:
+                this.playerWhite = new KI(this.playerWhite.getColor(), Level.LEVEL2);
+                break;
+            case KI_LEVEL3:
+                this.playerWhite = new KI(this.playerWhite.getColor(), Level.LEVEL3);
                 break;
         }
     }
