@@ -3,6 +3,7 @@ package de.htw_berlin.HoboOthello.Controller;
 import de.htw_berlin.HoboOthello.Core.*;
 import de.htw_berlin.HoboOthello.GUI.Gameview;
 import de.htw_berlin.HoboOthello.KI.KI;
+import de.htw_berlin.HoboOthello.Network.Network;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
@@ -110,7 +111,6 @@ public class GameController {
                     playerBlack.addElement("Computer Level 2");
                     playerBlack.addElement("Computer Level 3");
                     playerBlack.addElement("Network Server");
-                    playerBlack.addElement("Network Client");
                     JComboBox comboBoxPlayerBlack = new JComboBox(playerBlack);
                     panel.add(comboBoxPlayerBlack);
 
@@ -121,7 +121,6 @@ public class GameController {
                     playerWhite.addElement("Computer Level 1");
                     playerWhite.addElement("Computer Level 2");
                     playerWhite.addElement("Computer Level 3");
-                    playerWhite.addElement("Network Server");
                     playerWhite.addElement("Network Client");
                     JComboBox comboBoxPlayerWhite = new JComboBox(playerWhite);
                     panel.add(comboBoxPlayerWhite);
@@ -153,10 +152,7 @@ public class GameController {
                                 newBlackPlayer = new KI(Color.BLACK, Level.LEVEL3);
                                 break;
                             case 4:
-                                // todo add network player
-                                break;
-                            case 5:
-                                // todo add network player
+                                newBlackPlayer = new Network(Color.BLACK);
                                 break;
                         }
 
@@ -174,10 +170,7 @@ public class GameController {
                                 newWhitePlayer = new KI(Color.WHITE, Level.LEVEL3);
                                 break;
                             case 4:
-                                // todo add network player
-                                break;
-                            case 5:
-                                // todo add network player
+                                newBlackPlayer = new Network(Color.WHITE, serverIP.toString());
                                 break;
                         }
 

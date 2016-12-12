@@ -37,9 +37,8 @@ public class Savegames {
             br.close();
 
             Gson gson = new GsonBuilder().create();
-
-
             game = gson.fromJson(content, Game.class);
+
             if (game != null) {
                 game.updatePlayerTyp();
             }

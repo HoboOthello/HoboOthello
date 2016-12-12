@@ -1,23 +1,83 @@
 package de.htw_berlin.HoboOthello.Network;
 
-import de.htw_berlin.HoboOthello.Core.Field;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import de.htw_berlin.HoboOthello.Core.Board;
 import de.htw_berlin.HoboOthello.Core.Color;
+import de.htw_berlin.HoboOthello.Core.Field;
+import de.htw_berlin.HoboOthello.Core.Player;
+
+import java.io.IOException;
 
 /**
  * Created by laura on 24.11.16.
  */
-public class Network {
-    private Field[][] fields;
+public class Network extends Player {
 
-    public void setMove(Color stoneColor) {
+    private NetworkTyp networkTyp;
+    private String serverIp;
 
+    public Network(Color color, String serverIp) {
+        super(color);
+        networkTyp = NetworkTyp.SERVER;
+        this.serverIp = serverIp;
     }
 
-    public Field[][] getFields() {
-        return fields;
+    public Network(Color color) {
+        super(color);
+        networkTyp = NetworkTyp.CLIENT;
     }
 
-    public void setFields(Field[][] fields) {
-        this.fields = fields;
+    public Field setMove(Board board) {
+        String response = null;
+        Field field = null;
+
+        Gson gson = new GsonBuilder().create();
+        String boardJson = gson.toJson(board);
+
+        if (this.networkTyp == NetworkTyp.SERVER) {
+            Server server = new Server();
+            try {
+                response = server.startServer(boardJson);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if (this.networkTyp == NetworkTyp.CLIENT) {
+            Client client = new Client();
+
+            try {
+                response = client.startClient(boardJson, this.serverIp);
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        Board boardNetwork = gson.fromJson(response, Board.class);
+
+        return getTurn(board, boardNetwork);
+    }
+
+    /**
+     * Compared 2 boards and get the first field in boardNetwork which is not empty instead of boardOriginal
+     *
+     * @param boardOriginal
+     * @param boardNetwork
+     * @return turn Field
+     */
+    private Field getTurn(Board boardOriginal, Board boardNetwork) {
+        // todo return error if the size differ
+        for (int x = 0; x < boardOriginal.getBoardSize(); x++) {
+            for (int y = 0; y < boardOriginal.getBoardSize(); y++) {
+                if (boardOriginal.isFields()[x][y].isEmpty() != boardNetwork.isFields()[x][y].isEmpty()) {
+                    return boardNetwork.isFields()[x][y];
+                }
+            }
+        }
+
+        return null;
     }
 }
