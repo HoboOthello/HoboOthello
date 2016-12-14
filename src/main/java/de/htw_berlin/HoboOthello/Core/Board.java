@@ -101,20 +101,16 @@ public class Board {
     }
 
     public boolean isNotSideMinusOneField(Field field) {
-        boolean isNotSideMinusOne = false;
-        int counter = 0;
-        while (counter < (fields.length - 1) || isNotSideMinusOne) {
-            if (field.equals(isSideField(field)) ||
-                    field != this.fields[1][counter] ||
-                    field != this.fields[counter][1] ||
-                    field != this.fields[fields.length - 1][counter] ||
-                    field != this.fields[counter][fields.length - 1]) {
-                isNotSideMinusOne = true;
-            } else {
-                counter++;
-            }
+        if (field.getX() == 1 || field.getX() == boardSize - 2) {
+            return true;
         }
-        return isNotSideMinusOne;
+
+        if (field.getY() == 1 || field.getY() == boardSize - 2) {
+            return true;
+        }
+
+        return false;
+
     }
 
     /**

@@ -114,23 +114,21 @@ public class KI extends Player {
         Field cornerOrSideField = null;
 
         int cornerFieldIndex = 0;
-        while (cornerFieldIndex < listOfPossibleMoves.size()) {
+        while (cornerFieldIndex < listOfPossibleMoves.size() -1) {
             Field field = listOfPossibleMoves.get(cornerFieldIndex);
             if (board.isCornerField(field)) {
                 cornerOrSideField = field;
-            } else {
-                cornerFieldIndex++;
             }
+            cornerFieldIndex++;
         }
 
         int sideFieldIndex = 0;
-        while (sideFieldIndex < listOfPossibleMoves.size()) {
+        while (sideFieldIndex < listOfPossibleMoves.size() -1 ) {
             Field field = listOfPossibleMoves.get(sideFieldIndex);
             if (board.isSideField(field)) {
                 cornerOrSideField = field;
-            } else {
-                sideFieldIndex++;
             }
+            sideFieldIndex++;
         }
         return cornerOrSideField;
     }
@@ -166,13 +164,12 @@ public class KI extends Player {
         List<Field> listOfPossibleSideFields = null;
 
         int sideFieldIndex = 0;
-        while (sideFieldIndex < listOfPossibleMoves.size()) {
+        while (sideFieldIndex < listOfPossibleMoves.size() -1) {
             Field field = listOfPossibleMoves.get(sideFieldIndex);
             if (board.isSideField(field)) {
                 listOfPossibleSideFields.add(field);
-            } else {
-                sideFieldIndex++;
             }
+            sideFieldIndex++;
         }
         return listOfPossibleSideFields;
 
@@ -189,13 +186,12 @@ public class KI extends Player {
         List<Field> listOfPossibleMoves = listPossibleMoves();
         List<Field> listOfFieldsNotCloseToBorder = null;
         int count = 0;
-        while (count < listOfPossibleMoves.size()) {
+        while (count < listOfPossibleMoves.size() -1) {
             Field field = listOfPossibleMoves.get(count);
             if (board.isNotSideMinusOneField(field)) {
                 listOfFieldsNotCloseToBorder.add(field);
-            } else {
-                count++;
             }
+            count++;
         }
         return listOfFieldsNotCloseToBorder;
     }
@@ -264,8 +260,14 @@ public class KI extends Player {
         // wird in gamerule gesichert
         // useage gamerule neu erstellen -> mit felder füllen -> testen -> auswerten -> löschen
         // solange wiederholen wie dir spass macht
-        gameRule.setMove(field, kiColor);
-        int newNumberOfStones = board.getNumberOfFieldsOccupiedByStone(kiColor);
+
+        GameRule newGameRule = new GameRule(board.isFields());
+        newGameRule.setMove(field, kiColor);
+
+        Board newBoard = new Board(board.getBoardSize());
+        newBoard.setFields(newGameRule.getFields());
+
+        int newNumberOfStones = newBoard.getNumberOfFieldsOccupiedByStone(kiColor);
         int numberOfStonesFlipped = (newNumberOfStones - actualNumberOfStones);
         return numberOfStonesFlipped;
     }
