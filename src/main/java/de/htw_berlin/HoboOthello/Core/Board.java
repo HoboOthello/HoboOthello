@@ -71,6 +71,7 @@ public class Board {
      * @return true is field is in the corner of the board
      */
     public boolean isCornerField(Field field) {
+
         if (field == this.fields[0][0] ||
                 field == this.fields[0][fields.length -1] ||
                 field == this.fields[fields.length -1][0] ||
