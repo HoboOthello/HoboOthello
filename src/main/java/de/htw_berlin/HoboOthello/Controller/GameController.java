@@ -128,6 +128,7 @@ public class GameController {
                     // Server IP
                     panel.add(new JLabel("Server IP:"));
                     JTextField serverIP = new JTextField();
+                    serverIP.setText("localhost");
                     serverIP.setColumns(25);
                     panel.add(serverIP);
 
@@ -170,7 +171,7 @@ public class GameController {
                                 newWhitePlayer = new KI(Color.WHITE, Level.LEVEL3);
                                 break;
                             case 4:
-                                newBlackPlayer = new Network(Color.WHITE, serverIP.toString());
+                                newWhitePlayer = new Network(Color.WHITE, serverIP.getText());
                                 break;
                         }
 

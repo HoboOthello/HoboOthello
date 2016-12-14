@@ -22,13 +22,13 @@ public class KI extends Player {
 
         switch (level) {
             case LEVEL1:
-                setPlayerTyp(PlayerTyp.KI_LEVEL1);
+                setPlayerType(PlayerType.KI_LEVEL1);
                 break;
             case LEVEL2:
-                setPlayerTyp(PlayerTyp.KI_LEVEL2);
+                setPlayerType(PlayerType.KI_LEVEL2);
                 break;
             case LEVEL3:
-                setPlayerTyp(PlayerTyp.KI_LEVEL3);
+                setPlayerType(PlayerType.KI_LEVEL3);
                 break;
         }
 
