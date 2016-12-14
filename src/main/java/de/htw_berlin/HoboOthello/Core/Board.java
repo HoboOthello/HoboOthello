@@ -73,9 +73,9 @@ public class Board {
     public boolean isCornerField(Field field) {
 
         if (field == this.fields[0][0] ||
-                field == this.fields[0][fields.length -1] ||
-                field == this.fields[fields.length -1][0] ||
-                field == this.fields[fields.length -1][fields.length -1]) {
+                field == this.fields[0][fields.length - 1] ||
+                field == this.fields[fields.length - 1][0] ||
+                field == this.fields[fields.length - 1][fields.length - 1]) {
             return true;
         } else {
             return false;
@@ -89,23 +89,15 @@ public class Board {
      * @return true is field is on the side of the board
      */
     public boolean isSideField(Field field) {
-        boolean isSideField = false;
-        int counter = 0;
-
-        while (counter < fields.length || isSideField) {
-
-            if (field == this.fields[0][counter] ||
-                    field == this.fields[counter][0] ||
-                    field == this.fields[fields.length -1][counter] ||
-                    field == this.fields[counter][fields.length -1]) {
-                isSideField = true;
-            } else {
-                counter++;
-            }
-
+        if (field.getX() == 0 || field.getX() == boardSize - 1) {
+            return true;
         }
-        // todo intellij mean isSideField is always false
-        return isSideField;
+
+        if (field.getY() == 0 || field.getY() == boardSize - 1) {
+            return true;
+        }
+
+        return false;
     }
 
     public boolean isNotSideMinusOneField(Field field) {
