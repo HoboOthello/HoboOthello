@@ -12,8 +12,6 @@ public class Main {
     public static void main(String[] args) {
         int boardDefaultSize = 6;
 
-        Gameview gameview = new Gameview(boardDefaultSize);
-
         // todo load for a network game?
         Savegames savegames = new Savegames();
         Game game = savegames.load();
@@ -23,6 +21,7 @@ public class Main {
             game.newGame(boardDefaultSize, new Player(Color.BLACK), new Player(Color.WHITE));
         }
 
+        Gameview gameview = new Gameview(game.getBoardSize());
 
         GameController gameController = new GameController(gameview, game);
 

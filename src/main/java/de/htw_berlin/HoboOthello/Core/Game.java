@@ -224,6 +224,10 @@ public class Game {
         return null;
     }
 
+    public int getBoardSize() {
+        return gameBoard.getBoardSize();
+    }
+
     /**
      * Method which iterates through all the fields on the board in this specific order:
      * Starts at [0][0], moves down the first vertical vector ([0][++]),
