@@ -72,9 +72,9 @@ public class Board {
      */
     public boolean isCornerField(Field field) {
         if (field == this.fields[0][0] ||
-                field == this.fields[0][fields.length] ||
-                field == this.fields[fields.length][0] ||
-                field == this.fields[fields.length][fields.length]) {
+                field == this.fields[0][fields.length -1] ||
+                field == this.fields[fields.length -1][0] ||
+                field == this.fields[fields.length -1][fields.length -1]) {
             return true;
         } else {
             return false;
@@ -95,8 +95,8 @@ public class Board {
 
             if (field == this.fields[0][counter] ||
                     field == this.fields[counter][0] ||
-                    field == this.fields[fields.length][counter] ||
-                    field == this.fields[counter][fields.length]) {
+                    field == this.fields[fields.length -1][counter] ||
+                    field == this.fields[counter][fields.length -1]) {
                 isSideField = true;
             } else {
                 counter++;
