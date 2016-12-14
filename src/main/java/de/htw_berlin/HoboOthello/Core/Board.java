@@ -92,12 +92,11 @@ public class Board {
         if (field.getX() == 0 || field.getX() == boardSize - 1) {
             return true;
         }
-
         if (field.getY() == 0 || field.getY() == boardSize - 1) {
             return true;
+        } else {
+            return false;
         }
-
-        return false;
     }
 
     public boolean isNotSideMinusOneField(Field field) {
