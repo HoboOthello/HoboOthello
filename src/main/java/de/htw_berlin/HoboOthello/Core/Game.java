@@ -239,6 +239,17 @@ public class Game {
         return null;
     }
 
+    /**
+     * Use KI Level 3 to generate the best move for the player
+     * @return the Field with the best move
+     */
+    public Field showHint() {
+        //todo set ki level3 when ready
+        KI ki = new KI(currentPlayer.getColor(), Level.LEVEL2);
+
+        return ki.setMove(gameBoard);
+    }
+
     public int getBoardSize() {
         return gameBoard.getBoardSize();
     }

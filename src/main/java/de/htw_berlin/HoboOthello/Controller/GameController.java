@@ -88,6 +88,7 @@ public class GameController {
                 toogleMenu[0] = newGame;
                 toogleMenu[1] = closeGame;
                 toogleMenu[2] = aboutItem;
+                toogleMenu[3] = hintItem;
                  */
 
                 if (e.getSource() == gameview.getToogleMenu(0)) {
@@ -205,6 +206,11 @@ public class GameController {
                             "HoboOthello created by: Laura, Steffen and Bjoern",
                             "ABOUT",
                             JOptionPane.INFORMATION_MESSAGE);
+                } else if (e.getSource() == gameview.getToogleMenu(3)) {
+                    //todo showHint
+                    updateGameBoard();
+                    Field field = theGame.showHint();
+                    gameview.showHint(field);
                 }
 
             } catch (NumberFormatException ex) {

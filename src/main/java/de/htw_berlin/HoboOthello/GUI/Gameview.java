@@ -41,6 +41,9 @@ public class Gameview extends JFrame {
     private JMenuItem newGame;
     private JMenu aboutMenu;
     private JMenuItem aboutItem;
+    //todo showHint
+    private JMenu hintMenu;
+    private JMenuItem hintItem;
 
     /**
      * the method to set up the board
@@ -82,16 +85,24 @@ public class Gameview extends JFrame {
         newGame = new JMenuItem("New Game");
         aboutMenu = new JMenu("About");
         aboutItem = new JMenuItem("About");
+        //todo showHint
+        hintMenu = new JMenu("Hint");
+        hintItem = new JMenuItem("Hint");
 
         gameMenu.add(newGame);
         gameMenu.add(closeGame);
         aboutMenu.add(aboutItem);
+        //todo showHint
+        hintMenu.add(hintItem);
 
         //adding all JMenuItems to an array. Changes here need to be check in the GameController as well
-        toogleMenu = new JMenuItem[3];
+        //todo showHint
+        toogleMenu = new JMenuItem[4];
         toogleMenu[0] = newGame;
         toogleMenu[1] = closeGame;
         toogleMenu[2] = aboutItem;
+        //todo showHint
+        toogleMenu[3] = hintItem;
 
 
         /*
@@ -172,6 +183,8 @@ public class Gameview extends JFrame {
         this.setJMenuBar(new JMenuBar());
         this.getJMenuBar().add(gameMenu);
         this.getJMenuBar().add(aboutMenu);
+        //todo showHint
+        this.getJMenuBar().add(hintMenu);
 
         this.setVisible(true);
 
@@ -263,6 +276,15 @@ public class Gameview extends JFrame {
         } else {
             this.whiteScore.setText("WHITE " + points);
         }
+    }
+
+    /**
+     * Show the best possible move for the current player
+     * @param field
+     */
+    //todo showHint
+    public void showHint(Field field) {
+        fieldView[field.getX()][field.getY()].setBackground(Color.gray);
     }
 
 }
