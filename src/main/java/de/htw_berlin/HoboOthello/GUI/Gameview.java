@@ -281,6 +281,15 @@ public class Gameview extends JFrame {
         }
     }
 
+    /**
+     * Show the current Player Name (White or Black)
+     * @param currentPlayerName String which can be Black or White
+     */
+    public void updateCurrentPlayer(String currentPlayerName) {
+        //todo change button to label & also refactor
+        startButton.setText(currentPlayerName);
+    }
+
     public void setPlayerTyp(Player blackPlayer, Player whitePlayer) {
         switch (blackPlayer.getPlayerType()) {
             case DESKTOP:

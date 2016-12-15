@@ -257,7 +257,7 @@ public class GameController {
         gameview.updateBoardPlayerPoints(Color.WHITE, theGame.countPlayerPoints(Color.WHITE));
 
         // show which player is
-        System.out.println(theGame.getCurrentPlayer().getColor());
+        gameview.updateCurrentPlayer(theGame.getCurrentPlayer().getColor().toString());
     }
 
 }
