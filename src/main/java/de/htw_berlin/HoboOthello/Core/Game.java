@@ -239,6 +239,14 @@ public class Game {
         return null;
     }
 
+    public Player getPlayerBlack() {
+        return playerBlack;
+    }
+
+    public Player getPlayerWhite() {
+        return playerWhite;
+    }
+
     /**
      * Use KI Level 3 to generate the best move for the player
      * @return the Field with the best move

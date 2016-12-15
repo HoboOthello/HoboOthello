@@ -27,8 +27,11 @@ public class Gameview extends JFrame {
 
     private static final long serialVersionUID = 1L;
 
-    private JLabel whiteScore = new JLabel("WHITE");
-    private JLabel blackScore = new JLabel("BLACK");
+    private String blackPlayerTyp = "BLACK";
+    private String whitePlayerTyp = "WHITE";
+
+    private JLabel whiteScore = new JLabel(whitePlayerTyp);
+    private JLabel blackScore = new JLabel(blackPlayerTyp);
     private Color backgroundColor = new Color(0, 150, 0);
     private JButton startButton = new JButton();
     private JButton[][] fieldView;
@@ -272,9 +275,47 @@ public class Gameview extends JFrame {
      */
     public void updateBoardPlayerPoints(de.htw_berlin.HoboOthello.Core.Color color, int points) {
         if (color == de.htw_berlin.HoboOthello.Core.Color.BLACK) {
-            this.blackScore.setText("BLACK " + points);
+            this.blackScore.setText(this.blackPlayerTyp + " " + points);
         } else {
-            this.whiteScore.setText("WHITE " + points);
+            this.whiteScore.setText(this.whitePlayerTyp + " " + points);
+        }
+    }
+
+    public void setPlayerTyp(Player blackPlayer, Player whitePlayer) {
+        switch (blackPlayer.getPlayerType()) {
+            case DESKTOP:
+                this.blackPlayerTyp = "HUMAN";
+                break;
+            case KI_LEVEL1:
+                this.blackPlayerTyp = "KI 1";
+                break;
+            case KI_LEVEL2:
+                this.blackPlayerTyp = "KI 2";
+                break;
+            case KI_LEVEL3:
+                this.blackPlayerTyp = "KI 3";
+                break;
+            case NETWORK_SERVER:
+                this.blackPlayerTyp = "NETWORK SERVER";
+                break;
+        }
+
+        switch (whitePlayer.getPlayerType()) {
+            case DESKTOP:
+                this.whitePlayerTyp = "HUMAN";
+                break;
+            case KI_LEVEL1:
+                this.whitePlayerTyp = "KI 1";
+                break;
+            case KI_LEVEL2:
+                this.whitePlayerTyp = "KI 2";
+                break;
+            case KI_LEVEL3:
+                this.whitePlayerTyp = "KI 3";
+                break;
+            case NETWORK_CLIENT:
+                this.whitePlayerTyp = "NETWORK CLIENT";
+                break;
         }
     }
 

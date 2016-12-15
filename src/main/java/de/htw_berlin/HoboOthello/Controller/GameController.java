@@ -31,6 +31,7 @@ public class GameController {
         theView.addBoardListener(new BoardListener());
         theView.addMenuListener(new MenuListener());
 
+        gameview.setPlayerTyp(theGame.getPlayerBlack(), theGame.getPlayerWhite());
         updateGameBoard();
     }
 
