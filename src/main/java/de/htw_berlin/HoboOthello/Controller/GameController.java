@@ -187,6 +187,8 @@ public class GameController {
                         game.newGame(newBoardSize, newBlackPlayer, newWhitePlayer);
                         Gameview newGameview = new Gameview(newBoardSize);
                         newGame(newGameview, game);
+
+                        game.firstRound();
                     }
 
                 } else if (e.getSource() == gameview.getToogleMenu(1)) {

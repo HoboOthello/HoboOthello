@@ -51,6 +51,15 @@ public class Game {
         move.changeAllPossibleFieldsToTrue(currentPlayer.getColor());
         this.gameBoard.setFields(move.getFields());
 
+        // todo remove debug code
+        System.out.println(gameBoard.getBoardOverview());
+        saveFieldToJson();
+    }
+
+    /**
+     * Generate the first round for Network or Ki
+     */
+    public void firstRound() {
         // if playerBlack is KI, do the turn
         if (currentPlayer.getClass() == KI.class) {
             setTurn(currentPlayer.setMove(gameBoard));
@@ -60,10 +69,6 @@ public class Game {
         if (currentPlayer.getClass() == Network.class) {
             setTurn(currentPlayer.setMove(gameBoard));
         }
-
-        // todo remove debug code
-        System.out.println(gameBoard.getBoardOverview());
-        saveFieldToJson();
     }
 
     /**
