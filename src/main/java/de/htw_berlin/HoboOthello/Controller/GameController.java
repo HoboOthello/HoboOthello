@@ -54,6 +54,13 @@ public class GameController {
                             Savegames savegames = new Savegames();
                             savegames.save(theGame);
 
+                            // todo hobomode
+                            /*
+                            theGame.activateHobeMode();
+                            theGame.getLastHobeModeType();
+                            updateGameBoard();
+                            */
+
                             // check if the game is ended
                             String gameWinner = theGame.getWinner();
                             if (gameWinner != null) {
