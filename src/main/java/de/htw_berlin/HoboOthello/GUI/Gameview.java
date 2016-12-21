@@ -32,8 +32,6 @@ public class Gameview extends JFrame {
     private JMenuItem newGame;
     private JMenu aboutMenu;
     private JMenuItem aboutItem;
-    private JMenu hintMenu;
-    private JMenuItem hintItem;
 
     Font font18 = new Font("Courier new", Font.BOLD, 18);
     Font font14 = new Font("Courier new", Font.BOLD, 14);
@@ -43,7 +41,10 @@ public class Gameview extends JFrame {
     private ImageIcon black;
     private ImageIcon grey;
     private ImageIcon hint;
-
+    int scaledWidth;
+    int scaledHeight;
+    int smallerScaledWidth;
+    int smallerScaledHeight;
 
 
 
@@ -53,6 +54,7 @@ public class Gameview extends JFrame {
      */
 
     public Gameview(int boardSize) {
+
 
         /*
          * sets up the main frame of the game
@@ -75,22 +77,15 @@ public class Gameview extends JFrame {
         newGame = new JMenuItem("New Game");
         aboutMenu = new JMenu("About");
         aboutItem = new JMenuItem("About");
-        //todo showHint
-        hintMenu = new JMenu("Hint");
-        hintItem = new JMenuItem("Hint");
 
         gameMenu.add(newGame);
         gameMenu.add(closeGame);
         aboutMenu.add(aboutItem);
-        //todo showHint
-        hintMenu.add(hintItem);
 
-        toogleMenu = new JMenuItem[4];
+        toogleMenu = new JMenuItem[3];
         toogleMenu[0] = newGame;
         toogleMenu[1] = closeGame;
         toogleMenu[2] = aboutItem;
-        //todo showHint
-        toogleMenu[3] = hintItem;
 
 
         /*
@@ -167,6 +162,11 @@ public class Gameview extends JFrame {
         westPanel.setPreferredSize( new Dimension(92, 0) );
         eastPanel.setPreferredSize( new Dimension(92, 0) );
 
+        actionPanel.setBackground(new Color(160,160,160));
+        scorePanel.setBackground(new Color(160,160,160));
+        westPanel.setBackground(new Color(160,160,160));
+        eastPanel.setBackground(new Color(160,160,160));
+
         /*
          * adding all elements to the main frame
          */
@@ -182,56 +182,41 @@ public class Gameview extends JFrame {
         this.setJMenuBar(new JMenuBar());
         this.getJMenuBar().add(gameMenu);
         this.getJMenuBar().add(aboutMenu);
-        //todo showHint
-        this.getJMenuBar().add(hintMenu);
 
 
         /*
-        grey  = new ImageIcon(this.getClass().getResource("src/images/greybutton.png"));
-        white = new ImageIcon(this.getClass().getResource("src/images/whitebutton.png"));
-        black = new ImageIcon(this.getClass().getResource("src/images/blackbutton.png"));
-        hint  = new ImageIcon(this.getClass().getResource("src/images/hint.png"));
+         * initialise all stones
+         */
+        grey  = new ImageIcon("greybutton.png");
+        white = new ImageIcon("whitebutton.png");
+        black = new ImageIcon("blackbutton.png");
+        hint  = new ImageIcon("hint.png");
 
-        Image whiteImage = white.getImage();
-        Image newWhite = whiteImage.getScaledInstance( (int) (fieldView[0][0].getWidth()* 0.88), (int) (fieldView[0][0].getHeight()* 0.88), java.awt.Image.SCALE_SMOOTH );
-        white = new ImageIcon(newWhite);
-
-        Image blackImage = black.getImage();
-        Image newBlack = blackImage.getScaledInstance( (int) (fieldView[0][0].getWidth()* 0.88), (int) (fieldView[0][0].getHeight()* 0.88), java.awt.Image.SCALE_SMOOTH );
-        black = new ImageIcon(newBlack);
-
-        Image greyImage = grey.getImage();
-        Image newGrey = greyImage.getScaledInstance(
-                (int) ( fieldView[0][0].getWidth()* 0.68), (int) (fieldView[0][0].getHeight()* 0.68), java.awt.Image.SCALE_SMOOTH );
-        grey = new ImageIcon(newGrey);
-
-        Image hintImage = hint.getImage();
-        Image newHint = hintImage.getScaledInstance( (int) (fieldView[0][0].getWidth()* 0.68), (int) (fieldView[0][0].getHeight()* 0.68), java.awt.Image.SCALE_SMOOTH );
-        hint = new ImageIcon(newHint);
-        */
     }
 
 
-    /*
-     * method to add ActionListener to the board
+    /**
+     * all methods to add ActionListeners to the board
      */
     public void addBoardListener(ActionListener listenerForFieldButton) {
 
-        for (int row = 0; row < fieldView.length; row++) {
-            for (int column = 0; column < fieldView.length; column++) {
-                fieldView[row][column].addActionListener(listenerForFieldButton);
+        for (int x = 0; x < fieldView.length; x++) {
+            for (int y = 0; y < fieldView.length; y++) {
+                fieldView[x][y].addActionListener(listenerForFieldButton);
             }
         }
     }
-
     public void addMenuListener(ActionListener listenerForMenuClick) {
         for (int i = 0; i < toogleMenu.length; i++) {
             toogleMenu[i].addActionListener(listenerForMenuClick);
         }
     }
+    public void addHintListener(ActionListener listenerForHintClick) {
+        this.showHint.addActionListener(listenerForHintClick);
+    }
 
 
-    /*
+    /**
      * Getter for the board to check which Button was clicked
      * and to check the length of the board (6, 8, 10)
      * used in GameController -> inner Class BoardListener
@@ -239,17 +224,20 @@ public class Gameview extends JFrame {
     public JButton getFieldView(int x, int y) {
         return fieldView[x][y];
     }
-
     public int getFieldViewLength() {
         return fieldView.length;
     }
-
     public JMenuItem getToogleMenu(int nbr) {
         return toogleMenu[nbr];
     }
+    public JButton getShowHint() {
+        return showHint;
+    }
+    public Color getBackgroundColor() {
+        return backgroundColor;
+    }
 
-
-    /*
+    /**
      * error message to display errors
      * e.g. wrong button clicked = illegal move
      */
@@ -263,7 +251,7 @@ public class Gameview extends JFrame {
      * update a Field in GameView
      *
      * @param field The field which should be update
-     */
+     */ //TODO This method calls non GUI Parameters : remove from GUI
     public void updateBoardFields(Field field) {
         Color color = backgroundColor;
 
@@ -294,9 +282,13 @@ public class Gameview extends JFrame {
      */
     public void updateBoardPlayerPoints(de.htw_berlin.HoboOthello.Core.Color color, int points) {
         if (color == de.htw_berlin.HoboOthello.Core.Color.BLACK) {
-            this.blackScore.setText("|         " + points + "     :" + this.blackPlayerTyp + "   ");
+            this.blackScore.setText("|         " + points + "     " + this.blackPlayerTyp + "   ");
+            this.blackScore.setFont(font14);
+            this.blackScore.setForeground(Color.BLACK);
         } else {
-            this.whiteScore.setText("   " + this.whitePlayerTyp + ":     " + points + "   ");
+            this.whiteScore.setText("   " + this.whitePlayerTyp + "     " + points + "   ");
+            this.whiteScore.setFont(font14);
+            this.whiteScore.setForeground(Color.WHITE);
         }
     }
 
@@ -305,8 +297,22 @@ public class Gameview extends JFrame {
      * @param currentPlayerName String which can be Black or White
      */
     public void updateCurrentPlayer(String currentPlayerName) {
-        //todo change button to label & also refactor
-        whosTurn.setText("Players turn: " + currentPlayerName);
+
+        if(currentPlayerName == "White")
+        {
+            whosTurn.setText("Players turn: " + currentPlayerName);
+            whosTurn.setForeground(Color.WHITE);
+
+        } else if (currentPlayerName == "Black")
+        {
+            whosTurn.setText("Players turn: " + currentPlayerName);
+            whosTurn.setForeground(Color.BLACK);
+
+        } else
+        {
+            whosTurn.setText("Players turn: " + currentPlayerName);
+            whosTurn.setForeground(Color.BLACK);
+        }
     }
 
     public void setPlayerTyp(Player blackPlayer, Player whitePlayer) {
@@ -351,35 +357,54 @@ public class Gameview extends JFrame {
      * Show the best possible move for the current player
      * @param field
      */
-    //todo showHint
+
     public void showHint(Field field) {
         fieldView[field.getX()][field.getY()].setBackground(Color.MAGENTA);
     }
 
 
-
+    //TODO check for NullPointer in Method ...-.getScaledInstance()...
     /**
      *
      * @param stone can be 0, 1, 2, 3
      *              whereas 0=white, 1=black, 2=grey, 3=hint
-     * @param x, @param x and y: the row and column designators
+     * @param x: the row designator
+     * @param y: the column designator
      */
     public void changeStone(int stone, int x, int y)
     {
+        scaledWidth         = (int) (getFieldView(x,y).getWidth() * 0.88);
+        scaledHeight        = (int) (getFieldView(x,y).getHeight() * 0.88);
+        smallerScaledWidth  = (int) (getFieldView(x,y).getWidth() * 0.68);
+        smallerScaledHeight = (int) (getFieldView(x,y).getHeight()  * 0.68);
+
+        System.out.println(scaledWidth+" "+smallerScaledHeight);
         if (stone == 0)
         {
+            Image whiteImage = white.getImage();
+            Image newWhite = whiteImage.getScaledInstance( scaledWidth, scaledHeight, java.awt.Image.SCALE_SMOOTH );
+            white = new ImageIcon(newWhite);
             fieldView[x][y].setIcon(white);
 
         } else if (stone == 1)
         {
+            Image blackImage = black.getImage();
+            Image newBlack = blackImage.getScaledInstance( scaledWidth, scaledHeight,  java.awt.Image.SCALE_SMOOTH );
+            black = new ImageIcon(newBlack);
             fieldView[x][y].setIcon(black);
 
         } else if (stone == 2)
         {
+            Image greyImage = grey.getImage();
+            Image newGrey = greyImage.getScaledInstance( smallerScaledWidth, smallerScaledHeight, java.awt.Image.SCALE_SMOOTH );
+            grey = new ImageIcon(newGrey);
             fieldView[x][y].setIcon(grey);
 
         } else if (stone == 3)
         {
+            Image hintImage = hint.getImage();
+            Image newHint = hintImage.getScaledInstance( smallerScaledWidth, smallerScaledHeight, java.awt.Image.SCALE_SMOOTH );
+            hint = new ImageIcon(newHint);
             fieldView[x][y].setIcon(hint);
 
         }

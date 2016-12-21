@@ -6,8 +6,8 @@ import de.htw_berlin.HoboOthello.KI.KI;
 import de.htw_berlin.HoboOthello.Network.Network;
 
 import javax.swing.*;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Created by laura on 24.11.16.
@@ -16,9 +16,7 @@ public class GameController {
 
     private Gameview gameview;
     private Game theGame;
-    // todo what does theBoard & theMain ?!
-    private Board theBoard;
-    private Main theMain;
+
 
     public GameController(Gameview theView, Game theGame) {
         newGame(theView, theGame);
@@ -30,6 +28,7 @@ public class GameController {
 
         theView.addBoardListener(new BoardListener());
         theView.addMenuListener(new MenuListener());
+        theView.addHintListener(new HintListener());
 
         gameview.setPlayerTyp(theGame.getPlayerBlack(), theGame.getPlayerWhite());
         updateGameBoard();
@@ -37,19 +36,26 @@ public class GameController {
 
 
     /**
-     * inside class
+     * inside classes
      * BoardListener method to check which Button has been clicked
+     * MenuListener method to check which MenuItem was clicked
+     * HintListener method to set off a hint for the next best move (random move is shown)
      */
     class BoardListener implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
 
             try {
+
                 for (int x = 0; x < gameview.getFieldViewLength(); x++) {
                     for (int y = 0; y < gameview.getFieldViewLength(); y++) {
+
                         if (e.getSource() == gameview.getFieldView(x, y)) {
+
+                            System.out.println(gameview.getFieldView(x, y).getWidth());
                             theGame.setTurn(new Field(x, y));
                             updateGameBoard();
+
                             // todo save for a network game?
                             Savegames savegames = new Savegames();
                             savegames.save(theGame);
@@ -66,17 +72,11 @@ public class GameController {
                         }
                     }
                 }
-
             } catch (NumberFormatException ex) {
-
                 gameview.displayErrorMessage("Illegal Move!");
-
             }
         }
-
     }
-
-    //TODO this class is unused may be deleted
     class MenuListener implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
@@ -89,7 +89,7 @@ public class GameController {
                 toogleMenu[0] = newGame;
                 toogleMenu[1] = closeGame;
                 toogleMenu[2] = aboutItem;
-                toogleMenu[3] = hintItem;
+
                  */
 
                 if (e.getSource() == gameview.getToogleMenu(0)) {
@@ -207,11 +207,6 @@ public class GameController {
                             "HoboOthello created by: Laura, Steffen and Bjoern",
                             "ABOUT",
                             JOptionPane.INFORMATION_MESSAGE);
-                } else if (e.getSource() == gameview.getToogleMenu(3)) {
-                    //todo showHint
-                    updateGameBoard();
-                    Field field = theGame.showHint();
-                    gameview.showHint(field);
                 }
 
             } catch (NumberFormatException ex) {
@@ -222,34 +217,57 @@ public class GameController {
         }
 
     }
+    class HintListener implements ActionListener {
 
-    //TODO this class is unused may be deleted
-    class ExitListener implements ActionListener {
-
-        public void actionPerformed(ActionEvent arg0) {
+        public void actionPerformed(ActionEvent e) {
 
             try {
 
-                gameview.displayErrorMessage("You're a true Hobo!");
-                gameview.setVisible(false);
+             if (e.getSource() == gameview.getShowHint())
+                updateGameBoard();
+                Field field = theGame.showHint();
+                gameview.showHint(field);
+
             } catch (NumberFormatException ex) {
 
                 gameview.displayErrorMessage("Ups! Something is wrong?!");
 
             }
         }
-
     }
 
     /**
      * Update the Gameview with the current Board Infos
+     *
      */
     public void updateGameBoard() {
         // todo may need refactor
-
+        //TODO Bjoern check for NullPointer in getScaledInstance Method
+        /*
+        int white = 0;
+        int black = 1;
+        int grey  = 2;
+        */
         // update fields
         for (Field field : theGame.iterateThroughAllFields()) {
             gameview.updateBoardFields(field);
+            /*
+            if (field.isOccupiedByStone()) {
+                switch (field.getStone().getColor()) {
+                    case BLACK:
+                        gameview.changeStone(black, field.getX(), field.getY());
+                        break;
+                    case WHITE:
+                        gameview.changeStone(white, field.getX(), field.getY());
+                        break;
+                }
+            }
+            if (field.isPossibleMove()) {
+                gameview.changeStone(grey, field.getX(), field.getY());
+            }
+           // gameview.getFieldView(field.getX(), field.getY()).setBackground(gameview.getBackgroundColor());
+            */
+
         }
 
         // update player points
