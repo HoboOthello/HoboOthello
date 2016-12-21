@@ -1,22 +1,9 @@
 package de.htw_berlin.HoboOthello.GUI;
 
-/**
- * Gameview class
- * methods
- * <p>
- * createGameView()
- * addButtonListener()
- * displayErrorMessage()
- * setBoard() - Groesse festlegen
- */
-
-
-import de.htw_berlin.HoboOthello.Core.*;
-
+import de.htw_berlin.HoboOthello.Core.Field;
+import de.htw_berlin.HoboOthello.Core.Player;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.Color;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
@@ -32,33 +19,33 @@ public class Gameview extends JFrame {
 
     private JLabel whiteScore = new JLabel(whitePlayerTyp);
     private JLabel blackScore = new JLabel(blackPlayerTyp);
-    private Color backgroundColor = new Color(0, 150, 0);
-    private JButton startButton = new JButton();
+    private JLabel whosTurn   = new JLabel();
+
+    private Color backgroundColor;
+
     private JButton[][] fieldView;
+    private JButton showHint;
 
     private JMenuItem[] toogleMenu;
-
-    private JMenuBar menuBar;
     private JMenu gameMenu;
     private JMenuItem closeGame;
     private JMenuItem newGame;
     private JMenu aboutMenu;
     private JMenuItem aboutItem;
-    //todo showHint
     private JMenu hintMenu;
     private JMenuItem hintItem;
 
-    /**
-     * the method to set up the board
-     *
-     * @param boardSize TODO in the Controller set Boardsize or add int boardSize to the Constructor Gameview()
-     */
-    //TODO create instance of method in controller
-    public void setBoard(int boardSize) {
+    Font font18 = new Font("Courier new", Font.BOLD, 18);
+    Font font14 = new Font("Courier new", Font.BOLD, 14);
 
-        fieldView = new JButton[boardSize][boardSize];
+    //Create the Stones
+    private ImageIcon white;
+    private ImageIcon black;
+    private ImageIcon grey;
+    private ImageIcon hint;
 
-    }
+
+
 
 
     /**
@@ -70,19 +57,19 @@ public class Gameview extends JFrame {
         /*
          * sets up the main frame of the game
          */
-
-
         this.setTitle("HoboOthello");
+        //this.setLocationRelativeTo(null); //Centers the Frame with top left corner in the middle of the screen
         this.setLocation(800, 200);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(800, 800);
         this.setLayout(new BorderLayout());
         this.setVisible(true);
+        this.backgroundColor = new Color(0,150,0);
+
 
         /*
-         * MenuBar and all components
+         * MenuBar and menu components
          */
-
         gameMenu = new JMenu("Datei");
         closeGame = new JMenuItem("Exit");
         newGame = new JMenuItem("New Game");
@@ -98,8 +85,6 @@ public class Gameview extends JFrame {
         //todo showHint
         hintMenu.add(hintItem);
 
-        //adding all JMenuItems to an array. Changes here need to be check in the GameController as well
-        //todo showHint
         toogleMenu = new JMenuItem[4];
         toogleMenu[0] = newGame;
         toogleMenu[1] = closeGame;
@@ -109,51 +94,62 @@ public class Gameview extends JFrame {
 
 
         /*
-         * create a board. board is the center panel
+         * create a board. board is the center panel. adding buttons to the board
          */
         JPanel boardPanel = new JPanel();
         boardPanel.setLayout(new GridLayout(boardSize, boardSize));
         boardPanel.setBorder(BorderFactory.createEtchedBorder());
-
-
-		/*
-         * create Fields out of the Field class and fill the board with fields
-		 * field ist initialized with magic numbers but that will later be changed to a variable 'boardsize'
-		 */
-        //TODO add the method setBoard() and get the getBoardSize()
         fieldView = new JButton[boardSize][boardSize];
 
         for (int x = 0; x < fieldView.length; x++) {
             for (int y = 0; y < fieldView.length; y++) {
 
-                fieldView[y][x] = new JButton();
-                fieldView[y][x].setBackground(backgroundColor);
-                fieldView[y][x].setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+                fieldView[x][y] = new JButton();
+                fieldView[x][y].setBackground(backgroundColor);
+                fieldView[x][y].setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+                boardPanel.add(fieldView[x][y]).setVisible(true);
 
-                boardPanel.add(fieldView[y][x]).setVisible(true);
-
+                // ---> to disable green background field <---
+                    // fieldView[x][y].setBorder(null);
+                    // fieldView[x][y].setBackground(null);
             }
         }
 
 
         /*
-         * the action panel which holds the start button
+         * the action panel which holds the hint button
          */
         JPanel actionPanel = new JPanel();
-        actionPanel.setBorder(BorderFactory.createEtchedBorder());
-        startButton.setText("Start");
-        startButton.setPreferredSize(new Dimension(80, 30));
-        actionPanel.add(startButton);
-
+        //actionPanel.setBorder(BorderFactory.createEtchedBorder()); // a frame around the panel
+        showHint = new JButton("hint");
+        actionPanel.add(showHint);
 
         /*
          * the score panel to display the actual score
          */
-        JPanel scorePanel = new JPanel(new FlowLayout());
-        whiteScore.setBorder(BorderFactory.createEtchedBorder());
-        blackScore.setBorder(BorderFactory.createEtchedBorder());
-        scorePanel.add(whiteScore);
-        scorePanel.add(blackScore);
+        //TODO BJOERN switch to JSeperator
+        JLabel line = new JLabel(" | ");
+        JPanel scorePanel = new JPanel(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+        c.gridx = 1;
+        c.gridy = 0;
+        scorePanel.add(whiteScore, c);
+        c.gridx = 2;
+        c.gridy = 0;
+        scorePanel.add(blackScore, c);
+        whosTurn.setPreferredSize(new Dimension(220, 30));
+        whosTurn.setFont(font18);
+        c.fill = GridBagConstraints.BOTH;
+        c.anchor = GridBagConstraints.PAGE_END;
+        c.weighty = 1.0;
+        c.gridwidth = 2;
+        c.gridx = 1;
+        c.gridy = 1;
+        scorePanel.add(whosTurn, c);
+        //  whiteScore.setBorder(BorderFactory.createEtchedBorder());
+        //  blackScore.setBorder(BorderFactory.createEtchedBorder());
+        //  whosTurn.setBorder(BorderFactory.createEtchedBorder());
+
 
 
         /*
@@ -162,35 +158,57 @@ public class Gameview extends JFrame {
         JPanel eastPanel = new JPanel();
         JPanel westPanel = new JPanel();
 
-
         /*
          * BorderLayout dimensions of the Center Panel
+         * DO NOT CHANGE THIS
          */
-        actionPanel.setPreferredSize(new Dimension(0, 100));
-        scorePanel.setPreferredSize(new Dimension(0, 50));
-        westPanel.setPreferredSize(new Dimension(75, 0));
-        eastPanel.setPreferredSize(new Dimension(75, 0));
-
+        actionPanel.setPreferredSize( new Dimension(0, 58) );
+        scorePanel.setPreferredSize( new Dimension(0, 78) );
+        westPanel.setPreferredSize( new Dimension(92, 0) );
+        eastPanel.setPreferredSize( new Dimension(92, 0) );
 
         /*
          * adding all elements to the main frame
          */
-
         this.getContentPane().add(scorePanel, BorderLayout.NORTH);
         this.getContentPane().add(boardPanel, BorderLayout.CENTER);
         this.getContentPane().add(actionPanel, BorderLayout.SOUTH);
         this.getContentPane().add(eastPanel, BorderLayout.EAST);
         this.getContentPane().add(westPanel, BorderLayout.WEST);
 
-        //adding the menu bar to the main frame
+        /*
+         * adding the menu bar to the main frame
+         */
         this.setJMenuBar(new JMenuBar());
         this.getJMenuBar().add(gameMenu);
         this.getJMenuBar().add(aboutMenu);
         //todo showHint
         this.getJMenuBar().add(hintMenu);
 
-        this.setVisible(true);
 
+        /*
+        grey  = new ImageIcon(this.getClass().getResource("src/images/greybutton.png"));
+        white = new ImageIcon(this.getClass().getResource("src/images/whitebutton.png"));
+        black = new ImageIcon(this.getClass().getResource("src/images/blackbutton.png"));
+        hint  = new ImageIcon(this.getClass().getResource("src/images/hint.png"));
+
+        Image whiteImage = white.getImage();
+        Image newWhite = whiteImage.getScaledInstance( (int) (fieldView[0][0].getWidth()* 0.88), (int) (fieldView[0][0].getHeight()* 0.88), java.awt.Image.SCALE_SMOOTH );
+        white = new ImageIcon(newWhite);
+
+        Image blackImage = black.getImage();
+        Image newBlack = blackImage.getScaledInstance( (int) (fieldView[0][0].getWidth()* 0.88), (int) (fieldView[0][0].getHeight()* 0.88), java.awt.Image.SCALE_SMOOTH );
+        black = new ImageIcon(newBlack);
+
+        Image greyImage = grey.getImage();
+        Image newGrey = greyImage.getScaledInstance(
+                (int) ( fieldView[0][0].getWidth()* 0.68), (int) (fieldView[0][0].getHeight()* 0.68), java.awt.Image.SCALE_SMOOTH );
+        grey = new ImageIcon(newGrey);
+
+        Image hintImage = hint.getImage();
+        Image newHint = hintImage.getScaledInstance( (int) (fieldView[0][0].getWidth()* 0.68), (int) (fieldView[0][0].getHeight()* 0.68), java.awt.Image.SCALE_SMOOTH );
+        hint = new ImageIcon(newHint);
+        */
     }
 
 
@@ -244,7 +262,7 @@ public class Gameview extends JFrame {
     /**
      * update a Field in GameView
      *
-     * @param field The field wich should be update
+     * @param field The field which should be update
      */
     public void updateBoardFields(Field field) {
         Color color = backgroundColor;
@@ -272,12 +290,13 @@ public class Gameview extends JFrame {
      *
      * @param color  the Player Color BLACK or WHITE
      * @param points the Player current Points
+     * ---> WhitePlayer Points | Points BlackPlayer <---
      */
     public void updateBoardPlayerPoints(de.htw_berlin.HoboOthello.Core.Color color, int points) {
         if (color == de.htw_berlin.HoboOthello.Core.Color.BLACK) {
-            this.blackScore.setText(this.blackPlayerTyp + " " + points);
+            this.blackScore.setText("|         " + points + "     :" + this.blackPlayerTyp + "   ");
         } else {
-            this.whiteScore.setText(this.whitePlayerTyp + " " + points);
+            this.whiteScore.setText("   " + this.whitePlayerTyp + ":     " + points + "   ");
         }
     }
 
@@ -287,7 +306,7 @@ public class Gameview extends JFrame {
      */
     public void updateCurrentPlayer(String currentPlayerName) {
         //todo change button to label & also refactor
-        startButton.setText(currentPlayerName);
+        whosTurn.setText("Players turn: " + currentPlayerName);
     }
 
     public void setPlayerTyp(Player blackPlayer, Player whitePlayer) {
@@ -334,7 +353,39 @@ public class Gameview extends JFrame {
      */
     //todo showHint
     public void showHint(Field field) {
-        fieldView[field.getX()][field.getY()].setBackground(Color.gray);
+        fieldView[field.getX()][field.getY()].setBackground(Color.MAGENTA);
     }
+
+
+
+    /**
+     *
+     * @param stone can be 0, 1, 2, 3
+     *              whereas 0=white, 1=black, 2=grey, 3=hint
+     * @param x, @param x and y: the row and column designators
+     */
+    public void changeStone(int stone, int x, int y)
+    {
+        if (stone == 0)
+        {
+            fieldView[x][y].setIcon(white);
+
+        } else if (stone == 1)
+        {
+            fieldView[x][y].setIcon(black);
+
+        } else if (stone == 2)
+        {
+            fieldView[x][y].setIcon(grey);
+
+        } else if (stone == 3)
+        {
+            fieldView[x][y].setIcon(hint);
+
+        }
+
+    }
+
+
 
 }

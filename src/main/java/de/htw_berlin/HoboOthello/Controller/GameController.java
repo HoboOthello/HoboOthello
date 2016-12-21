@@ -188,7 +188,7 @@ public class GameController {
                             throw new IllegalArgumentException("Min one Human Player is required!");
                         }
 
-                        // destory the current JFrame
+                        // destroy the current JFrame
                         gameview.dispose();
 
                         // new game
