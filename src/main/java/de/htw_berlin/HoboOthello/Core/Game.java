@@ -25,6 +25,8 @@ public class Game {
 
     private Board gameBoard;
 
+    private HobeModeType lastHobeModeType;
+
     /**
      * create a new Game
      *
@@ -256,6 +258,24 @@ public class Game {
         KI ki = new KI(currentPlayer.getColor(), Level.LEVEL2);
 
         return ki.setMove(gameBoard);
+    }
+
+    public HobeModeType getLastHobeModeType() {
+        return lastHobeModeType;
+    }
+
+    /**
+     * activate Random Hobomode action
+     * @return Start field of destruction
+     */
+    public Field activateHobeMode() {
+        HoboMode hoboMode = new HoboMode(gameBoard.isFields());
+        hoboMode.changeAllPossibleFieldsToTrue(currentPlayer.getColor());
+        lastHobeModeType = hoboMode.getHobeModeType();
+
+
+        gameBoard.setFields(hoboMode.getFields());
+        return hoboMode.actionRandomMode();
     }
 
     public int getBoardSize() {

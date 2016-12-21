@@ -47,8 +47,9 @@ fabric.properties
 
 # Build dirs
 /target
-/docs/build
 
 # savegames
 savegame.json
 field.json
+docs/source/de/
+docs/source/packages.rst
