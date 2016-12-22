@@ -2,7 +2,6 @@ package de.htw_berlin.HoboOthello.Core;
 
 import de.htw_berlin.HoboOthello.Controller.GameController;
 import de.htw_berlin.HoboOthello.GUI.Gameview;
-import de.htw_berlin.HoboOthello.KI.KI;
 
 /**
  * Created by Steffen Exler on 16.11.16.
@@ -10,21 +9,31 @@ import de.htw_berlin.HoboOthello.KI.KI;
 public class Main {
 
     public static void main(String[] args) {
-        int boardDefaultSize = 6;
+        //TODO MAGIC NUMBER DELETION
+        Gameview gameview = new Gameview(8);
 
-        // todo load for a network game?
-        Savegames savegames = new Savegames();
-        Game game = savegames.load();
+        Game game = new Game();
 
-        if (game == null) {
-            game = new Game();
-            game.newGame(boardDefaultSize, new Player(Color.BLACK), new Player(Color.WHITE));
-        }
-
-        Gameview gameview = new Gameview(game.getBoardSize());
+        game.newGame(8, new Player(Color.BLACK), new Player(Color.WHITE));
 
         GameController gameController = new GameController(gameview, game);
 
         gameview.setVisible(true);
+    }
+
+    //TODO BUG REPORTING AND BESEITIGEN
+    public void restart(int boardSize){
+
+        Gameview gameview = new Gameview(boardSize);
+
+        Game game = new Game();
+
+        game.newGame(8, new Player(Color.BLACK), new Player(Color.WHITE));
+
+        GameController gameController = new GameController(gameview, game);
+
+        gameview.setVisible(true);
+
+
     }
 }

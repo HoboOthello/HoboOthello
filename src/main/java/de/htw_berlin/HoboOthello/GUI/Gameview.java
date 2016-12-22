@@ -41,7 +41,7 @@ public class Gameview extends JFrame {
     private ImageIcon black;
     private ImageIcon grey;
     private ImageIcon hint;
-    int scaledWidth;
+    int var;
     int scaledHeight;
     int smallerScaledWidth;
     int smallerScaledHeight;
@@ -122,15 +122,13 @@ public class Gameview extends JFrame {
         /*
          * the score panel to display the actual score
          */
-        //TODO BJOERN switch to JSeperator
-        JLabel line = new JLabel(" | ");
         JPanel scorePanel = new JPanel(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
-        c.gridx = 1;
+        c.gridx = 2;
         c.gridy = 0;
         scorePanel.add(whiteScore, c);
         c.gridx = 2;
-        c.gridy = 0;
+        c.gridy = 1;
         scorePanel.add(blackScore, c);
         whosTurn.setPreferredSize(new Dimension(220, 30));
         whosTurn.setFont(font18);
@@ -139,7 +137,7 @@ public class Gameview extends JFrame {
         c.weighty = 1.0;
         c.gridwidth = 2;
         c.gridx = 1;
-        c.gridy = 1;
+        c.gridy = 2;
         scorePanel.add(whosTurn, c);
         //  whiteScore.setBorder(BorderFactory.createEtchedBorder());
         //  blackScore.setBorder(BorderFactory.createEtchedBorder());
@@ -282,11 +280,11 @@ public class Gameview extends JFrame {
      */
     public void updateBoardPlayerPoints(de.htw_berlin.HoboOthello.Core.Color color, int points) {
         if (color == de.htw_berlin.HoboOthello.Core.Color.BLACK) {
-            this.blackScore.setText("|         " + points + "     " + this.blackPlayerTyp + "   ");
+            this.blackScore.setText(this.blackPlayerTyp+"   "+ points);
             this.blackScore.setFont(font14);
             this.blackScore.setForeground(Color.BLACK);
         } else {
-            this.whiteScore.setText("   " + this.whitePlayerTyp + "     " + points + "   ");
+            this.whiteScore.setText(this.whitePlayerTyp+"   "+points);
             this.whiteScore.setFont(font14);
             this.whiteScore.setForeground(Color.WHITE);
         }
@@ -373,37 +371,60 @@ public class Gameview extends JFrame {
      */
     public void changeStone(int stone, int x, int y)
     {
-        scaledWidth         = (int) (getFieldView(x,y).getWidth() * 0.88);
-        scaledHeight        = (int) (getFieldView(x,y).getHeight() * 0.88);
-        smallerScaledWidth  = (int) (getFieldView(x,y).getWidth() * 0.68);
-        smallerScaledHeight = (int) (getFieldView(x,y).getHeight()  * 0.68);
 
-        System.out.println(scaledWidth+" "+smallerScaledHeight);
+        int scale = getFieldViewLength();
+        int var =(int) (60*0.88);
+        int varSmall =(int) (60*0.68);
+        switch (scale)
+        {
+            case 6:
+            {
+                var = (int) (100*0.88);
+                varSmall = (int) (100*0.68);
+                break;
+            }
+            case 8:
+            {
+                varSmall = (int) (75*0.68);
+                var = (int) (75*0.88);
+                break;
+            }
+            case 10:
+            {
+                varSmall = (int) (60*0.68);
+                var = (int) (60*0.88);
+                break;
+            }
+            default:
+                System.out.println("Ups! Something went wrong");
+                break;
+        }
+
         if (stone == 0)
         {
             Image whiteImage = white.getImage();
-            Image newWhite = whiteImage.getScaledInstance( scaledWidth, scaledHeight, java.awt.Image.SCALE_SMOOTH );
+            Image newWhite = whiteImage.getScaledInstance(var, var, java.awt.Image.SCALE_SMOOTH );
             white = new ImageIcon(newWhite);
             fieldView[x][y].setIcon(white);
 
         } else if (stone == 1)
         {
             Image blackImage = black.getImage();
-            Image newBlack = blackImage.getScaledInstance( scaledWidth, scaledHeight,  java.awt.Image.SCALE_SMOOTH );
+            Image newBlack = blackImage.getScaledInstance(var, var,  java.awt.Image.SCALE_SMOOTH );
             black = new ImageIcon(newBlack);
             fieldView[x][y].setIcon(black);
 
         } else if (stone == 2)
         {
             Image greyImage = grey.getImage();
-            Image newGrey = greyImage.getScaledInstance( smallerScaledWidth, smallerScaledHeight, java.awt.Image.SCALE_SMOOTH );
+            Image newGrey = greyImage.getScaledInstance( varSmall, varSmall, java.awt.Image.SCALE_SMOOTH );
             grey = new ImageIcon(newGrey);
             fieldView[x][y].setIcon(grey);
 
         } else if (stone == 3)
         {
             Image hintImage = hint.getImage();
-            Image newHint = hintImage.getScaledInstance( smallerScaledWidth, smallerScaledHeight, java.awt.Image.SCALE_SMOOTH );
+            Image newHint = hintImage.getScaledInstance( varSmall, varSmall, java.awt.Image.SCALE_SMOOTH );
             hint = new ImageIcon(newHint);
             fieldView[x][y].setIcon(hint);
 
