@@ -2,6 +2,7 @@ package de.htw_berlin.HoboOthello.GUI;
 
 import de.htw_berlin.HoboOthello.Core.Field;
 import de.htw_berlin.HoboOthello.Core.Player;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -19,7 +20,7 @@ public class Gameview extends JFrame {
 
     private JLabel whiteScore = new JLabel(whitePlayerTyp);
     private JLabel blackScore = new JLabel(blackPlayerTyp);
-    private JLabel whosTurn   = new JLabel();
+    private JLabel whosTurn = new JLabel();
 
     private Color backgroundColor;
 
@@ -41,6 +42,8 @@ public class Gameview extends JFrame {
     private ImageIcon black;
     private ImageIcon grey;
     private ImageIcon hint;
+    private int var;
+    private int varSmall;
 
     /**
      * Constructor to create the gui
@@ -57,7 +60,7 @@ public class Gameview extends JFrame {
         this.setSize(800, 800);
         this.setLayout(new BorderLayout());
         this.setVisible(true);
-        this.backgroundColor = new Color(0,150,0);
+        this.backgroundColor = new Color(0, 150, 0);
 
         /*
          * MenuBar and menu components
@@ -95,8 +98,8 @@ public class Gameview extends JFrame {
                 boardPanel.add(fieldView[x][y]).setVisible(true);
 
                 // ---> to disable green background field <---
-                    // fieldView[x][y].setBorder(null);
-                    // fieldView[x][y].setBackground(null);
+                // fieldView[x][y].setBorder(null);
+                // fieldView[x][y].setBackground(null);
             }
         }
 
@@ -141,15 +144,15 @@ public class Gameview extends JFrame {
          * BorderLayout dimensions of the Center Panel
          * DO NOT CHANGE THIS
          */
-        actionPanel.setPreferredSize( new Dimension(0, 58) );
-        scorePanel.setPreferredSize( new Dimension(0, 78) );
-        westPanel.setPreferredSize( new Dimension(92, 0) );
-        eastPanel.setPreferredSize( new Dimension(92, 0) );
+        actionPanel.setPreferredSize(new Dimension(0, 58));
+        scorePanel.setPreferredSize(new Dimension(0, 78));
+        westPanel.setPreferredSize(new Dimension(92, 0));
+        eastPanel.setPreferredSize(new Dimension(92, 0));
 
-        actionPanel.setBackground(new Color(160,160,160));
-        scorePanel.setBackground(new Color(160,160,160));
-        westPanel.setBackground(new Color(160,160,160));
-        eastPanel.setBackground(new Color(160,160,160));
+        actionPanel.setBackground(new Color(160, 160, 160));
+        scorePanel.setBackground(new Color(160, 160, 160));
+        westPanel.setBackground(new Color(160, 160, 160));
+        eastPanel.setBackground(new Color(160, 160, 160));
 
         /*
          * adding all elements to the main frame
@@ -170,10 +173,15 @@ public class Gameview extends JFrame {
         /*
          * initialise all stones
          */
-        grey  = new ImageIcon(this.getClass().getResource("greybutton.png"));
+        grey = new ImageIcon(this.getClass().getResource("greybutton.png"));
         white = new ImageIcon(this.getClass().getResource("whitebutton.png"));
         black = new ImageIcon(this.getClass().getResource("blackbutton.png"));
-        hint  = new ImageIcon(this.getClass().getResource("hint.png"));
+        hint = new ImageIcon(this.getClass().getResource("hint.png"));
+
+        setupScaleFactors(fieldView.length);
+        setupBlackImageIcon(var);
+        setupGreyImageIcon(var);
+        setUpWhiteImageIcon(var);
 
     }
 
@@ -189,11 +197,13 @@ public class Gameview extends JFrame {
             }
         }
     }
+
     public void addMenuListener(ActionListener listenerForMenuClick) {
         for (int i = 0; i < toogleMenu.length; i++) {
             toogleMenu[i].addActionListener(listenerForMenuClick);
         }
     }
+
     public void addHintListener(ActionListener listenerForHintClick) {
         this.showHint.addActionListener(listenerForHintClick);
     }
@@ -207,15 +217,19 @@ public class Gameview extends JFrame {
     public JButton getFieldView(int x, int y) {
         return fieldView[x][y];
     }
+
     public int getFieldViewLength() {
         return fieldView.length;
     }
+
     public JMenuItem getToogleMenu(int nbr) {
         return toogleMenu[nbr];
     }
+
     public JButton getShowHint() {
         return showHint;
     }
+
     public Color getBackgroundColor() {
         return backgroundColor;
     }
@@ -241,18 +255,18 @@ public class Gameview extends JFrame {
         if (field.isOccupiedByStone()) {
             switch (field.getStone().getColor()) {
                 case BLACK:
-                    changeStone(1,field.getX(),field.getY());
+                    changeStone(1, field.getX(), field.getY());
                     //color = Color.BLACK;
                     break;
                 case WHITE:
-                    changeStone(0,field.getX(),field.getY());
+                    changeStone(0, field.getX(), field.getY());
                     //color = Color.WHITE;
                     break;
             }
         }
 
         if (field.isPossibleMove()) {
-            changeStone(2,field.getX(),field.getY());
+            changeStone(2, field.getX(), field.getY());
             //color = Color.blue;
         }
 
@@ -264,15 +278,15 @@ public class Gameview extends JFrame {
      *
      * @param color  the Player Color BLACK or WHITE
      * @param points the Player current Points
-     * ---> WhitePlayer Points | Points BlackPlayer <---
+     *               ---> WhitePlayer Points | Points BlackPlayer <---
      */
     public void updateBoardPlayerPoints(de.htw_berlin.HoboOthello.Core.Color color, int points) {
         if (color == de.htw_berlin.HoboOthello.Core.Color.BLACK) {
-            this.blackScore.setText(this.blackPlayerTyp+"   "+ points);
+            this.blackScore.setText(this.blackPlayerTyp + "   " + points);
             this.blackScore.setFont(font14);
             this.blackScore.setForeground(Color.BLACK);
         } else {
-            this.whiteScore.setText(this.whitePlayerTyp+"   "+points);
+            this.whiteScore.setText(this.whitePlayerTyp + "   " + points);
             this.whiteScore.setFont(font14);
             this.whiteScore.setForeground(Color.WHITE);
         }
@@ -280,22 +294,21 @@ public class Gameview extends JFrame {
 
     /**
      * Show the current Player Name (White or Black)
+     *
      * @param currentPlayerName String which can be Black or White
      */
     public void updateCurrentPlayer(String currentPlayerName) {
 
-        if(currentPlayerName == "White")
-        {
+        // TODO: this is an check for equality of the objectid
+        if (currentPlayerName == "White") {
             whosTurn.setText("Players turn: " + currentPlayerName);
             whosTurn.setForeground(Color.WHITE);
 
-        } else if (currentPlayerName == "Black")
-        {
+        } else if (currentPlayerName == "Black") {
             whosTurn.setText("Players turn: " + currentPlayerName);
             whosTurn.setForeground(Color.BLACK);
 
-        } else
-        {
+        } else {
             whosTurn.setText("Players turn: " + currentPlayerName);
             whosTurn.setForeground(Color.BLACK);
         }
@@ -341,79 +354,35 @@ public class Gameview extends JFrame {
 
     /**
      * Show the best possible move for the current player
+     *
      * @param field
      */
 
     public void showHint(Field field) {
         this.fieldView[field.getX()][field.getY()].setIcon(null);
-        this.changeStone(3,field.getX(),field.getY());
+        this.changeStone(3, field.getX(), field.getY());
         //fieldView[field.getX()][field.getY()].setBackground(Color.MAGENTA);
     }
 
-
     /**
-     *
      * @param stone can be 0, 1, 2, 3
      *              whereas 0=white, 1=black, 2=grey, 3=hint
-     * @param x: the row designator
-     * @param y: the column designator
+     * @param x:    the row designator
+     * @param y:    the column designator
      */
-    public void changeStone(int stone, int x, int y)
-    {
-
-        int scale = getFieldViewLength();
-        int var =(int) (60*0.88);
-        int varSmall =(int) (60*0.48);
-        switch (scale)
-        {
-            case 6:
-            {
-                var = (int) (100*0.88);
-                varSmall = (int) (100*0.48);
-                break;
-            }
-            case 8:
-            {
-                varSmall = (int) (75*0.48);
-                var = (int) (75*0.88);
-                break;
-            }
-            case 10:
-            {
-                varSmall = (int) (60*0.48);
-                var = (int) (60*0.88);
-                break;
-            }
-            default:
-                System.out.println("Ups! Something went wrong");
-                break;
-        }
-
-        if (stone == 0)
-        {
-            Image whiteImage = white.getImage();
-            Image newWhite = whiteImage.getScaledInstance(var, var, java.awt.Image.SCALE_SMOOTH );
-            white = new ImageIcon(newWhite);
+    public void changeStone(int stone, int x, int y) {
+        if (stone == 0) {
             fieldView[x][y].setIcon(white);
 
-        } else if (stone == 1)
-        {
-            Image blackImage = black.getImage();
-            Image newBlack = blackImage.getScaledInstance(var, var,  java.awt.Image.SCALE_SMOOTH );
-            black = new ImageIcon(newBlack);
+        } else if (stone == 1) {
             fieldView[x][y].setIcon(black);
 
-        } else if (stone == 2)
-        {
-            Image greyImage = grey.getImage();
-            Image newGrey = greyImage.getScaledInstance( varSmall, varSmall, java.awt.Image.SCALE_SMOOTH );
-            grey = new ImageIcon(newGrey);
+        } else if (stone == 2) {
             fieldView[x][y].setIcon(grey);
 
-        } else if (stone == 3)
-        {
+        } else if (stone == 3) {
             Image hintImage = hint.getImage();
-            Image newHint = hintImage.getScaledInstance( varSmall, varSmall, java.awt.Image.SCALE_SMOOTH );
+            Image newHint = hintImage.getScaledInstance(varSmall, varSmall, java.awt.Image.SCALE_SMOOTH);
             hint = new ImageIcon(newHint);
             fieldView[x][y].setIcon(hint);
 
@@ -421,6 +390,48 @@ public class Gameview extends JFrame {
 
     }
 
+    private void setupScaleFactors(int scale) {
+        var = (int) (60 * 0.88);
+        varSmall = (int) (60 * 0.48);
+        switch (scale) {
+            case 6: {
+                var = (int) (100 * 0.88);
+                varSmall = (int) (100 * 0.48);
+                break;
+            }
+            case 8: {
+                varSmall = (int) (75 * 0.48);
+                var = (int) (75 * 0.88);
+                break;
+            }
+            case 10: {
+                varSmall = (int) (60 * 0.48);
+                var = (int) (60 * 0.88);
+                break;
+            }
+            default:
+                System.out.println("Ups! Something went wrong");
+                break;
+        }
+    }
+
+    private void setupGreyImageIcon(int varSmall) {
+        Image greyImage = grey.getImage();
+        Image newGrey = greyImage.getScaledInstance(varSmall, varSmall, Image.SCALE_SMOOTH);
+        grey = new ImageIcon(newGrey);
+    }
+
+    private void setupBlackImageIcon(int var) {
+        Image blackImage = black.getImage();
+        Image newBlack = blackImage.getScaledInstance(var, var, Image.SCALE_SMOOTH);
+        black = new ImageIcon(newBlack);
+    }
+
+    private void setUpWhiteImageIcon(int var) {
+        Image whiteImage = white.getImage();
+        Image newWhite = whiteImage.getScaledInstance(var, var, Image.SCALE_SMOOTH);
+        white = new ImageIcon(newWhite);
+    }
 
 
 }

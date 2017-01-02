@@ -54,8 +54,8 @@ public class Board {
      */
     public List<Field> iterateThroughAllFields() {
 
-        List<Field> listOfFields = new ArrayList<Field>();
-
+        List<Field> listOfFields = new ArrayList<Field>(fields.length * fields.length);
+        // TODO: n**m complexity
         for (int i = 0; i < this.fields.length; i++) {
             for (int j = 0; j < this.fields.length; j++) {
                 listOfFields.add(this.fields[i][j]);

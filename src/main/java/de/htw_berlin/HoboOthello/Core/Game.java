@@ -93,9 +93,9 @@ public class Game {
         GameRule move = new GameRule(this.gameBoard.isFields());
 
         // todo remove debug code
-        System.out.printf("Field: %d:%d%n", field.getX(), field.getY());
+        //System.out.printf("Field: %d:%d%n", field.getX(), field.getY());
         this.gameBoard.setFields(move.getFields());
-        System.out.println(gameBoard.getBoardOverview());
+        //System.out.println(gameBoard.getBoardOverview());
 
 
         // check if this turn is allowed
