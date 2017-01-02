@@ -8,6 +8,8 @@ import de.htw_berlin.HoboOthello.Network.Network;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentListener;
+import java.awt.event.ComponentEvent;
 
 
 /**
@@ -30,7 +32,7 @@ public class GameController {
         theView.addBoardListener(new BoardListener());
         theView.addMenuListener(new MenuListener());
         theView.addHintListener(new HintListener());
-
+        theView.addSizeListener(new SizeListener());
 
         gameview.setPlayerTyp(theGame.getPlayerBlack(), theGame.getPlayerWhite());
         updateGameBoard();
@@ -244,6 +246,21 @@ public class GameController {
                 gameview.displayErrorMessage("Ups! Something is wrong?!");
 
             }
+        }
+    }
+    class SizeListener implements ComponentListener {
+
+        public void componentResized(ComponentEvent e) {
+           gameview.reSize();
+        }
+        public void componentMoved(ComponentEvent e) {
+            gameview.reSize();
+        }
+        public void componentShown(ComponentEvent e) {
+            gameview.reSize();
+        }
+        public void componentHidden(ComponentEvent e) {
+            gameview.reSize();
         }
     }
 

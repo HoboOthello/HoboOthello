@@ -6,6 +6,7 @@ import de.htw_berlin.HoboOthello.Core.Player;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentListener;
 
 /**
  * Created by laura on 24.11.16.
@@ -220,6 +221,10 @@ public class Gameview extends JFrame {
 
     public void addHintListener(ActionListener listenerForHintClick) {
         this.showHint.addActionListener(listenerForHintClick);
+    }
+
+    public void addSizeListener(ComponentListener listenerForReSize) {
+        this.getContentPane().addComponentListener(listenerForReSize);
     }
 
 
