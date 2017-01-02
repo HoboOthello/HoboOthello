@@ -22,6 +22,12 @@ public class Gameview extends JFrame {
     private JLabel blackScore = new JLabel(blackPlayerTyp);
     private JLabel whosTurn = new JLabel();
 
+    private JPanel scorePanel;
+    private JPanel actionPanel;
+    private JPanel eastPanel;
+    private JPanel westPanel;
+    private JPanel boardPanel;
+
     private Color backgroundColor;
 
     private JButton[][] fieldView;
@@ -44,6 +50,14 @@ public class Gameview extends JFrame {
     private ImageIcon hint;
     private int var;
     private int varSmall;
+
+    /*
+     * values to scale the center panel if window size changes
+    */
+    int trueWidth;
+    int trueHeight;
+    int newWidth;
+    int newHeight;
 
     /**
      * Constructor to create the gui
@@ -84,7 +98,7 @@ public class Gameview extends JFrame {
         /*
          * create a board. board is the center panel. adding buttons to the board
          */
-        JPanel boardPanel = new JPanel();
+        boardPanel = new JPanel();
         boardPanel.setLayout(new GridLayout(boardSize, boardSize));
         boardPanel.setBorder(BorderFactory.createEtchedBorder());
         fieldView = new JButton[boardSize][boardSize];
@@ -107,7 +121,7 @@ public class Gameview extends JFrame {
         /*
          * the action panel which holds the hint button
          */
-        JPanel actionPanel = new JPanel();
+        actionPanel = new JPanel();
         //actionPanel.setBorder(BorderFactory.createEtchedBorder()); // a frame around the panel
         showHint = new JButton("hint");
         actionPanel.add(showHint);
@@ -115,7 +129,7 @@ public class Gameview extends JFrame {
         /*
          * the score panel to display the actual score
          */
-        JPanel scorePanel = new JPanel(new GridBagLayout());
+        scorePanel = new JPanel(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
         c.gridx = 2;
         c.gridy = 0;
@@ -137,8 +151,8 @@ public class Gameview extends JFrame {
         /*
          * filler spaces for the right and left hand side
          */
-        JPanel eastPanel = new JPanel();
-        JPanel westPanel = new JPanel();
+        eastPanel = new JPanel();
+        westPanel = new JPanel();
 
         /*
          * BorderLayout dimensions of the Center Panel
@@ -434,4 +448,34 @@ public class Gameview extends JFrame {
     }
 
 
+    /*
+     * adapt values width and height to changes of the size of the frame
+     */
+    public void getTrueSize(int width, int height) {
+        this.trueHeight = height;
+        this.trueWidth = width;
+        int frameSize;          //extra variable for calculation issues
+
+        if (this.trueHeight >= this.trueWidth) {
+            frameSize = (int) ((double) this.trueWidth * 0.885);
+        } else {
+            frameSize = (int) ((double) this.trueHeight * 0.83);        // the int value of the pixels used for the
+
+            this.newWidth = (this.trueWidth - frameSize) / 2;
+            this.newHeight = (this.trueHeight - frameSize) / 2;
+        }
+    }
+
+
+    /*
+     * to resize if the frame size  is being changed
+     */
+    public void reSize(){
+        this.getTrueSize(this.getContentPane().getWidth(), this.getContentPane().getHeight());
+        this.actionPanel.setPreferredSize(new Dimension(trueWidth,newHeight));
+        this.scorePanel.setPreferredSize(new Dimension(trueWidth,newHeight));
+        this.eastPanel.setPreferredSize(new Dimension(newWidth,trueHeight));
+        this.westPanel.setPreferredSize(new Dimension(newWidth,trueHeight));
+
+    }
 }

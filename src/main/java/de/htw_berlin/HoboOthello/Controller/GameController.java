@@ -9,6 +9,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
 /**
  * Created by laura on 24.11.16.
  */
@@ -29,6 +30,7 @@ public class GameController {
         theView.addBoardListener(new BoardListener());
         theView.addMenuListener(new MenuListener());
         theView.addHintListener(new HintListener());
+
 
         gameview.setPlayerTyp(theGame.getPlayerBlack(), theGame.getPlayerWhite());
         updateGameBoard();
