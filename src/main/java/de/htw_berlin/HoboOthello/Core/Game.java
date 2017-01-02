@@ -2,8 +2,8 @@ package de.htw_berlin.HoboOthello.Core;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.sun.javafx.binding.StringFormatter;
 import de.htw_berlin.HoboOthello.KI.KI;
+import de.htw_berlin.HoboOthello.Network.Network;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -24,6 +24,8 @@ public class Game {
     private GameState gameState;
 
     private Board gameBoard;
+
+    private HobeModeType lastHobeModeType;
 
     /**
      * create a new Game
@@ -51,15 +53,24 @@ public class Game {
         move.changeAllPossibleFieldsToTrue(currentPlayer.getColor());
         this.gameBoard.setFields(move.getFields());
 
+        // todo remove debug code
+        System.out.println(gameBoard.getBoardOverview());
+        saveFieldToJson();
+    }
+
+    /**
+     * Generate the first round for Network or Ki
+     */
+    public void firstRound() {
         // if playerBlack is KI, do the turn
-        // todo add network
         if (currentPlayer.getClass() == KI.class) {
             setTurn(currentPlayer.setMove(gameBoard));
         }
 
-        // todo remove debug code
-        System.out.println(gameBoard.getBoardOverview());
-        saveFieldToJson();
+        // if playerBlack is Network Server, do the turn
+        if (currentPlayer.getClass() == Network.class) {
+            setTurn(currentPlayer.setMove(gameBoard));
+        }
     }
 
     /**
@@ -71,6 +82,10 @@ public class Game {
      */
     public boolean setTurn(Field field) {
         if (this.gameState == GameState.STOP) {
+            return false;
+        }
+
+        if (this.gameState == GameState.WAITING) {
             return false;
         }
 
@@ -109,10 +124,12 @@ public class Game {
                 this.gameState = GameState.STOP;
             }
         } else {
+            this.gameState = GameState.WAITING;
             Field playerTurn = currentPlayer.setMove(this.gameBoard);
             if (playerTurn != null) {
                 setTurn(playerTurn);
             }
+            this.gameState = GameState.RUNNING;
 
         }
 
@@ -159,7 +176,7 @@ public class Game {
      */
     public void updatePlayerTyp () {
         // todo update for network
-        switch (this.playerBlack.getPlayerTyp()) {
+        switch (this.playerBlack.getPlayerType()) {
             case KI_LEVEL1:
                 this.playerBlack = new KI(this.playerBlack.getColor(), Level.LEVEL1);
                 break;
@@ -171,7 +188,7 @@ public class Game {
                 break;
         }
 
-        switch (this.playerWhite.getPlayerTyp()) {
+        switch (this.playerWhite.getPlayerType()) {
             case KI_LEVEL1:
                 this.playerWhite = new KI(this.playerWhite.getColor(), Level.LEVEL1);
                 break;
@@ -222,6 +239,43 @@ public class Game {
         }
 
         return null;
+    }
+
+    public Player getPlayerBlack() {
+        return playerBlack;
+    }
+
+    public Player getPlayerWhite() {
+        return playerWhite;
+    }
+
+    /**
+     * Use KI Level 3 to generate the best move for the player
+     * @return the Field with the best move
+     */
+    public Field showHint() {
+        //todo set ki level3 when ready
+        KI ki = new KI(currentPlayer.getColor(), Level.LEVEL2);
+
+        return ki.setMove(gameBoard);
+    }
+
+    public HobeModeType getLastHobeModeType() {
+        return lastHobeModeType;
+    }
+
+    /**
+     * activate Random Hobomode action
+     * @return Start field of destruction
+     */
+    public Field activateHobeMode() {
+        HoboMode hoboMode = new HoboMode(gameBoard.isFields());
+        hoboMode.changeAllPossibleFieldsToTrue(currentPlayer.getColor());
+        lastHobeModeType = hoboMode.getHobeModeType();
+
+
+        gameBoard.setFields(hoboMode.getFields());
+        return hoboMode.actionRandomMode();
     }
 
     public int getBoardSize() {

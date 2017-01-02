@@ -6,8 +6,8 @@ import de.htw_berlin.HoboOthello.KI.KI;
 import de.htw_berlin.HoboOthello.Network.Network;
 
 import javax.swing.*;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Created by laura on 24.11.16.
@@ -16,9 +16,7 @@ public class GameController {
 
     private Gameview gameview;
     private Game theGame;
-    // todo what does theBoard & theMain ?!
-    private Board theBoard;
-    private Main theMain;
+
 
     public GameController(Gameview theView, Game theGame) {
         newGame(theView, theGame);
@@ -30,28 +28,44 @@ public class GameController {
 
         theView.addBoardListener(new BoardListener());
         theView.addMenuListener(new MenuListener());
+        theView.addHintListener(new HintListener());
 
+        gameview.setPlayerTyp(theGame.getPlayerBlack(), theGame.getPlayerWhite());
         updateGameBoard();
     }
 
 
     /**
-     * inside class
+     * inside classes
      * BoardListener method to check which Button has been clicked
+     * MenuListener method to check which MenuItem was clicked
+     * HintListener method to set off a hint for the next best move (random move is shown)
      */
     class BoardListener implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
 
             try {
+
                 for (int x = 0; x < gameview.getFieldViewLength(); x++) {
                     for (int y = 0; y < gameview.getFieldViewLength(); y++) {
+
                         if (e.getSource() == gameview.getFieldView(x, y)) {
+
+                            System.out.println(gameview.getFieldView(x, y).getWidth());
                             theGame.setTurn(new Field(x, y));
                             updateGameBoard();
+
                             // todo save for a network game?
                             Savegames savegames = new Savegames();
                             savegames.save(theGame);
+
+                            // todo hobomode
+                            /*
+                            theGame.activateHobeMode();
+                            theGame.getLastHobeModeType();
+                            updateGameBoard();
+                            */
 
                             // check if the game is ended
                             String gameWinner = theGame.getWinner();
@@ -65,17 +79,11 @@ public class GameController {
                         }
                     }
                 }
-
             } catch (NumberFormatException ex) {
-
                 gameview.displayErrorMessage("Illegal Move!");
-
             }
         }
-
     }
-
-    //TODO this class is unused may be deleted
     class MenuListener implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
@@ -88,6 +96,7 @@ public class GameController {
                 toogleMenu[0] = newGame;
                 toogleMenu[1] = closeGame;
                 toogleMenu[2] = aboutItem;
+
                  */
 
                 if (e.getSource() == gameview.getToogleMenu(0)) {
@@ -128,6 +137,7 @@ public class GameController {
                     // Server IP
                     panel.add(new JLabel("Server IP:"));
                     JTextField serverIP = new JTextField();
+                    serverIP.setText("localhost");
                     serverIP.setColumns(25);
                     panel.add(serverIP);
 
@@ -170,7 +180,7 @@ public class GameController {
                                 newWhitePlayer = new KI(Color.WHITE, Level.LEVEL3);
                                 break;
                             case 4:
-                                newBlackPlayer = new Network(Color.WHITE, serverIP.toString());
+                                newWhitePlayer = new Network(Color.WHITE, serverIP.getText());
                                 break;
                         }
 
@@ -178,7 +188,7 @@ public class GameController {
                             throw new IllegalArgumentException("Min one Human Player is required!");
                         }
 
-                        // destory the current JFrame
+                        // destroy the current JFrame
                         gameview.dispose();
 
                         // new game
@@ -186,6 +196,8 @@ public class GameController {
                         game.newGame(newBoardSize, newBlackPlayer, newWhitePlayer);
                         Gameview newGameview = new Gameview(newBoardSize);
                         newGame(newGameview, game);
+
+                        game.firstRound();
                     }
 
                 } else if (e.getSource() == gameview.getToogleMenu(1)) {
@@ -212,33 +224,32 @@ public class GameController {
         }
 
     }
+    class HintListener implements ActionListener {
 
-    //TODO this class is unused may be deleted
-    class ExitListener implements ActionListener {
-
-        public void actionPerformed(ActionEvent arg0) {
+        public void actionPerformed(ActionEvent e) {
 
             try {
 
-                gameview.displayErrorMessage("You're a true Hobo!");
-                gameview.setVisible(false);
+             if (e.getSource() == gameview.getShowHint())
+                updateGameBoard();
+                Field field = theGame.showHint();
+                gameview.showHint(field);
+
             } catch (NumberFormatException ex) {
 
                 gameview.displayErrorMessage("Ups! Something is wrong?!");
 
             }
         }
-
     }
 
     /**
      * Update the Gameview with the current Board Infos
+     *
      */
     public void updateGameBoard() {
-        // todo may need refactor
-
-        // update fields
         for (Field field : theGame.iterateThroughAllFields()) {
+            gameview.getFieldView(field.getX(),field.getY()).setIcon(null);
             gameview.updateBoardFields(field);
         }
 
@@ -247,7 +258,7 @@ public class GameController {
         gameview.updateBoardPlayerPoints(Color.WHITE, theGame.countPlayerPoints(Color.WHITE));
 
         // show which player is
-        System.out.println(theGame.getCurrentPlayer().getColor());
+        gameview.updateCurrentPlayer(theGame.getCurrentPlayer().getColor().toString());
     }
 
 }

@@ -2,10 +2,7 @@ package de.htw_berlin.HoboOthello.Network;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import de.htw_berlin.HoboOthello.Core.Board;
-import de.htw_berlin.HoboOthello.Core.Color;
-import de.htw_berlin.HoboOthello.Core.Field;
-import de.htw_berlin.HoboOthello.Core.Player;
+import de.htw_berlin.HoboOthello.Core.*;
 
 import java.io.IOException;
 
@@ -14,28 +11,29 @@ import java.io.IOException;
  */
 public class Network extends Player {
 
-    private NetworkTyp networkTyp;
+    private NetworkType networkType;
     private String serverIp;
 
     public Network(Color color, String serverIp) {
         super(color);
-        networkTyp = NetworkTyp.SERVER;
+        networkType = NetworkType.CLIENT;
         this.serverIp = serverIp;
+        setPlayerType(PlayerType.NETWORK_CLIENT);
     }
 
     public Network(Color color) {
         super(color);
-        networkTyp = NetworkTyp.CLIENT;
+        networkType = NetworkType.SERVER;
+        setPlayerType(PlayerType.NETWORK_SERVER);
     }
 
     public Field setMove(Board board) {
         String response = null;
-        Field field = null;
 
         Gson gson = new GsonBuilder().create();
         String boardJson = gson.toJson(board);
 
-        if (this.networkTyp == NetworkTyp.SERVER) {
+        if (this.networkType == NetworkType.SERVER) {
             Server server = new Server();
             try {
                 response = server.startServer(boardJson);
@@ -44,7 +42,7 @@ public class Network extends Player {
             }
         }
 
-        if (this.networkTyp == NetworkTyp.CLIENT) {
+        if (this.networkType == NetworkType.CLIENT) {
             Client client = new Client();
 
             try {

@@ -1,7 +1,5 @@
 package de.htw_berlin.HoboOthello.Core;
 
-import java.awt.*;
-
 /**
  * Created by laura on 24.11.16.
  */
@@ -12,7 +10,7 @@ public class Player {
      */
     private Color color;
 
-    private PlayerTyp playerTyp;
+    private PlayerType playerType;
 
 
     /**
@@ -23,7 +21,7 @@ public class Player {
      */
     public Player(Color color) {
         this.color = color;
-        this.playerTyp = PlayerTyp.DESKTOP;
+        this.playerType = PlayerType.DESKTOP;
     }
 
     public Color getColor() {
@@ -39,11 +37,11 @@ public class Player {
     }
 
 
-    public PlayerTyp getPlayerTyp() {
-        return playerTyp;
+    public PlayerType getPlayerType() {
+        return playerType;
     }
 
-    public void setPlayerTyp(PlayerTyp playerTyp) {
-        this.playerTyp = playerTyp;
+    public void setPlayerType(PlayerType playerType) {
+        this.playerType = playerType;
     }
 }

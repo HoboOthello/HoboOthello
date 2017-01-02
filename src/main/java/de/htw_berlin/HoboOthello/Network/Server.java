@@ -10,7 +10,6 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Date;
 
 /**
  * Created by fubu on 27.11.16.
@@ -30,7 +29,7 @@ public class Server {
                             new InputStreamReader(socket.getInputStream()));
                     PrintWriter output =
                             new PrintWriter(socket.getOutputStream(), true);
-                    output.println(new Date().toString());
+                    output.println(boardJson);
 
                     return input.readLine();
 
@@ -38,8 +37,7 @@ public class Server {
                     socket.close();
                 }
             }
-        }
-        finally {
+        } finally {
             listener.close();
         }
     }

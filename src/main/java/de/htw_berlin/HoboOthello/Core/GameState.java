@@ -8,5 +8,5 @@ package de.htw_berlin.HoboOthello.Core;
  * STOP --> Game is at the end and need to create a new game or close the Program
  */
 public enum GameState {
-    RUNNING, STOP
+    RUNNING, STOP, WAITING
 }
