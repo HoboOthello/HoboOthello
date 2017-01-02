@@ -48,19 +48,16 @@ public class Gameview extends JFrame {
 
     public Gameview(int boardSize) {
 
-
         /*
          * sets up the main frame of the game
          */
         this.setTitle("HoboOthello");
-        //this.setLocationRelativeTo(null); //Centers the Frame with top left corner in the middle of the screen
-        this.setLocation(800, 200);
+        this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(800, 800);
         this.setLayout(new BorderLayout());
         this.setVisible(true);
         this.backgroundColor = new Color(0,150,0);
-
 
         /*
          * MenuBar and menu components
@@ -94,7 +91,7 @@ public class Gameview extends JFrame {
 
                 fieldView[x][y] = new JButton();
                 fieldView[x][y].setBackground(backgroundColor);
-                fieldView[x][y].setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+                //fieldView[x][y].setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
                 boardPanel.add(fieldView[x][y]).setVisible(true);
 
                 // ---> to disable green background field <---
@@ -132,10 +129,6 @@ public class Gameview extends JFrame {
         c.gridx = 1;
         c.gridy = 2;
         scorePanel.add(whosTurn, c);
-        //  whiteScore.setBorder(BorderFactory.createEtchedBorder());
-        //  blackScore.setBorder(BorderFactory.createEtchedBorder());
-        //  whosTurn.setBorder(BorderFactory.createEtchedBorder());
-
 
 
         /*
@@ -173,7 +166,6 @@ public class Gameview extends JFrame {
         this.setJMenuBar(new JMenuBar());
         this.getJMenuBar().add(gameMenu);
         this.getJMenuBar().add(aboutMenu);
-
 
         /*
          * initialise all stones
