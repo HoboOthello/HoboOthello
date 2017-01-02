@@ -21,19 +21,4 @@ public class Main {
         gameview.setVisible(true);
     }
 
-    //TODO BUG REPORTING AND BESEITIGEN
-    public void restart(int boardSize){
-
-        Gameview gameview = new Gameview(boardSize);
-
-        Game game = new Game();
-
-        game.newGame(8, new Player(Color.BLACK), new Player(Color.WHITE));
-
-        GameController gameController = new GameController(gameview, game);
-
-        gameview.setVisible(true);
-
-
-    }
 }

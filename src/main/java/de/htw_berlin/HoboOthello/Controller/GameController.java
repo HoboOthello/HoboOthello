@@ -248,34 +248,9 @@ public class GameController {
      *
      */
     public void updateGameBoard() {
-        // todo may need refactor
-        //TODO Bjoern check for NullPointer in getScaledInstance Method
-
-        /*
-        int white = 0;
-        int black = 1;
-        int grey  = 2;
-        */
-
-         // update fields
         for (Field field : theGame.iterateThroughAllFields()) {
+            gameview.getFieldView(field.getX(),field.getY()).setIcon(null);
             gameview.updateBoardFields(field);
-//            gameview.getFieldView(field.getX(), field.getY()).setBackground(gameview.getBackgroundColor());
-
-        /*    if (field.isOccupiedByStone()) {
-                switch (field.getStone().getColor()) {
-                    case BLACK:
-                        gameview.changeStone(black, field.getX(), field.getY());
-                        break;
-                    case WHITE:
-                        gameview.changeStone(white, field.getX(), field.getY());
-                        break;
-                }
-            }
-            if (field.isPossibleMove()) {
-                gameview.changeStone(grey, field.getX(), field.getY());
-            }
-        */
         }
 
         // update player points

@@ -41,13 +41,6 @@ public class Gameview extends JFrame {
     private ImageIcon black;
     private ImageIcon grey;
     private ImageIcon hint;
-    int var;
-    int scaledHeight;
-    int smallerScaledWidth;
-    int smallerScaledHeight;
-
-
-
 
     /**
      * Constructor to create the gui
@@ -185,10 +178,10 @@ public class Gameview extends JFrame {
         /*
          * initialise all stones
          */
-        grey  = new ImageIcon("greybutton.png");
-        white = new ImageIcon("whitebutton.png");
-        black = new ImageIcon("blackbutton.png");
-        hint  = new ImageIcon("hint.png");
+        grey  = new ImageIcon(this.getClass().getResource("greybutton.png"));
+        white = new ImageIcon(this.getClass().getResource("whitebutton.png"));
+        black = new ImageIcon(this.getClass().getResource("blackbutton.png"));
+        hint  = new ImageIcon(this.getClass().getResource("hint.png"));
 
     }
 
@@ -256,19 +249,22 @@ public class Gameview extends JFrame {
         if (field.isOccupiedByStone()) {
             switch (field.getStone().getColor()) {
                 case BLACK:
-                    color = Color.BLACK;
+                    changeStone(1,field.getX(),field.getY());
+                    //color = Color.BLACK;
                     break;
                 case WHITE:
-                    color = Color.WHITE;
+                    changeStone(0,field.getX(),field.getY());
+                    //color = Color.WHITE;
                     break;
             }
         }
 
         if (field.isPossibleMove()) {
-            color = Color.blue;
+            changeStone(2,field.getX(),field.getY());
+            //color = Color.blue;
         }
 
-        fieldView[field.getX()][field.getY()].setBackground(color);
+        //fieldView[field.getX()][field.getY()].setBackground(color);
     }
 
     /**
@@ -357,11 +353,12 @@ public class Gameview extends JFrame {
      */
 
     public void showHint(Field field) {
-        fieldView[field.getX()][field.getY()].setBackground(Color.MAGENTA);
+        this.fieldView[field.getX()][field.getY()].setIcon(null);
+        this.changeStone(3,field.getX(),field.getY());
+        //fieldView[field.getX()][field.getY()].setBackground(Color.MAGENTA);
     }
 
 
-    //TODO check for NullPointer in Method ...-.getScaledInstance()...
     /**
      *
      * @param stone can be 0, 1, 2, 3
@@ -374,24 +371,24 @@ public class Gameview extends JFrame {
 
         int scale = getFieldViewLength();
         int var =(int) (60*0.88);
-        int varSmall =(int) (60*0.68);
+        int varSmall =(int) (60*0.48);
         switch (scale)
         {
             case 6:
             {
                 var = (int) (100*0.88);
-                varSmall = (int) (100*0.68);
+                varSmall = (int) (100*0.48);
                 break;
             }
             case 8:
             {
-                varSmall = (int) (75*0.68);
+                varSmall = (int) (75*0.48);
                 var = (int) (75*0.88);
                 break;
             }
             case 10:
             {
-                varSmall = (int) (60*0.68);
+                varSmall = (int) (60*0.48);
                 var = (int) (60*0.88);
                 break;
             }
