@@ -46,7 +46,9 @@ public class GameController {
         public void actionPerformed(ActionEvent e) {
 
             try {
-
+                /* TODO: complexity of n**n which equals with the nested komplexity of Board.iterateThroughAllFields a
+                    total complexity of n**n * m**m
+                */
                 for (int x = 0; x < gameview.getFieldViewLength(); x++) {
                     for (int y = 0; y < gameview.getFieldViewLength(); y++) {
 
