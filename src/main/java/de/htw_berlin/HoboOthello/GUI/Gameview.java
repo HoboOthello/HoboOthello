@@ -83,7 +83,7 @@ public class Gameview extends JFrame {
          */
         JPanel boardPanel = new JPanel();
         boardPanel.setLayout(new GridLayout(boardSize, boardSize));
-        boardPanel.setBorder(BorderFactory.createEtchedBorder());
+        //boardPanel.setBorder(BorderFactory.createEtchedBorder());
         fieldView = new JButton[boardSize][boardSize];
 
         for (int x = 0; x < fieldView.length; x++) {
@@ -105,7 +105,6 @@ public class Gameview extends JFrame {
          * the action panel which holds the hint button
          */
         JPanel actionPanel = new JPanel();
-        //actionPanel.setBorder(BorderFactory.createEtchedBorder()); // a frame around the panel
         showHint = new JButton("hint");
         actionPanel.add(showHint);
 
@@ -150,6 +149,7 @@ public class Gameview extends JFrame {
         scorePanel.setBackground(new Color(160,160,160));
         westPanel.setBackground(new Color(160,160,160));
         eastPanel.setBackground(new Color(160,160,160));
+        boardPanel.setBackground(new Color(160,160,160));
 
         /*
          * adding all elements to the main frame
@@ -286,18 +286,19 @@ public class Gameview extends JFrame {
 
         if(currentPlayerName == "White")
         {
-            whosTurn.setText("Players turn: " + currentPlayerName);
             whosTurn.setForeground(Color.WHITE);
+            whosTurn.setText("Players turn: " + currentPlayerName);
 
         } else if (currentPlayerName == "Black")
         {
-            whosTurn.setText("Players turn: " + currentPlayerName);
             whosTurn.setForeground(Color.BLACK);
+            whosTurn.setText("Players turn: " + currentPlayerName);
 
         } else
         {
-            whosTurn.setText("Players turn: " + currentPlayerName);
             whosTurn.setForeground(Color.BLACK);
+            whosTurn.setText("Players turn: " + currentPlayerName);
+
         }
     }
 
