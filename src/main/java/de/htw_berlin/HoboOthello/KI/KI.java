@@ -124,7 +124,7 @@ public class KI extends Player {
         }
 
         int sideFieldIndex = 0;
-        while (sideFieldIndex < listOfPossibleMoves.size()) {
+        while (sideFieldIndex < listOfPossibleMoves.size() -1) {
             Field field = listOfPossibleMoves.get(sideFieldIndex);
             if (board.isSideField(field)) {
                 cornerOrSideField = field;
