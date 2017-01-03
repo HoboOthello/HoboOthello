@@ -101,7 +101,7 @@ public class Gameview extends JFrame {
          */
         boardPanel = new JPanel();
         boardPanel.setLayout(new GridLayout(boardSize, boardSize));
-        boardPanel.setBorder(BorderFactory.createEtchedBorder());
+        //boardPanel.setBorder(BorderFactory.createEtchedBorder());
         fieldView = new JButton[boardSize][boardSize];
 
         for (int x = 0; x < fieldView.length; x++) {
@@ -113,8 +113,8 @@ public class Gameview extends JFrame {
                 boardPanel.add(fieldView[x][y]).setVisible(true);
 
                 // ---> to disable green background field <---
-                // fieldView[x][y].setBorder(null);
-                // fieldView[x][y].setBackground(null);
+                //fieldView[x][y].setBorder(null);
+                //fieldView[x][y].setBackground(null);
             }
         }
 
@@ -164,10 +164,11 @@ public class Gameview extends JFrame {
         westPanel.setPreferredSize(new Dimension(92, 0));
         eastPanel.setPreferredSize(new Dimension(92, 0));
 
-        actionPanel.setBackground(new Color(160, 160, 160));
-        scorePanel.setBackground(new Color(160, 160, 160));
-        westPanel.setBackground(new Color(160, 160, 160));
-        eastPanel.setBackground(new Color(160, 160, 160));
+        actionPanel.setBackground(new Color(120, 160, 160));
+        scorePanel.setBackground(new Color(120, 160, 160));
+        westPanel.setBackground(new Color(120, 160, 160));
+        eastPanel.setBackground(new Color(120, 160, 160));
+        boardPanel.setBackground(new Color(120, 160, 160));
 
         /*
          * adding all elements to the main frame
@@ -249,9 +250,6 @@ public class Gameview extends JFrame {
         return showHint;
     }
 
-    public Color getBackgroundColor() {
-        return backgroundColor;
-    }
 
     /**
      * error message to display errors
@@ -473,7 +471,7 @@ public class Gameview extends JFrame {
 
 
     /*
-     * to resize if the frame size  is being changed
+     * to resize if the frame size is being changed
      */
     public void reSize(){
         this.getTrueSize(this.getContentPane().getWidth(), this.getContentPane().getHeight());
