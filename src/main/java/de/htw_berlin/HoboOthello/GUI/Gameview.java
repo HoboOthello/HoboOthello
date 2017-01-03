@@ -527,7 +527,7 @@ public class Gameview extends JFrame {
 
     public void playPloppSound() {
         try {
-            InputStream inputStream = this.getClass().getResourceAsStream("Plopp.wav");
+            InputStream inputStream = this.getClass().getResourceAsStream("Drop.wav");
             AudioStream audioStream = new AudioStream(inputStream);
             AudioPlayer.player.start(audioStream);
         } catch (Exception e){
