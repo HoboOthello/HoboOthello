@@ -197,6 +197,7 @@ public class GameController {
                         }
 
                         // destroy the current JFrame
+                        gameview.playExitSound();
                         gameview.dispose();
 
                         // new game
@@ -214,6 +215,7 @@ public class GameController {
                             "You're a true Hobo!",
                             "GoodBye!",
                             JOptionPane.INFORMATION_MESSAGE);
+                    gameview.playExitSound();
                     System.exit(0);
 
                 } else if (e.getSource() == gameview.getToogleMenu(2)) {
@@ -273,6 +275,7 @@ public class GameController {
         public void actionPerformed(ActionEvent e) {
             try {
                 if (e.getSource() == gameview.getGoHobo())
+                    gameview.playHoboGiggle();
                     theGame.activateHobeMode();
                     theGame.getLastHobeModeType();
                     updateGameBoard();

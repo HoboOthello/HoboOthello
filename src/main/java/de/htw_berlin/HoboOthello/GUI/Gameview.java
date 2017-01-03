@@ -2,11 +2,14 @@ package de.htw_berlin.HoboOthello.GUI;
 
 import de.htw_berlin.HoboOthello.Core.Field;
 import de.htw_berlin.HoboOthello.Core.Player;
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentListener;
+import java.io.InputStream;
 
 /**
  * Created by laura on 24.11.16.
@@ -405,18 +408,22 @@ public class Gameview extends JFrame {
      */
     public void changeStone(int stone, int x, int y) {
         if (stone == 0) {
+            playPloppSound();
             fieldView[x][y].setIcon(white);
 
         } else if (stone == 1) {
+            playPloppSound();
             fieldView[x][y].setIcon(black);
 
         } else if (stone == 2) {
+            playPloppSound();
             fieldView[x][y].setIcon(grey);
 
         } else if (stone == 3) {
             Image hintImage = hint.getImage();
             Image newHint = hintImage.getScaledInstance(varSmall, varSmall, java.awt.Image.SCALE_SMOOTH);
             hint = new ImageIcon(newHint);
+            playPloppSound();
             fieldView[x][y].setIcon(hint);
 
         }
@@ -496,5 +503,35 @@ public class Gameview extends JFrame {
         this.eastPanel.setPreferredSize(new Dimension(newWidth,trueHeight));
         this.westPanel.setPreferredSize(new Dimension(newWidth,trueHeight));
 
+    }
+
+    public void playHoboGiggle() {
+        try {
+            InputStream inputStream = this.getClass().getResourceAsStream("Giggle.wav");
+            AudioStream audioStream = new AudioStream(inputStream);
+            AudioPlayer.player.start(audioStream);
+        } catch (Exception e){
+            //...to be filled
+        }
+    }
+
+    public void playExitSound() {
+        try {
+            InputStream inputStream = this.getClass().getResourceAsStream("ExitCrash.wav");
+            AudioStream audioStream = new AudioStream(inputStream);
+            AudioPlayer.player.start(audioStream);
+        } catch (Exception e){
+            //...to be filled
+        }
+    }
+
+    public void playPloppSound() {
+        try {
+            InputStream inputStream = this.getClass().getResourceAsStream("Plopp.wav");
+            AudioStream audioStream = new AudioStream(inputStream);
+            AudioPlayer.player.start(audioStream);
+        } catch (Exception e){
+            //...to be filled
+        }
     }
 }
