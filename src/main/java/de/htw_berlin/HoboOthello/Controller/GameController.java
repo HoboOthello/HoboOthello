@@ -33,6 +33,7 @@ public class GameController {
         theView.addMenuListener(new MenuListener());
         theView.addHintListener(new HintListener());
         theView.addSizeListener(new SizeListener());
+        theView.addHoboListener(new HoboListener());
 
         gameview.setPlayerTyp(theGame.getPlayerBlack(), theGame.getPlayerWhite());
         updateGameBoard();
@@ -90,11 +91,12 @@ public class GameController {
             }
         }
     }
+
     class MenuListener implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
 
-            //TODO BJOERN write a line that starts a new game. the restart() method does throw a nullPointer
+
             try {
                 // todo refactor? look not quite efficient
                 /*
@@ -230,6 +232,8 @@ public class GameController {
         }
 
     }
+
+    // TODO if no Move Avail hint throws java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
     class HintListener implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
@@ -248,6 +252,7 @@ public class GameController {
             }
         }
     }
+
     class SizeListener implements ComponentListener {
 
         public void componentResized(ComponentEvent e) {
@@ -261,6 +266,19 @@ public class GameController {
         }
         public void componentHidden(ComponentEvent e) {
             gameview.reSize();
+        }
+    }
+
+    class HoboListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            try {
+                if (e.getSource() == gameview.getGoHobo())
+                    theGame.activateHobeMode();
+                    theGame.getLastHobeModeType();
+                    updateGameBoard();
+            } catch (NumberFormatException ex) {
+                gameview.displayErrorMessage("Ups! Something is wrong?!");
+            }
         }
     }
 
@@ -278,7 +296,7 @@ public class GameController {
         gameview.updateBoardPlayerPoints(Color.BLACK, theGame.countPlayerPoints(Color.BLACK));
         gameview.updateBoardPlayerPoints(Color.WHITE, theGame.countPlayerPoints(Color.WHITE));
 
-        // show which player is
+        // show which players turn it is
         gameview.updateCurrentPlayer(theGame.getCurrentPlayer().getColor().toString());
     }
 

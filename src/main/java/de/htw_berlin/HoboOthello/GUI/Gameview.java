@@ -32,6 +32,7 @@ public class Gameview extends JFrame {
 
     private JButton[][] fieldView;
     private JButton showHint;
+    private JButton goHobo;
 
     private JMenuItem[] toogleMenu;
     private JMenu gameMenu;
@@ -123,8 +124,10 @@ public class Gameview extends JFrame {
          */
         actionPanel = new JPanel();
         //actionPanel.setBorder(BorderFactory.createEtchedBorder()); // a frame around the panel
-        showHint = new JButton("hint");
+        showHint = new JButton(" Hint? ");
+        goHobo = new JButton  ("Go Hobo");
         actionPanel.add(showHint);
+        actionPanel.add(goHobo);
 
         /*
          * the score panel to display the actual score
@@ -227,6 +230,10 @@ public class Gameview extends JFrame {
         this.getContentPane().addComponentListener(listenerForReSize);
     }
 
+    public void addHoboListener(ActionListener listenerForGoHobo) {
+        this.goHobo.addActionListener(listenerForGoHobo);
+    }
+
 
     /**
      * Getter for the board to check which Button was clicked
@@ -247,6 +254,10 @@ public class Gameview extends JFrame {
 
     public JButton getShowHint() {
         return showHint;
+    }
+
+    public JButton getGoHobo() {
+        return goHobo;
     }
 
 
