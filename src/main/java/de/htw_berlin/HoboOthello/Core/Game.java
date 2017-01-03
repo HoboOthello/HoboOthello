@@ -49,7 +49,7 @@ public class Game {
         this.gameState = GameState.RUNNING;
 
         // set possible moves
-        GameRule move = new GameRule(this.gameBoard.isFields());
+        GameRule move = new GameRule(this.gameBoard.getFields());
         move.changeAllPossibleFieldsToTrue(currentPlayer.getColor());
         this.gameBoard.setFields(move.getFields());
 
@@ -90,7 +90,7 @@ public class Game {
         }
 
         // return if the turn was successful (possible)
-        GameRule move = new GameRule(this.gameBoard.isFields());
+        GameRule move = new GameRule(this.gameBoard.getFields());
 
         // todo remove debug code
         //System.out.printf("Field: %d:%d%n", field.getX(), field.getY());
@@ -123,13 +123,12 @@ public class Game {
                 // todo delete savegame.json
                 this.gameState = GameState.STOP;
             }
-        } else {
+        }
+        if (currentPlayer instanceof KI) {
             Field playerTurn = currentPlayer.setMove(this.gameBoard);
             if (playerTurn != null) {
                 setTurn(playerTurn);
             }
-            this.gameState = GameState.RUNNING;
-
         }
 
         // todo remove debug code
@@ -173,7 +172,7 @@ public class Game {
     /**
      * update the player Typ after load a Game from a savegame
      */
-    public void updatePlayerTyp () {
+    public void updatePlayerTyp() {
         // todo update for network
         switch (this.playerBlack.getPlayerType()) {
             case KI_LEVEL1:
@@ -207,7 +206,7 @@ public class Game {
         File file = new File("field.json");
 
         Gson gson = new GsonBuilder().create();
-        String content = gson.toJson(gameBoard.isFields());
+        String content = gson.toJson(gameBoard.getFields());
 
         try {
             FileWriter fw = new FileWriter(file.getAbsoluteFile());
@@ -250,6 +249,7 @@ public class Game {
 
     /**
      * Use KI Level 3 to generate the best move for the player
+     *
      * @return the Field with the best move
      */
     public Field showHint() {
@@ -265,10 +265,11 @@ public class Game {
 
     /**
      * activate Random Hobomode action
+     *
      * @return Start field of destruction
      */
     public Field activateHobeMode() {
-        HoboMode hoboMode = new HoboMode(gameBoard.isFields());
+        HoboMode hoboMode = new HoboMode(gameBoard.getFields());
         hoboMode.changeAllPossibleFieldsToTrue(currentPlayer.getColor());
         lastHobeModeType = hoboMode.getHobeModeType();
 

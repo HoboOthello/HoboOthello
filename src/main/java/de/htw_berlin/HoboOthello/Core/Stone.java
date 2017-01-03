@@ -21,6 +21,12 @@ public class Stone {
         this.stoneColor = stoneColor;
     }
 
+    public Stone(Stone stoneToCopy) {
+        if (stoneToCopy.getColor() != null) {
+            this.stoneColor = stoneToCopy.getColor();
+        }
+    }
+
     public Color getColor() {
         return this.stoneColor;
     }

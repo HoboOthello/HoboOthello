@@ -70,8 +70,8 @@ public class Network extends Player {
         // todo return error if the size differ
         for (int x = 0; x < boardOriginal.getBoardSize(); x++) {
             for (int y = 0; y < boardOriginal.getBoardSize(); y++) {
-                if (boardOriginal.isFields()[x][y].isEmpty() != boardNetwork.isFields()[x][y].isEmpty()) {
-                    return boardNetwork.isFields()[x][y];
+                if (boardOriginal.getFields()[x][y].isEmpty() != boardNetwork.getFields()[x][y].isEmpty()) {
+                    return boardNetwork.getFields()[x][y];
                 }
             }
         }

@@ -45,7 +45,7 @@ public class KI extends Player {
      */
     public Field setMove(Board board) {
         this.board = board;
-        this.gameRule = new GameRule(this.board.isFields());
+        this.gameRule = new GameRule(this.board.getFields());
         Field fieldToSetMove;
 
         if (level == level.LEVEL1) {
@@ -80,7 +80,7 @@ public class KI extends Player {
         List<Field> listOfPossibleMoves = new ArrayList<Field>();
         List<Field> listOfAllFields = board.iterateThroughAllFields();
 
-        if (listOfAllFields != null) {
+        if (listOfAllFields != null && listOfAllFields.size() != 0) {
             for (Field field : listOfAllFields) {
                 if (gameRule.isMoveAllowed(field, kiColor)) {
                     listOfPossibleMoves.add(field);
@@ -206,25 +206,25 @@ public class KI extends Player {
 
         //If there are corner fields available, these are a very good and tactical pick!
         List<Field> listOfCornerFields = listPossibleCornerFields();
-        if (listOfCornerFields != null) {
+        if (listOfCornerFields != null && listOfCornerFields.size() != 0) {
             return pickTacticalFieldFromList(listOfCornerFields);
         }
 
         //Side fields are also very good and tactical spots
         List<Field> listOfSideFields = listPossibleSideFields();
-        if (listOfSideFields != null) {
+        if (listOfSideFields != null && listOfSideFields.size() != 0) {
             return pickTacticalFieldFromList(listOfSideFields);
         }
 
         //It is smart to make a move on a field not too close to the border,
         //so the other player can't get a stone in a corner of on a border field.
         List<Field> listOfFieldsNotTooCloseToBorder = listPossibleFieldsNotTooCloseToBorder();
-        if (listOfFieldsNotTooCloseToBorder != null) {
+        if (listOfFieldsNotTooCloseToBorder != null && listOfFieldsNotTooCloseToBorder.size() != 0) {
             return pickTacticalFieldFromList(listOfFieldsNotTooCloseToBorder);
         }
 
         List<Field> listOfAllPossibleMoves = listPossibleMoves();
-        if (listOfAllPossibleMoves != null) {
+        if (listOfAllPossibleMoves != null && listOfAllPossibleMoves.size() != 0) {
             return pickTacticalFieldFromList(listOfAllPossibleMoves);
         } else {
             return null;
@@ -262,7 +262,8 @@ public class KI extends Player {
         // useage gamerule neu erstellen -> mit felder füllen -> testen -> auswerten -> löschen
         // solange wiederholen wie dir spass macht
 
-        GameRule newGameRule = new GameRule(board.isFields());
+        Field[][] copiedFields = copyFields(board.getFields());
+        GameRule newGameRule = new GameRule(copiedFields);
         newGameRule.setMove(field, kiColor);
 
         Board newBoard = new Board(board.getBoardSize());
@@ -271,6 +272,16 @@ public class KI extends Player {
         int newNumberOfStones = newBoard.getNumberOfFieldsOccupiedByStone(kiColor);
         int numberOfStonesFlipped = (newNumberOfStones - actualNumberOfStones);
         return numberOfStonesFlipped;
+    }
+
+    private Field[][] copyFields(Field[][] originalFields) {
+        Field[][] copiedFields = new Field[originalFields.length][originalFields[0].length];
+        for (int i = 0; i < originalFields.length; i++) {
+            for (int j = 0; j < originalFields[i].length; j++) {
+                copiedFields[i][j] = new Field(originalFields[i][j]);
+            }
+        }
+        return copiedFields;
     }
 
 /*

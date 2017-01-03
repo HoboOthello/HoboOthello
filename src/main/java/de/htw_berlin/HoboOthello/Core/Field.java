@@ -39,6 +39,14 @@ public class Field {
         this.y = y;
     }
 
+    public Field(Field fieldToCopy) {
+        this.x = fieldToCopy.getX();
+        this.y = fieldToCopy.getY();
+        if (fieldToCopy.getStone() != null) {
+            this.stone = new Stone(fieldToCopy.getStone());
+        }
+    }
+
     public void setStone(Stone stoneToSet) {
         this.stone = stoneToSet;
     }

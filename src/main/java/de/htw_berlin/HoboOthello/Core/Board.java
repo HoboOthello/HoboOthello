@@ -258,7 +258,7 @@ public class Board {
         return boardIsFull();
     }
 
-    public Field[][] isFields() {
+    public Field[][] getFields() {
         return this.fields;
     }
 
