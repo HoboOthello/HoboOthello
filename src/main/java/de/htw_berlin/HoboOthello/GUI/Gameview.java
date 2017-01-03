@@ -13,7 +13,6 @@ import java.awt.event.ComponentListener;
  */
 public class Gameview extends JFrame {
 
-
     private static final long serialVersionUID = 1L;
 
     private String blackPlayerTyp = "BLACK";
@@ -317,18 +316,24 @@ public class Gameview extends JFrame {
     public void updateCurrentPlayer(String currentPlayerName) {
 
         // TODO: this is an check for equality of the objectid
-        if (currentPlayerName == "White") {
-            whosTurn.setText("Players turn: " + currentPlayerName);
-            whosTurn.setForeground(Color.WHITE);
+        if (currentPlayerName == "WHITE") {
+            this.whosTurn.setText("Players turn: " + currentPlayerName);
+            this.whosTurn.setForeground(Color.WHITE);
 
-        } else if (currentPlayerName == "Black") {
-            whosTurn.setText("Players turn: " + currentPlayerName);
-            whosTurn.setForeground(Color.BLACK);
+        } else
+            //(currentPlayerName == "Black")
+            {
+            this.whosTurn.setText("Players turn: " + currentPlayerName);
+            this.whosTurn.setForeground(Color.BLACK);
 
-        } else {
-            whosTurn.setText("Players turn: " + currentPlayerName);
-            whosTurn.setForeground(Color.BLACK);
         }
+        /*
+        else {
+            this.whosTurn.setText("Players turn: " + currentPlayerName);
+            this.whosTurn.setForeground(Color.BLACK);
+
+        }
+        */
     }
 
     public void setPlayerTyp(Player blackPlayer, Player whitePlayer) {
