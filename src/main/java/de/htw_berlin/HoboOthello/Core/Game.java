@@ -124,7 +124,6 @@ public class Game {
                 this.gameState = GameState.STOP;
             }
         } else {
-            this.gameState = GameState.WAITING;
             Field playerTurn = currentPlayer.setMove(this.gameBoard);
             if (playerTurn != null) {
                 setTurn(playerTurn);
@@ -255,7 +254,7 @@ public class Game {
      */
     public Field showHint() {
         //todo set ki level3 when ready
-        KI ki = new KI(currentPlayer.getColor(), Level.LEVEL2);
+        KI ki = new KI(currentPlayer.getColor(), Level.LEVEL3);
 
         return ki.setMove(gameBoard);
     }

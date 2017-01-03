@@ -8,8 +8,8 @@ import de.htw_berlin.HoboOthello.Network.Network;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentListener;
 import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 
 
 /**
@@ -242,8 +242,8 @@ public class GameController {
 
             try {
 
-             if (e.getSource() == gameview.getShowHint())
-                updateGameBoard();
+                if (e.getSource() == gameview.getShowHint())
+                    updateGameBoard();
                 Field field = theGame.showHint();
                 gameview.showHint(field);
 
@@ -258,14 +258,17 @@ public class GameController {
     class SizeListener implements ComponentListener {
 
         public void componentResized(ComponentEvent e) {
-           gameview.reSize();
+            gameview.reSize();
         }
+
         public void componentMoved(ComponentEvent e) {
             gameview.reSize();
         }
+
         public void componentShown(ComponentEvent e) {
             gameview.reSize();
         }
+
         public void componentHidden(ComponentEvent e) {
             gameview.reSize();
         }
@@ -276,9 +279,9 @@ public class GameController {
             try {
                 if (e.getSource() == gameview.getGoHobo())
                     gameview.playHoboGiggle();
-                    theGame.activateHobeMode();
-                    theGame.getLastHobeModeType();
-                    updateGameBoard();
+                theGame.activateHobeMode();
+                theGame.getLastHobeModeType();
+                updateGameBoard();
             } catch (NumberFormatException ex) {
                 gameview.displayErrorMessage("Ups! Something is wrong?!");
             }
@@ -287,11 +290,10 @@ public class GameController {
 
     /**
      * Update the Gameview with the current Board Infos
-     *
      */
     public void updateGameBoard() {
         for (Field field : theGame.iterateThroughAllFields()) {
-            gameview.getFieldView(field.getX(),field.getY()).setIcon(null);
+            gameview.getFieldView(field.getX(), field.getY()).setIcon(null);
             gameview.updateBoardFields(field);
         }
 

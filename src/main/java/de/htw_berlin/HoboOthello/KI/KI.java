@@ -5,7 +5,9 @@ import de.htw_berlin.HoboOthello.Core.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Created by laura on 17.11.16.
+ */
 public class KI extends Player {
 
     private Color kiColor;
