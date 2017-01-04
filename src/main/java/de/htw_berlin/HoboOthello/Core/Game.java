@@ -35,7 +35,6 @@ public class Game {
      * @param newPlayerWhite the White Player
      */
     public void newGame(int boardSize, Player newPlayerBlack, Player newPlayerWhite) {
-        //TODO add exception
         //init Board
         this.gameBoard = new Board(boardSize);
 
@@ -52,10 +51,6 @@ public class Game {
         GameRule move = new GameRule(this.gameBoard.getFields());
         move.changeAllPossibleFieldsToTrue(currentPlayer.getColor());
         this.gameBoard.setFields(move.getFields());
-
-        // todo remove debug code
-        System.out.println(gameBoard.getBoardOverview());
-        saveFieldToJson();
     }
 
     /**
@@ -92,12 +87,6 @@ public class Game {
         // return if the turn was successful (possible)
         GameRule move = new GameRule(this.gameBoard.getFields());
 
-        // todo remove debug code
-        //System.out.printf("Field: %d:%d%n", field.getX(), field.getY());
-        this.gameBoard.setFields(move.getFields());
-        //System.out.println(gameBoard.getBoardOverview());
-
-
         // check if this turn is allowed
         boolean moveAllowed = move.isMoveAllowed(field, currentPlayer.getColor());
 
@@ -119,8 +108,6 @@ public class Game {
 
             if (move.getPossibleMoves() == 0) {
                 // no Player can make a Possible move anymore, so end the game
-                // todo add userfeedback
-                // todo delete savegame.json
                 this.gameState = GameState.STOP;
             }
         }
@@ -131,10 +118,6 @@ public class Game {
                 setTurn(playerTurn);
             }
         }
-
-        // todo remove debug code
-        System.out.println(gameBoard.getBoardOverview());
-        saveFieldToJson();
 
         // return if this tun was successful
         return true;
@@ -174,7 +157,6 @@ public class Game {
      * update the player Typ after load a Game from a savegame
      */
     public void updatePlayerTyp() {
-        // todo update for network
         switch (this.playerBlack.getPlayerType()) {
             case KI_LEVEL1:
                 this.playerBlack = new KI(this.playerBlack.getColor(), Level.LEVEL1);
@@ -254,7 +236,6 @@ public class Game {
      * @return the Field with the best move
      */
     public Field showHint() {
-        //todo set ki level3 when ready
         KI ki = new KI(currentPlayer.getColor(), Level.LEVEL3);
 
         return ki.setMove(gameBoard);

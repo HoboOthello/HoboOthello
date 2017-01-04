@@ -232,7 +232,6 @@ public class Board {
      *
      * @return the total number of fields which are occupied by a stone
      */
-    // todo has the method any use? For the game end we just test 2 times if there is a possible move!
     public int getNumberOfOccupiedFields() {
         this.numberOfOccupiedFields = numberOfFieldsOccupiedByStoneColor(Color.WHITE) + numberOfFieldsOccupiedByStoneColor(Color.BLACK);
         return numberOfOccupiedFields;
@@ -248,15 +247,6 @@ public class Board {
         return (numberOfFieldsOnBoard == this.numberOfOccupiedFields);
     }
 
-    /**
-     * Boolean to ask the board if the board is completely filled with stones
-     *
-     * @return true if board is completely filled with stones
-     */
-    // todo has the method any use? For the game end we just test 2 times if there is a possible move!
-    public boolean getBoardIsFull() {
-        return boardIsFull();
-    }
 
     public Field[][] getFields() {
         return this.fields;
@@ -266,7 +256,6 @@ public class Board {
         this.fields = newFields;
     }
 
-    // todo do we need this?
     public int getBoardSize() {
         return this.boardSize;
     }

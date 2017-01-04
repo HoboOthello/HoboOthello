@@ -257,10 +257,6 @@ public class KI extends Player {
 
     private int testHowManyStonesAreFlipped(Field field) {
         int actualNumberOfStones = board.getNumberOfFieldsOccupiedByStone(kiColor);
-        //TODO Frage: Wo wird das gespeichert, wie lösche ich das wieder? thnx!
-        // wird in gamerule gesichert
-        // useage gamerule neu erstellen -> mit felder füllen -> testen -> auswerten -> löschen
-        // solange wiederholen wie dir spass macht
 
         Field[][] copiedFields = copyFields(board.getFields());
         GameRule newGameRule = new GameRule(copiedFields);

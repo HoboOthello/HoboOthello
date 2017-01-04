@@ -24,14 +24,6 @@ public class Field {
 
 
     /**
-     * Default constructor for empty field
-     */
-    // todo do we need this construktor? It's dangerous for bugs!
-    public Field() {
-
-    }
-
-    /**
      * Constructor for field with exact location on the board
      */
     public Field(int x, int y) {
@@ -55,9 +47,6 @@ public class Field {
         return this.stone;
     }
 
-    //TODO: methode schreiben die den spieler den letzten Zug rückgängig machen lässt (achte auch auf stones die wieder umgedreht werden müssen)
-    //todo unötige funktion, neues spiel -> neues Board!
-    // TODO: meine kein neues spiel, nur den letzten zug ruckgängig machen!
     public void setEmpty() {
         this.stone = null;
     }

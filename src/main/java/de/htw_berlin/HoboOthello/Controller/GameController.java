@@ -59,20 +59,12 @@ public class GameController {
 
                         if (e.getSource() == gameview.getFieldView(x, y)) {
 
-                            System.out.println(gameview.getFieldView(x, y).getWidth());
+                            // System.out.println(gameview.getFieldView(x, y).getWidth());
                             theGame.setTurn(new Field(x, y));
                             updateGameBoard();
 
-                            // todo save for a network game?
                             Savegames savegames = new Savegames();
                             savegames.save(theGame);
-
-                            // todo hobomode
-                            /*
-                            theGame.activateHobeMode();
-                            theGame.getLastHobeModeType();
-                            updateGameBoard();
-                            */
 
                             // check if the game is ended
                             String gameWinner = theGame.getWinner();
@@ -98,7 +90,6 @@ public class GameController {
 
 
             try {
-                // todo refactor? look not quite efficient
                 /*
                 see
                 toogleMenu[0] = newGame;
@@ -108,7 +99,6 @@ public class GameController {
                  */
 
                 if (e.getSource() == gameview.getToogleMenu(0)) {
-                    // todo have fun björn to redesign the showConfirmDialog :)
                     JPanel panel = new JPanel();
 
                     // board size panel

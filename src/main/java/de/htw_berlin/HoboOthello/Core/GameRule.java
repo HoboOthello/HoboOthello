@@ -52,8 +52,6 @@ public class GameRule {
      * @return true == the move is possible for this color
      * false == the move is not possible for this color
      */
-    //TODO vorher wird schon abgefragt ob move possible ist. hier braucht man den boolean also nicht.
-    //TODO else könnte mann eine throws new IllegalArgumentException hinschreiben, weil dann wirklich n Fehler aufgetreten ist
     public boolean setMove(Field field, Color color) {
         if (move(field, color, true)) {
             this.fields[field.getX()][field.getY()].setStone(new Stone(color));
