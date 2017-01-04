@@ -80,7 +80,7 @@ public class GameController {
                                 JOptionPane.showMessageDialog(
                                         null,
                                         gameWinner,
-                                        "Game Over",
+                                        "Game End",
                                         JOptionPane.INFORMATION_MESSAGE);
                             }
                         }
