@@ -11,8 +11,6 @@ public class Main {
     public static void main(String[] args) {
         int boardDefaultSize = 8; // 8 for default board size
 
-        Gameview gameview = new Gameview(boardDefaultSize);
-
         Savegames savegames = new Savegames();
         Game game = savegames.load();
 
@@ -21,9 +19,11 @@ public class Main {
             game.newGame(boardDefaultSize, new Player(Color.BLACK), new Player(Color.WHITE));
         }
 
+        Gameview gameview = new Gameview(game.getBoardSize());
 
         GameController gameController = new GameController(gameview, game);
 
         gameview.setVisible(true);
+
     }
 }
