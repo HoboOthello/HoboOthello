@@ -124,7 +124,8 @@ public class Game {
                 this.gameState = GameState.STOP;
             }
         }
-        if (currentPlayer instanceof KI) {
+
+        if (currentPlayer instanceof KI || currentPlayer instanceof Network) {
             Field playerTurn = currentPlayer.setMove(this.gameBoard);
             if (playerTurn != null) {
                 setTurn(playerTurn);
