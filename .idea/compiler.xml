@@ -24,7 +24,6 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
-        <module name="HoboOthello" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

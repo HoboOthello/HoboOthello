@@ -194,10 +194,10 @@ public class Gameview extends JFrame {
         /*
          * initialise all stones
          */
-        grey = new ImageIcon(this.getClass().getResource("/greybutton.png"));
-        white = new ImageIcon(this.getClass().getResource("/whitebutton.png"));
-        black = new ImageIcon(this.getClass().getResource("/blackbutton.png"));
-        hint = new ImageIcon(this.getClass().getResource("/hint.png"));
+        grey = new ImageIcon(this.getClass().getResource("./greybutton.png"));
+        white = new ImageIcon(this.getClass().getResource("./whitebutton.png"));
+        black = new ImageIcon(this.getClass().getResource("./blackbutton.png"));
+        hint = new ImageIcon(this.getClass().getResource("./hint.png"));
 
         setupScaleFactors(fieldView.length);
         setupBlackImageIcon(var);
