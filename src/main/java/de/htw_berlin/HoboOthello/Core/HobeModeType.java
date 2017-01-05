@@ -9,8 +9,7 @@ import java.util.Random;
  * Created by fubu on 15.12.16.
  */
 public enum HobeModeType {
-    TETRIS;
-    // BOMBERMAN, PACMAN, TETRIS;
+    BOMBERMAN, TETRIS;
 
     private static final List<HobeModeType> VALUES =
             Collections.unmodifiableList(Arrays.asList(values()));

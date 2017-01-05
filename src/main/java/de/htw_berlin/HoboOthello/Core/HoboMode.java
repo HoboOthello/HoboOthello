@@ -24,11 +24,9 @@ public class HoboMode extends GameRule {
         Field field = null;
 
         switch (this.hobeModeType) {
-            /*
             case BOMBERMAN:
                 field = actionBomberman();
                 break;
-                */
             case TETRIS:
                 field = actionTetris();
                 break;
