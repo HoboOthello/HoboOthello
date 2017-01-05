@@ -252,11 +252,14 @@ public class Game {
      */
     public Field activateHobeMode() {
         HoboMode hoboMode = new HoboMode(gameBoard.getFields());
-        hoboMode.changeAllPossibleFieldsToTrue(currentPlayer.getColor());
+
+        GameRule move = new GameRule(hoboMode.getFields());
+        move.changeAllPossibleFieldsToTrue(currentPlayer.getColor());
+
         lastHobeModeType = hoboMode.getHobeModeType();
 
+        gameBoard.setFields(move.getFields());
 
-        gameBoard.setFields(hoboMode.getFields());
         return hoboMode.actionRandomMode();
     }
 
