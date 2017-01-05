@@ -79,16 +79,18 @@ public class HoboMode extends GameRule {
 
         int fieldLength = this.getFields().length;
 
-        for (int x = 0; x < fieldLength; x++) {
-            for (int y = fieldLength - 1; y > 1; y--) {
-                this.getFields()[x][y].setStone(
-                        this.getFields()[x][y-1].getStone()
+        for (int y = fieldLength -1; y > 0; y--) {
+            for (int x = 0; x < fieldLength; x++) {
+
+                this.getFields()[y][x].setStone(
+                        this.getFields()[y-1][x].getStone()
                 );
+
             }
         }
 
         for (int x = 0; x < fieldLength; x++) {
-            this.getFields()[x][0].setEmpty();
+            this.getFields()[0][x].setEmpty();
         }
 
         return new Field(9, fieldLength);
