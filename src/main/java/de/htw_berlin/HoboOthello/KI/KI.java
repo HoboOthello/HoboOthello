@@ -87,7 +87,7 @@ public class KI extends Player {
                 }
             }
         } else {
-            //TODO what to do if list is null?
+
         }
         return listOfPossibleMoves;
     }
@@ -280,9 +280,5 @@ public class KI extends Player {
         return copiedFields;
     }
 
-/*
-    int randomNumber = (int) (Math.random() * listOfFieldsNotCloseToBorder.size()); // picks random index of field in list
-    fieldToSet = listOfFieldsNotCloseToBorder.get(randomNumber);
-        return fieldToSet;
-*/
+
 }
